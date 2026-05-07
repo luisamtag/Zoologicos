@@ -1,0 +1,12 @@
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\bin\Debug\net10.0\lib_reglasdenegocio.deps.json
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\bin\Debug\net10.0\lib_reglasdenegocio.dll
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\bin\Debug\net10.0\lib_reglasdenegocio.pdb
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\obj\Debug\net10.0\lib_reglasdenegocio.csproj.AssemblyReference.cache
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\obj\Debug\net10.0\lib_reglasdenegocio.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\obj\Debug\net10.0\lib_reglasdenegocio.AssemblyInfoInputs.cache
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\obj\Debug\net10.0\lib_reglasdenegocio.AssemblyInfo.cs
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\obj\Debug\net10.0\lib_reglasdenegocio.csproj.CoreCompileInputs.cache
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\obj\Debug\net10.0\lib_reglasdenegocio.dll
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\obj\Debug\net10.0\refint\lib_reglasdenegocio.dll
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\obj\Debug\net10.0\lib_reglasdenegocio.pdb
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\obj\Debug\net10.0\ref\lib_reglasdenegocio.dll

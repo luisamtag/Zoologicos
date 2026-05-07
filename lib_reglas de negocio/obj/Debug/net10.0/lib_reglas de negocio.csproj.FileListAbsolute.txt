@@ -1,0 +1,5 @@
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\obj\Debug\net10.0\lib_reglas de negocio.csproj.AssemblyReference.cache
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\obj\Debug\net10.0\lib_reglas de negocio.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\obj\Debug\net10.0\lib_reglas de negocio.AssemblyInfoInputs.cache
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\obj\Debug\net10.0\lib_reglas de negocio.AssemblyInfo.cs
+C:\Users\arqua\source\repos\Zoologicos\lib_reglas de negocio\obj\Debug\net10.0\lib_reglas de negocio.csproj.CoreCompileInputs.cache

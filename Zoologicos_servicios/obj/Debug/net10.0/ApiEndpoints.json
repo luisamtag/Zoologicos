@@ -1,0 +1,48 @@
+[
+  {
+    "ContainingType": "Zoologicos_servicios.Controllers.AnimalesController",
+    "Method": "Guardar",
+    "RelativePath": "Animales/Guardar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "entidad",
+        "Type": "Zoologicos_libreria.entidades.Animales",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Zoologicos_libreria.entidades.Animales",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Zoologicos_servicios.Controllers.AnimalesController",
+    "Method": "Listar",
+    "RelativePath": "Animales/Listar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Zoologicos_libreria.entidades.Animales, Zoologicos_libreria, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]
