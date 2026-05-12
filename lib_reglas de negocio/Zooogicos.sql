@@ -248,6 +248,22 @@ CREATE TABLE [Mantenimientos] (
     FOREIGN KEY (EmpleadoResponsableId) REFERENCES [Empleados]([Id])
 );
 
+-- ================= AUDITORIAS =================
+CREATE TABLE [Auditorias] (
+
+
+    [IdAuditorias] INT IDENTITY(1,1) PRIMARY KEY,
+    [Tabla] NVARCHAR(100) NOT NULL,
+    [Accion] NVARCHAR(50) NOT NULL,
+    [Datos] NVARCHAR(MAX) NOT NULL,
+    [Fecha] DATETIME DEFAULT GETDATE(),
+    [Usuario] NVARCHAR(50) -- Opcional: quién hizo el cambio
+);
+
+
+
+
+
 -- ================= ZOOLOGICO =================
 INSERT INTO Zoologicos (Nombre, Ubicacion)
 VALUES ('Zoo Medellín', 'Antioquia');
