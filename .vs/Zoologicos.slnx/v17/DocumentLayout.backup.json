@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "E:\\Programacion_2\\Zoologicos\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BB114EB9-7446-41CE-A28C-322C52BA6C8D}|Zoologicos_servicios\\Zoologicos_servicios.csproj|e:\\programacion_2\\zoologicos\\zoologicos_servicios\\controllers\\zoologicoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BB114EB9-7446-41CE-A28C-322C52BA6C8D}|Zoologicos_servicios\\Zoologicos_servicios.csproj|solutionrelative:zoologicos_servicios\\controllers\\zoologicoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3A712BFB-D571-84EC-BE63-3223F11EABF8}|lib_reglas de negocio\\Zoologicos_libreria.csproj|e:\\programacion_2\\zoologicos\\lib_reglas de negocio\\implementaciones\\personalaseonegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A712BFB-D571-84EC-BE63-3223F11EABF8}|lib_reglas de negocio\\Zoologicos_libreria.csproj|solutionrelative:lib_reglas de negocio\\implementaciones\\personalaseonegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BB114EB9-7446-41CE-A28C-322C52BA6C8D}|Zoologicos_servicios\\Zoologicos_servicios.csproj|e:\\programacion_2\\zoologicos\\zoologicos_servicios\\controllers\\zonaspublicascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BB114EB9-7446-41CE-A28C-322C52BA6C8D}|Zoologicos_servicios\\Zoologicos_servicios.csproj|solutionrelative:zoologicos_servicios\\controllers\\zonaspublicascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3A712BFB-D571-84EC-BE63-3223F11EABF8}|lib_reglas de negocio\\Zoologicos_libreria.csproj|e:\\programacion_2\\zoologicos\\lib_reglas de negocio\\implementaciones\\mantenimientosnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A712BFB-D571-84EC-BE63-3223F11EABF8}|lib_reglas de negocio\\Zoologicos_libreria.csproj|solutionrelative:lib_reglas de negocio\\implementaciones\\mantenimientosnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BB114EB9-7446-41CE-A28C-322C52BA6C8D}|Zoologicos_servicios\\Zoologicos_servicios.csproj|e:\\programacion_2\\zoologicos\\zoologicos_servicios\\controllers\\visitantescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BB114EB9-7446-41CE-A28C-322C52BA6C8D}|Zoologicos_servicios\\Zoologicos_servicios.csproj|solutionrelative:zoologicos_servicios\\controllers\\visitantescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3A712BFB-D571-84EC-BE63-3223F11EABF8}|lib_reglas de negocio\\Zoologicos_libreria.csproj|e:\\programacion_2\\zoologicos\\lib_reglas de negocio\\implementaciones\\jaulasnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A712BFB-D571-84EC-BE63-3223F11EABF8}|lib_reglas de negocio\\Zoologicos_libreria.csproj|solutionrelative:lib_reglas de negocio\\implementaciones\\jaulasnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BB114EB9-7446-41CE-A28C-322C52BA6C8D}|Zoologicos_servicios\\Zoologicos_servicios.csproj|e:\\programacion_2\\zoologicos\\zoologicos_servicios\\controllers\\veterinarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BB114EB9-7446-41CE-A28C-322C52BA6C8D}|Zoologicos_servicios\\Zoologicos_servicios.csproj|solutionrelative:zoologicos_servicios\\controllers\\veterinarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3A712BFB-D571-84EC-BE63-3223F11EABF8}|lib_reglas de negocio\\Zoologicos_libreria.csproj|e:\\programacion_2\\zoologicos\\lib_reglas de negocio\\implementaciones\\inventariosnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A712BFB-D571-84EC-BE63-3223F11EABF8}|lib_reglas de negocio\\Zoologicos_libreria.csproj|solutionrelative:lib_reglas de negocio\\implementaciones\\inventariosnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BB114EB9-7446-41CE-A28C-322C52BA6C8D}|Zoologicos_servicios\\Zoologicos_servicios.csproj|e:\\programacion_2\\zoologicos\\zoologicos_servicios\\controllers\\animalescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BB114EB9-7446-41CE-A28C-322C52BA6C8D}|Zoologicos_servicios\\Zoologicos_servicios.csproj|solutionrelative:zoologicos_servicios\\controllers\\animalescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3A712BFB-D571-84EC-BE63-3223F11EABF8}|lib_reglas de negocio\\Zoologicos_libreria.csproj|e:\\programacion_2\\zoologicos\\lib_reglas de negocio\\implementaciones\\empleadosnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A712BFB-D571-84EC-BE63-3223F11EABF8}|lib_reglas de negocio\\Zoologicos_libreria.csproj|solutionrelative:lib_reglas de negocio\\implementaciones\\empleadosnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -47,66 +47,66 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ZoologicosController.cs",
-              "DocumentMoniker": "E:\\Programacion_2\\Zoologicos\\Zoologicos_servicios\\Controllers\\ZoologicosController.cs",
-              "RelativeDocumentMoniker": "Zoologicos_servicios\\Controllers\\ZoologicosController.cs",
-              "ToolTip": "E:\\Programacion_2\\Zoologicos\\Zoologicos_servicios\\Controllers\\ZoologicosController.cs",
-              "RelativeToolTip": "Zoologicos_servicios\\Controllers\\ZoologicosController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAbAAAAAAAAAA==",
+              "Title": "PersonalAseoNegocio.cs",
+              "DocumentMoniker": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\implementaciones\\PersonalAseoNegocio.cs",
+              "RelativeDocumentMoniker": "lib_reglas de negocio\\implementaciones\\PersonalAseoNegocio.cs",
+              "ToolTip": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\implementaciones\\PersonalAseoNegocio.cs",
+              "RelativeToolTip": "lib_reglas de negocio\\implementaciones\\PersonalAseoNegocio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-18T17:49:06.991Z",
+              "WhenOpened": "2026-05-18T18:30:25.553Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ZonasPublicasController.cs",
-              "DocumentMoniker": "E:\\Programacion_2\\Zoologicos\\Zoologicos_servicios\\Controllers\\ZonasPublicasController.cs",
-              "RelativeDocumentMoniker": "Zoologicos_servicios\\Controllers\\ZonasPublicasController.cs",
-              "ToolTip": "E:\\Programacion_2\\Zoologicos\\Zoologicos_servicios\\Controllers\\ZonasPublicasController.cs",
-              "RelativeToolTip": "Zoologicos_servicios\\Controllers\\ZonasPublicasController.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAADwvykAAAAjAAAAAAAAAA==",
+              "Title": "MantenimientosNegocio.cs",
+              "DocumentMoniker": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\implementaciones\\MantenimientosNegocio.cs",
+              "RelativeDocumentMoniker": "lib_reglas de negocio\\implementaciones\\MantenimientosNegocio.cs",
+              "ToolTip": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\implementaciones\\MantenimientosNegocio.cs",
+              "RelativeToolTip": "lib_reglas de negocio\\implementaciones\\MantenimientosNegocio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-18T17:48:24.33Z",
+              "WhenOpened": "2026-05-18T18:29:10.211Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "VisitantesController.cs",
-              "DocumentMoniker": "E:\\Programacion_2\\Zoologicos\\Zoologicos_servicios\\Controllers\\VisitantesController.cs",
-              "RelativeDocumentMoniker": "Zoologicos_servicios\\Controllers\\VisitantesController.cs",
-              "ToolTip": "E:\\Programacion_2\\Zoologicos\\Zoologicos_servicios\\Controllers\\VisitantesController.cs",
-              "RelativeToolTip": "Zoologicos_servicios\\Controllers\\VisitantesController.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAADwvzEAAAAiAAAAAAAAAA==",
+              "Title": "JaulasNegocio.cs",
+              "DocumentMoniker": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\implementaciones\\JaulasNegocio.cs",
+              "RelativeDocumentMoniker": "lib_reglas de negocio\\implementaciones\\JaulasNegocio.cs",
+              "ToolTip": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\implementaciones\\JaulasNegocio.cs",
+              "RelativeToolTip": "lib_reglas de negocio\\implementaciones\\JaulasNegocio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-18T17:47:41.738Z",
+              "WhenOpened": "2026-05-18T18:28:24.517Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "VeterinariosController.cs",
-              "DocumentMoniker": "E:\\Programacion_2\\Zoologicos\\Zoologicos_servicios\\Controllers\\VeterinariosController.cs",
-              "RelativeDocumentMoniker": "Zoologicos_servicios\\Controllers\\VeterinariosController.cs",
-              "ToolTip": "E:\\Programacion_2\\Zoologicos\\Zoologicos_servicios\\Controllers\\VeterinariosController.cs",
-              "RelativeToolTip": "Zoologicos_servicios\\Controllers\\VeterinariosController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAdAAAAAAAAAA==",
+              "Title": "InventariosNegocio.cs",
+              "DocumentMoniker": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\implementaciones\\InventariosNegocio.cs",
+              "RelativeDocumentMoniker": "lib_reglas de negocio\\implementaciones\\InventariosNegocio.cs",
+              "ToolTip": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\implementaciones\\InventariosNegocio.cs",
+              "RelativeToolTip": "lib_reglas de negocio\\implementaciones\\InventariosNegocio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-18T17:47:00.644Z",
+              "WhenOpened": "2026-05-18T18:28:00.542Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "AnimalesController.cs",
-              "DocumentMoniker": "E:\\Programacion_2\\Zoologicos\\Zoologicos_servicios\\Controllers\\AnimalesController.cs",
-              "RelativeDocumentMoniker": "Zoologicos_servicios\\Controllers\\AnimalesController.cs",
-              "ToolTip": "E:\\Programacion_2\\Zoologicos\\Zoologicos_servicios\\Controllers\\AnimalesController.cs",
-              "RelativeToolTip": "Zoologicos_servicios\\Controllers\\AnimalesController.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAADwvzsAAAAAAAAAAAAAAA==",
+              "Title": "EmpleadosNegocio.cs",
+              "DocumentMoniker": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\implementaciones\\EmpleadosNegocio.cs",
+              "RelativeDocumentMoniker": "lib_reglas de negocio\\implementaciones\\EmpleadosNegocio.cs",
+              "ToolTip": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\implementaciones\\EmpleadosNegocio.cs",
+              "RelativeToolTip": "lib_reglas de negocio\\implementaciones\\EmpleadosNegocio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-18T15:46:09.967Z",
+              "WhenOpened": "2026-05-18T17:56:04.589Z",
               "EditorCaption": ""
             }
           ]
