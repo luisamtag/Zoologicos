@@ -8,10 +8,10 @@ using Zoologicos_Pruebas.nucleo;
 namespace Zoologicos_Pruebas.conexiones
 {
     [TestClass]
-    public class AnimalesUnitaria
+    public class AlimentacionesUnitaria
     {
         private IConexion? iConexion;
-        private Animales? entidad;
+        private Alimentaciones? entidad;
 
         [TestMethod]
         public void Ejecutar() 
@@ -27,7 +27,7 @@ namespace Zoologicos_Pruebas.conexiones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
-            this.entidad = new Animales()
+            this.entidad = new Alimentaciones()
             {
                 Nombre = "Animal-" + DateTime.Now.ToString(),
                 Naturaleza = "Salvaje",
@@ -37,7 +37,7 @@ namespace Zoologicos_Pruebas.conexiones
                 JaulaId = 1
             };
 
-            this.iConexion.Animales!.Add(this.entidad);
+            this.iConexion.Alimentaciones!.Add(this.entidad);
             this.iConexion.SaveChanges();
 
             if (this.entidad.Id != 0) return;
@@ -48,7 +48,7 @@ namespace Zoologicos_Pruebas.conexiones
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
-            var lista = this.iConexion.Animales!.ToList();
+            var lista = this.iConexion.Alimentaciones!.ToList();
             if (lista.Count > 0) return;
             throw new Exception();
         }
@@ -59,7 +59,7 @@ namespace Zoologicos_Pruebas.conexiones
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
             this.entidad!.Naturaleza = "Domestico";
-            var entry = this.iConexion!.Entry<Animales>(this.entidad!);
+            var entry = this.iConexion!.Entry<Alimentaciones>(this.entidad!);
             entry.State = EntityState.Modified;
             this.iConexion.SaveChanges();
         }
@@ -68,7 +68,7 @@ namespace Zoologicos_Pruebas.conexiones
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
-            this.iConexion.Animales!.Remove(this.entidad!);
+            this.iConexion.Alimentaciones!.Remove(this.entidad!);
             this.iConexion.SaveChanges();
         }
     }

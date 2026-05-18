@@ -1,6 +1,6 @@
 ﻿namespace Zoologicos_servicios.Controllers
 {
-    public class CuidadorAnimalesController
+    public class CuidadorAlimentacionesController
     {
     }
 }

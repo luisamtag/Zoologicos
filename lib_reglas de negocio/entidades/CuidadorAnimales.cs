@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Zoologicos_libreria.entidades
 {
-    [Table("CuidadorAnimales")]
-    public class CuidadorAnimales : Empleados
+    [Table("CuidadorAlimentaciones")]
+    public class CuidadorAlimentaciones : Empleados
     {
         public int? EspecieId { get; set; }
 

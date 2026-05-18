@@ -7,10 +7,10 @@ using Zoologicos_Pruebas.nucleo;
 namespace Zoologicos_Pruebas.conexiones
 {
     [TestClass]
-    public class CuidadorAnimalesUnitaria
+    public class CuidadorAlimentacionesUnitaria
     {
         private IConexion? iConexion;
-        private CuidadorAnimales? entidad;
+        private CuidadorAlimentaciones? entidad;
 
         [TestMethod]
         public void Ejecutar() 
@@ -26,7 +26,7 @@ namespace Zoologicos_Pruebas.conexiones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
-            this.entidad = new CuidadorAnimales()
+            this.entidad = new CuidadorAlimentaciones()
             {
                 // Datos Empleado
                 Nombre = "Cuidador-" + DateTime.Now.ToString(),
@@ -42,7 +42,7 @@ namespace Zoologicos_Pruebas.conexiones
                 AñosExperiencia = 3
             };
 
-            this.iConexion.CuidadorAnimales!.Add(this.entidad);
+            this.iConexion.CuidadorAlimentaciones!.Add(this.entidad);
             this.iConexion.SaveChanges();
 
             if (this.entidad.Id != 0) return;
@@ -53,7 +53,7 @@ namespace Zoologicos_Pruebas.conexiones
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
-            var lista = this.iConexion.CuidadorAnimales!.ToList();
+            var lista = this.iConexion.CuidadorAlimentaciones!.ToList();
             if (lista.Count > 0) return;
             throw new Exception();
         }
@@ -64,7 +64,7 @@ namespace Zoologicos_Pruebas.conexiones
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
             this.entidad!.Turno = "Nocturno";
-            var entry = this.iConexion!.Entry<CuidadorAnimales>(this.entidad!);
+            var entry = this.iConexion!.Entry<CuidadorAlimentaciones>(this.entidad!);
             entry.State = EntityState.Modified;
             this.iConexion.SaveChanges();
         }
@@ -73,7 +73,7 @@ namespace Zoologicos_Pruebas.conexiones
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
-            this.iConexion.CuidadorAnimales!.Remove(this.entidad!);
+            this.iConexion.CuidadorAlimentaciones!.Remove(this.entidad!);
             this.iConexion.SaveChanges();
         }
     }

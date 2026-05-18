@@ -16,6 +16,6 @@ namespace Zoologicos_libreria.entidades
 
         // 🔗 Navegación
         
-        [ForeignKey("AnimalId")] public Animales? Animal { get; set; }
+        [ForeignKey("AnimalId")] public Alimentaciones? Animal { get; set; }
     }
 }

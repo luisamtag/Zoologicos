@@ -10,7 +10,7 @@ namespace Zoologicos_libreria.interfaces
     {
         List<Alimentaciones> Listar();
 
-        Alimentaciones Guardar (Alimentaciones entidad);
+        Alimentaciones Guardar(Alimentaciones entidad);
 
         Alimentaciones Modificar(Alimentaciones entidad);
 

@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\Programacion_2\\Zoologicos\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3A712BFB-D571-84EC-BE63-3223F11EABF8}|lib_reglas de negocio\\Zoologicos_libreria.csproj|e:\\programacion_2\\zoologicos\\lib_reglas de negocio\\implementaciones\\animalesnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A712BFB-D571-84EC-BE63-3223F11EABF8}|lib_reglas de negocio\\Zoologicos_libreria.csproj|solutionrelative:lib_reglas de negocio\\implementaciones\\animalesnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A712BFB-D571-84EC-BE63-3223F11EABF8}|lib_reglas de negocio\\Zoologicos_libreria.csproj|e:\\programacion_2\\zoologicos\\lib_reglas de negocio\\interfaces\\ianimalesnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A712BFB-D571-84EC-BE63-3223F11EABF8}|lib_reglas de negocio\\Zoologicos_libreria.csproj|solutionrelative:lib_reglas de negocio\\interfaces\\ianimalesnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -22,6 +31,38 @@
             {
               "$type": "Bookmark",
               "Name": "ST:139:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 400,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IAnimalesNegocio.cs",
+              "DocumentMoniker": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\interfaces\\IAnimalesNegocio.cs",
+              "RelativeDocumentMoniker": "lib_reglas de negocio\\interfaces\\IAnimalesNegocio.cs",
+              "ToolTip": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\interfaces\\IAnimalesNegocio.cs",
+              "RelativeToolTip": "lib_reglas de negocio\\interfaces\\IAnimalesNegocio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T03:21:34.943Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AnimalesNegocio.cs",
+              "DocumentMoniker": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\implementaciones\\AnimalesNegocio.cs",
+              "RelativeDocumentMoniker": "lib_reglas de negocio\\implementaciones\\AnimalesNegocio.cs",
+              "ToolTip": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\implementaciones\\AnimalesNegocio.cs",
+              "RelativeToolTip": "lib_reglas de negocio\\implementaciones\\AnimalesNegocio.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAkwA0AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T03:19:18.318Z",
+              "EditorCaption": ""
             }
           ]
         },

@@ -8,52 +8,52 @@ namespace Zoologicos_servicios.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class AnimalesController : ControllerBase
+    public class AlimentacionesController : ControllerBase
     {
 
-        private IAnimalesNegocio? IAnimalesNegocio;
+        private IAlimentacionesNegocio? IAlimentacionesNegocio;
 
-        public AnimalesController ()
+        public AlimentacionesController ()
         {
-            this.IAnimalesNegocio = new AnimalesNegocio();
+            this.IAlimentacionesNegocio = new AlimentacionesNegocio();
         }
 
         [HttpGet]
-        public List<Animales> Listar()
+        public List<Alimentaciones> Listar()
         {
 
-            if (this.IAnimalesNegocio == null)
+            if (this.IAlimentacionesNegocio == null)
                 throw new Exception("no implementado");
-            return this.IAnimalesNegocio.Listar();
+            return this.IAlimentacionesNegocio.Listar();
         }
 
         [HttpPost]
-        public Animales Guardar(Animales entidad)
+        public Alimentaciones Guardar(Alimentaciones entidad)
         {
-            if (this.IAnimalesNegocio == null)
+            if (this.IAlimentacionesNegocio == null)
                 throw new Exception("no implementado");
 
-            return this.IAnimalesNegocio.Guardar(entidad);
+            return this.IAlimentacionesNegocio.Guardar(entidad);
         }
 
         [HttpPut]
-        public Animales Modificar(Animales entidad)
+        public Alimentaciones Modificar(Alimentaciones entidad)
         {
-            if (this.IAnimalesNegocio == null)
+            if (this.IAlimentacionesNegocio == null)
                 throw new Exception("No implementado");
 
             // Usualmente se devuelve la entidad ya actualizada
-            return this.IAnimalesNegocio.Modificar(entidad);
+            return this.IAlimentacionesNegocio.Modificar(entidad);
         }
 
         [HttpDelete]
         public bool Borrar(int id)
         {
-            if (this.IAnimalesNegocio == null)
+            if (this.IAlimentacionesNegocio == null)
                 throw new Exception("No implementado");
 
             // Retornamos un booleano para confirmar si se eliminó con éxito
-            return this.IAnimalesNegocio.Borrar(id);
+            return this.IAlimentacionesNegocio.Borrar(id);
         }
     }
 }

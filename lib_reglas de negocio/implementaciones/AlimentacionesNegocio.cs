@@ -12,8 +12,8 @@ namespace Zoologicos_libreria.implementaciones
     public class AlimentacionesNegocio : IAlimentacionesNegocio
     {
         private IConexion? iConexion;
-        
-        public List<Alimentaciones> Listar ()
+
+        public List<Alimentaciones> Listar()
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
@@ -23,13 +23,13 @@ namespace Zoologicos_libreria.implementaciones
         public Alimentaciones Guardar(Alimentaciones entidad)
         {
             if (entidad.Id != 0)
-            throw new Exception("ya se guardo");
+                throw new Exception("ya se guardo");
 
 
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
-            
+
             this.iConexion!.Alimentaciones!.Add(entidad);
             this.iConexion!.SaveChanges();
             return entidad;
@@ -37,8 +37,8 @@ namespace Zoologicos_libreria.implementaciones
 
         public Alimentaciones Modificar(Alimentaciones entidad)
         {
-            
-        
+
+
             if (entidad == null)
                 throw new Exception("FaltaInformacion");
 
@@ -53,11 +53,11 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion!.SaveChanges();
             return entidad;
         }
-        
+
 
         public bool Borrar(int id)
-        
-            
+
+
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
@@ -72,8 +72,8 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion.Alimentaciones!.Remove(entidad);
             this.iConexion.SaveChanges();
             return true;
-            
+
         }
-    
+
     }
 }

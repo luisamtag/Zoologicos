@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Zoologicos_libreria.entidades
 {
-    public class Animales
+    public class Alimentaciones
     {
         public int Id { get; set; }
 

@@ -39,8 +39,8 @@ CREATE TABLE [Especies] (
     [Tipo] NVARCHAR(50) NOT NULL
 );
 
--- ================= ANIMALES =================
-CREATE TABLE [Animales] (
+-- ================= Alimentaciones =================
+CREATE TABLE [Alimentaciones] (
     [Id] INT PRIMARY KEY IDENTITY(1, 1),
     [Nombre] NVARCHAR(100) NOT NULL,
     [Naturaleza] NVARCHAR(50) NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE [Gerentes] (
 );
 
 -- ================= CUIDADORES =================
-CREATE TABLE [CuidadorAnimales] (
+CREATE TABLE [CuidadorAlimentaciones] (
     [Id] INT PRIMARY KEY,
     [EspecieId] INT NULL,
     [Turno] NVARCHAR(50) NOT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE [Diagnosticos] (
     [EnfermedadId] INT NOT NULL,
     [VeterinarioId] INT NOT NULL,
 
-    FOREIGN KEY (AnimalId) REFERENCES [Animales]([Id]),
+    FOREIGN KEY (AnimalId) REFERENCES [Alimentaciones]([Id]),
     FOREIGN KEY (EnfermedadId) REFERENCES [Enfermedades]([Id]),
     FOREIGN KEY (VeterinarioId) REFERENCES [Veterinarios]([Id])
 );
@@ -147,7 +147,7 @@ CREATE TABLE [HistorialesMedicos] (
     [FechaControl] DATETIME2 NOT NULL,
     [EstadoActual] NVARCHAR(100) NOT NULL,
 
-    FOREIGN KEY (AnimalId) REFERENCES [Animales]([Id])
+    FOREIGN KEY (AnimalId) REFERENCES [Alimentaciones]([Id])
 );
 
 -- ================= VACUNACIONES =================
@@ -163,11 +163,11 @@ CREATE TABLE [Vacunaciones](
 
     [VeterinarioId] INT NOT NULL,
 
-    FOREIGN KEY (AnimalId) REFERENCES [Animales]([Id]),
+    FOREIGN KEY (AnimalId) REFERENCES [Alimentaciones]([Id]),
     FOREIGN KEY (VeterinarioId) REFERENCES [Veterinarios]([Id])
 );
 
--- ================= ALIMENTACIONES =================
+-- ================= Alimentaciones =================
 CREATE TABLE [Alimentaciones] (
     [Id] INT PRIMARY KEY IDENTITY(1, 1),
     [AnimalId] INT NOT NULL,
@@ -175,7 +175,7 @@ CREATE TABLE [Alimentaciones] (
     [TipoDieta] NVARCHAR(100) NOT NULL,
     [CantidadDiaria] DECIMAL(10,2) NOT NULL,
 
-    FOREIGN KEY (AnimalId) REFERENCES [Animales]([Id])
+    FOREIGN KEY (AnimalId) REFERENCES [Alimentaciones]([Id])
 );
 
 -- ================= INVENTARIOS =================
@@ -309,8 +309,8 @@ VALUES
 (GETDATE(), 1),
 (GETDATE(), 2);
 
--- ================= ANIMALES =================
-INSERT INTO Animales (Nombre, Naturaleza, FechaNacimiento, Alimentacion, EspecieId, JaulaId)
+-- ================= Alimentaciones =================
+INSERT INTO Alimentaciones (Nombre, Naturaleza, FechaNacimiento, Alimentacion, EspecieId, JaulaId)
 VALUES 
 ('Simba', 'Salvaje', '2020-01-01', 'Carnívoro', 1, 1),
 ('Shere Khan', 'Salvaje', '2019-05-10', 'Carnívoro', 2, 2),
@@ -336,7 +336,7 @@ INSERT INTO Gerentes (Id)
 VALUES (2);
 
 -- Cuidador (Id = 3)
-INSERT INTO CuidadorAnimales (Id, EspecieId, Turno, AñosExperiencia)
+INSERT INTO CuidadorAlimentaciones (Id, EspecieId, Turno, AñosExperiencia)
 VALUES (3, 1, 'Día', 3);
 
 -- Personal Aseo (Id = 4)
@@ -362,7 +362,7 @@ INSERT INTO Vacunaciones (AnimalId, NombreVacuna, Dosis, FechaAplicacion, FechaP
 VALUES 
 (1, 'Vacuna A', '1ml', GETDATE(), NULL, 1);
 
--- ================= ALIMENTACIONES =================
+-- ================= Alimentaciones =================
 INSERT INTO Alimentaciones (AnimalId, TipoDieta, CantidadDiaria)
 VALUES 
 (1, 'Carne', 5);

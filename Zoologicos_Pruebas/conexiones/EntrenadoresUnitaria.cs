@@ -9,8 +9,7 @@ using Zoologicos_Pruebas.nucleo;
 
 namespace Zoologicos_Pruebas.conexiones
 {
-    //Entrenadores(Hereda de Empleados)
-    // ==========================================
+
     [TestClass]
     public class EntrenadoresUnitaria
     {
