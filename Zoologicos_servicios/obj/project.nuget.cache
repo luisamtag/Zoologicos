@@ -4,5 +4,12 @@
   "success": true,
   "projectFilePath": "E:\\Programacion_2\\Zoologicos\\Zoologicos_servicios\\Zoologicos_servicios.csproj",
   "expectedPackageFiles": [],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problema al leer el archivo de caché E:\\Programacion_2\\Zoologicos\\Zoologicos_servicios\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
