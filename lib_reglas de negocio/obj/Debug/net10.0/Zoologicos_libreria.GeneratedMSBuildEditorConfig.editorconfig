@@ -9,10 +9,14 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Zoologicos_libreria
 <<<<<<< HEAD
+<<<<<<< HEAD
 build_property.ProjectDir = E:\Programacion_2\Zoologicos\lib_reglas de negocio\
 =======
 build_property.ProjectDir = C:\Users\arqua\Desktop\ZOOLOGICOS\lib_reglas de negocio\
 >>>>>>> 01a7683496a70e3935baeae108267cb922b27f66
+=======
+build_property.ProjectDir = G:\Zoologicos\lib_reglas de negocio\
+>>>>>>> parent of 01a7683 (se agrega la carpeta para hacer auditorias)
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.EffectiveAnalysisLevelStyle = 10.0

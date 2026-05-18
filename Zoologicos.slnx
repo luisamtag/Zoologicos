@@ -9,7 +9,4 @@
   <Folder Name="/3. pruebas unitarias/">
     <Project Path="Zoologicos_Pruebas/Zoologicos_Pruebas.csproj" Id="e39f9362-49b9-4737-b4c2-1e4255898260" />
   </Folder>
-  <Folder Name="/Elementos de la solución/">
-    <File Path="H:/Tienda-de-ropa/.gitignore" />
-  </Folder>
 </Solution>

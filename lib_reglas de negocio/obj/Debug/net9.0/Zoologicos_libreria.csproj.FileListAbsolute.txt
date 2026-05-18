@@ -1,0 +1,13 @@
+E:\Programacion_2\Zoologicos\lib_reglas de negocio\bin\Debug\net9.0\Zoologicos_libreria.deps.json
+E:\Programacion_2\Zoologicos\lib_reglas de negocio\bin\Debug\net9.0\Zoologicos_libreria.dll
+E:\Programacion_2\Zoologicos\lib_reglas de negocio\bin\Debug\net9.0\Zoologicos_libreria.pdb
+E:\Programacion_2\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.csproj.AssemblyReference.cache
+E:\Programacion_2\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.GeneratedMSBuildEditorConfig.editorconfig
+E:\Programacion_2\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.AssemblyInfoInputs.cache
+E:\Programacion_2\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.AssemblyInfo.cs
+E:\Programacion_2\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.csproj.CoreCompileInputs.cache
+E:\Programacion_2\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.sourcelink.json
+E:\Programacion_2\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.dll
+E:\Programacion_2\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\refint\Zoologicos_libreria.dll
+E:\Programacion_2\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.pdb
+E:\Programacion_2\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\ref\Zoologicos_libreria.dll

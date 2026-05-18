@@ -6,13 +6,13 @@ using Zoologicos_libreria.entidades;
 
 namespace Zoologicos_libreria.interfaces
 {
-    public interface IAlimentacionesNegocio
+    public interface IAnimalesNegocio
     {
-        List<Alimentaciones> Listar();
+        List<Animales> Listar();
 
-        Alimentaciones Guardar (Alimentaciones entidad);
+        Animales Guardar (Animales entidad);
 
-        Alimentaciones Modificar(Alimentaciones entidad);
+        Animales Modificar(Animales entidad);
 
         bool Borrar(int id);
     }

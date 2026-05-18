@@ -9,18 +9,18 @@ using Zoologicos_libreria.Nucleo;
 
 namespace Zoologicos_libreria.implementaciones
 {
-    public class AlimentacionesNegocio : IAlimentacionesNegocio
+    public class AnimalesNegocio : IAnimalesNegocio
     {
         private IConexion? iConexion;
         
-        public List<Alimentaciones> Listar ()
+        public List<Animales> Listar ()
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
-            return this.iConexion.Alimentaciones!.ToList();
+            return this.iConexion.Animales!.ToList();
         }
 
-        public Alimentaciones Guardar(Alimentaciones entidad)
+        public Animales Guardar(Animales entidad)
         {
             if (entidad.Id != 0)
             throw new Exception("ya se guardo");
@@ -30,12 +30,12 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
             
-            this.iConexion!.Alimentaciones!.Add(entidad);
+            this.iConexion!.Animales!.Add(entidad);
             this.iConexion!.SaveChanges();
             return entidad;
         }
 
-        public Alimentaciones Modificar(Alimentaciones entidad)
+        public Animales Modificar(Animales entidad)
         {
             
         
@@ -48,7 +48,7 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
-            var entry = this.iConexion!.Entry<Alimentaciones>(entidad);
+            var entry = this.iConexion!.Entry<Animales>(entidad);
             entry.State = EntityState.Modified;
             this.iConexion!.SaveChanges();
             return entidad;
@@ -63,13 +63,13 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
             // Primero buscamos el registro para poder borrarlo
-            var entidad = this.iConexion.Alimentaciones!.FirstOrDefault(x => x.Id == id);
+            var entidad = this.iConexion.Animales!.FirstOrDefault(x => x.Id == id);
 
             if (entidad == null)
             {
                 throw new Exception("NoExisteRegistro");
             }
-            this.iConexion.Alimentaciones!.Remove(entidad);
+            this.iConexion.Animales!.Remove(entidad);
             this.iConexion.SaveChanges();
             return true;
             
