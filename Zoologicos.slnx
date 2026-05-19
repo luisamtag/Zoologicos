@@ -9,4 +9,9 @@
   <Folder Name="/3. pruebas unitarias/">
     <Project Path="Zoologicos_Pruebas/Zoologicos_Pruebas.csproj" Id="e39f9362-49b9-4737-b4c2-1e4255898260" />
   </Folder>
+  <Folder Name="/Elementos de la solucion/">
+    <File Path=".gitignore" />
+    <File Path="README.md" />
+    <File Path="TextFile1.txt" />
+  </Folder>
 </Solution>

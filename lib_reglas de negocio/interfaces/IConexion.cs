@@ -23,7 +23,7 @@ namespace Zoologicos_libreria.interfaces
          DbSet<Empleados>? Empleados { get; set; }
          DbSet<Veterinarios>? Veterinarios { get; set; }
          DbSet<Gerentes>? Gerentes { get; set; }
-         DbSet<CuidadorAlimentaciones>? CuidadorAlimentaciones { get; set; }
+         DbSet<CuidadorAnimales>? CuidadorAnimales { get; set; }
          DbSet<PersonalAseo>? PersonalAseo { get; set; }
          DbSet<Entrenadores>? Entrenadores { get; set; }
          DbSet<Diagnosticos>? Diagnosticos { get; set; }

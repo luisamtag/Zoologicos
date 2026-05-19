@@ -91,7 +91,7 @@ CREATE TABLE [Gerentes] (
 );
 
 -- ================= CUIDADORES =================
-CREATE TABLE [CuidadorAlimentaciones] (
+CREATE TABLE [CuidadorAnimales] (
     [Id] INT PRIMARY KEY,
     [EspecieId] INT NULL,
     [Turno] NVARCHAR(50) NOT NULL,
@@ -246,6 +246,19 @@ CREATE TABLE [Mantenimientos] (
 
     FOREIGN KEY (AreaId) REFERENCES [Areas]([Id]),
     FOREIGN KEY (EmpleadoResponsableId) REFERENCES [Empleados]([Id])
+);
+
+
+-- ================= AUDITORIAS =================
+CREATE TABLE [Auditorias] (
+
+
+    [IdAuditorias] INT IDENTITY(1,1) PRIMARY KEY,
+    [Tabla] NVARCHAR(100) NOT NULL,
+    [Accion] NVARCHAR(50) NOT NULL,
+    [Datos] NVARCHAR(MAX) NOT NULL,
+    [Fecha] DATETIME DEFAULT GETDATE(),
+    [Usuario] NVARCHAR(50) -- Opcional: quién hizo el cambio
 );
 
 -- ================= ZOOLOGICO =================

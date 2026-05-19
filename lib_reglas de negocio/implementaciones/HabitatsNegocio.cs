@@ -11,18 +11,18 @@ using Zoologicos_servicios.Controllers;
 
 namespace Zoologicos_libreria.implementaciones
 {
-    public class VeterinariosNegocio : IVeterinariosNegocio
+    public class HabitatsNegocio : IHabitatsNegocio
     {
         private IConexion? iConexion;
 
-        public List<Veterinarios> Listar()
+        public List<Habitats> Listar()
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
-            return this.iConexion.Veterinarios!.ToList();
+            return this.iConexion.Habitats!.ToList();
         }
 
-        public Veterinarios Guardar(Veterinarios entidad)
+        public Habitats Guardar(Habitats entidad)
         {
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
@@ -32,12 +32,12 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
-            this.iConexion!.Veterinarios!.Add(entidad);
+            this.iConexion!.Habitats!.Add(entidad);
             this.iConexion!.SaveChanges();
             return entidad;
         }
 
-        public Veterinarios Modificar(Veterinarios entidad)
+        public Habitats Modificar(Habitats entidad)
         {
 
 
@@ -50,7 +50,7 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
-            var entry = this.iConexion!.Entry<Veterinarios>(entidad);
+            var entry = this.iConexion!.Entry<Habitats>(entidad);
             entry.State = EntityState.Modified;
             this.iConexion!.SaveChanges();
             return entidad;
@@ -65,13 +65,13 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
             // Primero buscamos el registro para poder borrarlo
-            var entidad = this.iConexion.Veterinarios!.FirstOrDefault(x => x.Id == id);
+            var entidad = this.iConexion.Habitats!.FirstOrDefault(x => x.Id == id);
 
             if (entidad == null)
             {
                 throw new Exception("NoExisteRegistro");
             }
-            this.iConexion.Veterinarios!.Remove(entidad);
+            this.iConexion.Habitats!.Remove(entidad);
             this.iConexion.SaveChanges();
             return true;
 
