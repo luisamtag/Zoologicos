@@ -11,8 +11,8 @@ namespace Zoologicos_libreria.entidades
         public string Naturaleza { get; set; } = null!;
         public DateTime FechaNacimiento { get; set; }
 
-        public string? Alimentacion { get; set; } 
-
+        public string? Alimentacion { get; set; }
+        public string Genero { get; set; } = null!;
         // 🔗 FKs
         public int EspecieId { get; set; }
         public int JaulaId { get; set; }

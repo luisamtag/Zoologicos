@@ -1,23 +1,23 @@
-CREATE DATABASE db_Zooologicos;
+﻿CREATE DATABASE db_Zoologicos;
 GO
 
-USE db_Zooologicos;
+USE db_Zoologicos;
 GO
 
 -- ================= ZOOLOGICOS =================
 CREATE TABLE [Zoologicos] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
-    [Nombre] NVARCHAR(100) NOT NULL,
-    [Ubicacion] NVARCHAR(200) NOT NULL
+    [Id]        INT PRIMARY KEY IDENTITY(1, 1),
+    [Nombre]    NVARCHAR(100)   NOT NULL,
+    [Ubicacion] NVARCHAR(200)   NOT NULL
 );
 
 -- ================= HABITATS =================
 CREATE TABLE [Habitats] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
-    [Nombre] NVARCHAR(100) NOT NULL,
-    [Tipo] NVARCHAR(50) NOT NULL,
-    [CapacidadMaxima] INT NOT NULL,
-    [Estado] NVARCHAR(50) NOT NULL,
+    [Id]              INT PRIMARY KEY IDENTITY(1, 1),
+    [Nombre]          NVARCHAR(100)  NOT NULL,
+    [Tipo]            NVARCHAR(50)   NOT NULL,
+    [CapacidadMaxima] INT            NOT NULL,
+    [Estado]          NVARCHAR(50)   NOT NULL,
 
     [ZoologicoId] INT NOT NULL,
     FOREIGN KEY (ZoologicoId) REFERENCES [Zoologicos]([Id])
@@ -25,7 +25,7 @@ CREATE TABLE [Habitats] (
 
 -- ================= JAULAS =================
 CREATE TABLE [Jaulas] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
+    [Id]          INT PRIMARY KEY IDENTITY(1, 1),
     [FechaCompra] DATETIME2 NOT NULL,
 
     [HabitatId] INT NOT NULL,
@@ -34,42 +34,100 @@ CREATE TABLE [Jaulas] (
 
 -- ================= ESPECIES =================
 CREATE TABLE [Especies] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
+    [Id]          INT PRIMARY KEY IDENTITY(1, 1),
     [Descripcion] NVARCHAR(200) NOT NULL,
-    [Tipo] NVARCHAR(50) NOT NULL
+    [Tipo]        NVARCHAR(50)  NOT NULL
 );
 
--- ================= Alimentaciones =================
-CREATE TABLE [Alimentaciones] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
-    [Nombre] NVARCHAR(100) NOT NULL,
-    [Naturaleza] NVARCHAR(50) NOT NULL,
-    [FechaNacimiento] DATETIME2 NOT NULL,
-    [Alimentacion] NVARCHAR(100) NULL,
+-- ================= ANIMALES =================
+CREATE TABLE [Animales] (
+    [Id]             INT PRIMARY KEY IDENTITY(1, 1),
+    [Nombre]         NVARCHAR(100)  NOT NULL,
+    [Naturaleza]     NVARCHAR(50)   NOT NULL,
+    [FechaNacimiento] DATETIME2     NOT NULL,
+    [Alimentacion]   NVARCHAR(100)  NULL,
+    [Genero]         NVARCHAR(10)   NOT NULL
+                         CHECK ([Genero] IN ('Macho', 'Hembra')),
 
     [EspecieId] INT NOT NULL,
-    [JaulaId] INT NOT NULL,
+    [JaulaId]   INT NOT NULL,
 
     FOREIGN KEY (EspecieId) REFERENCES [Especies]([Id]),
-    FOREIGN KEY (JaulaId) REFERENCES [Jaulas]([Id])
+    FOREIGN KEY (JaulaId)   REFERENCES [Jaulas]([Id])
 );
+GO
+
+-- ================= REPRODUCCIONES =================
+CREATE TABLE [Reproducciones] (
+    [Id]                  INT PRIMARY KEY IDENTITY(1,1),
+    [AnimalMadreId]       INT           NOT NULL,
+    [AnimalPadreId]       INT           NOT NULL,
+    [FechaAppariamiento]  DATETIME2     NOT NULL,
+    [FechaNacimiento]     DATETIME2     NULL,
+    [CantidadCrias]       INT           NOT NULL DEFAULT 0,
+    [Metodo]              NVARCHAR(50)  NOT NULL
+                              CHECK ([Metodo] IN ('Natural', 'Asistida', 'In vitro')),
+    [Estado]              NVARCHAR(50)  NOT NULL
+                              CHECK ([Estado] IN ('En proceso', 'Exitosa', 'Fallida')),
+    [Observaciones]       NVARCHAR(500) NULL,
+
+    CONSTRAINT FK_Reproducciones_Madre
+        FOREIGN KEY ([AnimalMadreId]) REFERENCES [Animales]([Id]),
+    CONSTRAINT FK_Reproducciones_Padre
+        FOREIGN KEY ([AnimalPadreId]) REFERENCES [Animales]([Id])
+);
+GO
+
+-- ================= TRIGGER REPRODUCCIONES =================
+CREATE TRIGGER TR_Reproducciones_ValidarGenero
+ON [Reproducciones]
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    -- Validar que AnimalMadreId sea Hembra
+    IF EXISTS (
+        SELECT 1
+        FROM inserted i
+        INNER JOIN Animales a ON a.Id = i.AnimalMadreId
+        WHERE a.Genero != 'Hembra'
+    )
+    BEGIN
+        RAISERROR('El AnimalMadreId debe ser de género Hembra.', 16, 1);
+        ROLLBACK TRANSACTION;
+        RETURN;
+    END
+
+    -- Validar que AnimalPadreId sea Macho
+    IF EXISTS (
+        SELECT 1
+        FROM inserted i
+        INNER JOIN Animales a ON a.Id = i.AnimalPadreId
+        WHERE a.Genero != 'Macho'
+    )
+    BEGIN
+        RAISERROR('El AnimalPadreId debe ser de género Macho.', 16, 1);
+        ROLLBACK TRANSACTION;
+        RETURN;
+    END
+END;
+GO
 
 -- ================= ENFERMEDADES =================
 CREATE TABLE [Enfermedades] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
-    [Nombre] NVARCHAR(100) NOT NULL,
+    [Id]          INT PRIMARY KEY IDENTITY(1, 1),
+    [Nombre]      NVARCHAR(100) NOT NULL,
     [Descripcion] NVARCHAR(200) NOT NULL
 );
 
 -- ================= EMPLEADOS =================
 CREATE TABLE [Empleados] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
-    [Nombre] NVARCHAR(100) NOT NULL,
-    [Cedula] NVARCHAR(50) NOT NULL,
-    [Telefono] NVARCHAR(50) NOT NULL,
-    [Email] NVARCHAR(100) NOT NULL,
-    [Salario] DECIMAL(10,2) NOT NULL,
-    [FechaContratacion] DATETIME2 NOT NULL,
+    [Id]                INT PRIMARY KEY IDENTITY(1, 1),
+    [Nombre]            NVARCHAR(100)   NOT NULL,
+    [Cedula]            NVARCHAR(50)    NOT NULL,
+    [Telefono]          NVARCHAR(50)    NOT NULL,
+    [Email]             NVARCHAR(100)   NOT NULL,
+    [Salario]           DECIMAL(10,2)   NOT NULL,
+    [FechaContratacion] DATETIME2       NOT NULL,
 
     [ZoologicoId] INT NOT NULL,
     FOREIGN KEY (ZoologicoId) REFERENCES [Zoologicos]([Id])
@@ -77,9 +135,9 @@ CREATE TABLE [Empleados] (
 
 -- ================= VETERINARIOS =================
 CREATE TABLE [Veterinarios] (
-    [Id] INT PRIMARY KEY,
-    [Especialidad] NVARCHAR(100) NOT NULL,
-    [A�osExperiencia] INT NOT NULL,
+    [Id]               INT PRIMARY KEY,
+    [Especialidad]     NVARCHAR(100) NOT NULL,
+    [AñosExperiencia]  INT           NOT NULL,
 
     FOREIGN KEY (Id) REFERENCES [Empleados]([Id])
 );
@@ -91,21 +149,21 @@ CREATE TABLE [Gerentes] (
 );
 
 -- ================= CUIDADORES =================
-CREATE TABLE [CuidadorAlimentaciones] (
-    [Id] INT PRIMARY KEY,
-    [EspecieId] INT NULL,
-    [Turno] NVARCHAR(50) NOT NULL,
-    [A�osExperiencia] INT NOT NULL,
+CREATE TABLE [CuidadorAnimales] (
+    [Id]              INT PRIMARY KEY,
+    [EspecieId]       INT          NULL,
+    [Turno]           NVARCHAR(50) NOT NULL,
+    [AñosExperiencia] INT          NOT NULL,
 
-    FOREIGN KEY (Id) REFERENCES [Empleados]([Id]),
+    FOREIGN KEY (Id)       REFERENCES [Empleados]([Id]),
     FOREIGN KEY (EspecieId) REFERENCES [Especies]([Id])
 );
 
 -- ================= PERSONAL ASEO =================
 CREATE TABLE [PersonalAseo] (
-    [Id] INT PRIMARY KEY,
-    [ZonaAsignada] NVARCHAR(100) NOT NULL,
-    [Turno] NVARCHAR(50) NOT NULL,
+    [Id]                INT PRIMARY KEY,
+    [ZonaAsignada]      NVARCHAR(100) NOT NULL,
+    [Turno]             NVARCHAR(50)  NOT NULL,
     [ProductosAsignados] NVARCHAR(200) NOT NULL,
 
     FOREIGN KEY (Id) REFERENCES [Empleados]([Id])
@@ -113,8 +171,8 @@ CREATE TABLE [PersonalAseo] (
 
 -- ================= ENTRENADORES =================
 CREATE TABLE [Entrenadores] (
-    [Id] INT PRIMARY KEY,
-    [Especialidad] NVARCHAR(100) NOT NULL,
+    [Id]              INT PRIMARY KEY,
+    [Especialidad]    NVARCHAR(100) NOT NULL,
     [TipoEntrenamiento] NVARCHAR(100) NOT NULL,
 
     FOREIGN KEY (Id) REFERENCES [Empleados]([Id])
@@ -122,90 +180,82 @@ CREATE TABLE [Entrenadores] (
 
 -- ================= DIAGNOSTICOS =================
 CREATE TABLE [Diagnosticos] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
+    [Id]               INT PRIMARY KEY IDENTITY(1, 1),
     [FechaDiagnostico] DATETIME2 NOT NULL,
-    [FechaCura] DATETIME2 NULL,
+    [FechaCura]        DATETIME2 NULL,
 
-    [AnimalId] INT NOT NULL,
-    [EnfermedadId] INT NOT NULL,
+    [AnimalId]      INT NOT NULL,
+    [EnfermedadId]  INT NOT NULL,
     [VeterinarioId] INT NOT NULL,
 
-    FOREIGN KEY (AnimalId) REFERENCES [Alimentaciones]([Id]),
-    FOREIGN KEY (EnfermedadId) REFERENCES [Enfermedades]([Id]),
+    FOREIGN KEY (AnimalId)      REFERENCES [Animales]([Id]),
+    FOREIGN KEY (EnfermedadId)  REFERENCES [Enfermedades]([Id]),
     FOREIGN KEY (VeterinarioId) REFERENCES [Veterinarios]([Id])
 );
 
--- ================= HISTORIALES =================
+-- ================= HISTORIALES MEDICOS =================
 CREATE TABLE [HistorialesMedicos] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
-    [AnimalId] INT NOT NULL,
-
-    [Tratamiento] NVARCHAR(200) NOT NULL,
-    [Medicamento] NVARCHAR(100) NOT NULL,
-    [Dosis] NVARCHAR(50) NOT NULL,
-
-    [FechaControl] DATETIME2 NOT NULL,
+    [Id]           INT PRIMARY KEY IDENTITY(1, 1),
+    [AnimalId]     INT           NOT NULL,
+    [Tratamiento]  NVARCHAR(200) NOT NULL,
+    [Medicamento]  NVARCHAR(100) NOT NULL,
+    [Dosis]        NVARCHAR(50)  NOT NULL,
+    [FechaControl] DATETIME2     NOT NULL,
     [EstadoActual] NVARCHAR(100) NOT NULL,
 
-    FOREIGN KEY (AnimalId) REFERENCES [Alimentaciones]([Id])
+    FOREIGN KEY (AnimalId) REFERENCES [Animales]([Id])
 );
 
 -- ================= VACUNACIONES =================
-CREATE TABLE [Vacunaciones](
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
-    [AnimalId] INT NOT NULL,
+CREATE TABLE [Vacunaciones] (
+    [Id]                INT PRIMARY KEY IDENTITY(1, 1),
+    [AnimalId]          INT           NOT NULL,
+    [NombreVacuna]      NVARCHAR(100) NOT NULL,
+    [Dosis]             NVARCHAR(50)  NOT NULL,
+    [FechaAplicacion]   DATETIME2     NOT NULL,
+    [FechaProximaDosis] DATETIME2     NULL,
+    [VeterinarioId]     INT           NOT NULL,
 
-    [NombreVacuna] NVARCHAR(100) NOT NULL,
-    [Dosis] NVARCHAR(50) NOT NULL,
-
-    [FechaAplicacion] DATETIME2 NOT NULL,
-    [FechaProximaDosis] DATETIME2 NULL,
-
-    [VeterinarioId] INT NOT NULL,
-
-    FOREIGN KEY (AnimalId) REFERENCES [Alimentaciones]([Id]),
+    FOREIGN KEY (AnimalId)      REFERENCES [Animales]([Id]),
     FOREIGN KEY (VeterinarioId) REFERENCES [Veterinarios]([Id])
 );
 
--- ================= Alimentaciones =================
+-- ================= ALIMENTACIONES =================
 CREATE TABLE [Alimentaciones] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
-    [AnimalId] INT NOT NULL,
-
-    [TipoDieta] NVARCHAR(100) NOT NULL,
+    [Id]             INT PRIMARY KEY IDENTITY(1, 1),
+    [AnimalId]       INT           NOT NULL,
+    [TipoDieta]      NVARCHAR(100) NOT NULL,
     [CantidadDiaria] DECIMAL(10,2) NOT NULL,
 
-    FOREIGN KEY (AnimalId) REFERENCES [Alimentaciones]([Id])
+    FOREIGN KEY (AnimalId) REFERENCES [Animales]([Id])
 );
 
 -- ================= INVENTARIOS =================
 CREATE TABLE [Inventarios] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
-    [ZoologicoId] INT NOT NULL,
-
-    [NombreItem] NVARCHAR(100) NOT NULL,
-    [TipoItem] NVARCHAR(50) NOT NULL,
+    [Id]                 INT PRIMARY KEY IDENTITY(1, 1),
+    [ZoologicoId]        INT           NOT NULL,
+    [NombreItem]         NVARCHAR(100) NOT NULL,
+    [TipoItem]           NVARCHAR(50)  NOT NULL,
     [CantidadDisponible] DECIMAL(10,2) NOT NULL,
-    [FechaVencimiento] DATETIME2 NULL,
+    [FechaVencimiento]   DATETIME2     NULL,
 
     FOREIGN KEY (ZoologicoId) REFERENCES [Zoologicos]([Id])
 );
 
 -- ================= VISITANTES =================
 CREATE TABLE [Visitantes] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
-    [Nombre] NVARCHAR(100) NOT NULL,
-    [TipoDocumento] NVARCHAR(50) NOT NULL,
-    [NumeroDocumento] NVARCHAR(50) NOT NULL
+    [Id]              INT PRIMARY KEY IDENTITY(1, 1),
+    [Nombre]          NVARCHAR(100) NOT NULL,
+    [TipoDocumento]   NVARCHAR(50)  NOT NULL,
+    [NumeroDocumento] NVARCHAR(50)  NOT NULL
 );
 
 -- ================= ENTRADAS =================
 CREATE TABLE [Entradas] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
-    [VisitanteId] INT NOT NULL,
-
-    [FechaVisita] DATETIME2 NOT NULL,
-    [TipoEntrada] NVARCHAR(50) NOT NULL,
+    [Id]          INT PRIMARY KEY IDENTITY(1, 1),
+    [VisitanteId] INT           NOT NULL,
+    [FechaVisita] DATETIME2     NOT NULL,
+    [TipoEntrada] NVARCHAR(50)  NOT NULL,
     [ValorPagado] DECIMAL(10,2) NOT NULL,
 
     FOREIGN KEY (VisitanteId) REFERENCES [Visitantes]([Id])
@@ -213,69 +263,81 @@ CREATE TABLE [Entradas] (
 
 -- ================= ZONAS PUBLICAS =================
 CREATE TABLE [ZonasPublicas] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
-    [Nombre] NVARCHAR(100) NOT NULL,
-    [Tipo] NVARCHAR(50) NOT NULL,
+    [Id]          INT PRIMARY KEY IDENTITY(1, 1),
+    [Nombre]      NVARCHAR(100) NOT NULL,
+    [Tipo]        NVARCHAR(50)  NOT NULL,
+    [ZoologicoId] INT           NOT NULL,
 
-    [ZoologicoId] INT NOT NULL,
     FOREIGN KEY (ZoologicoId) REFERENCES [Zoologicos]([Id])
 );
 
 -- ================= AREAS =================
 CREATE TABLE [Areas] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
-    [HabitatId] INT NULL,
-    [JaulaId] INT NULL,
+    [Id]           INT PRIMARY KEY IDENTITY(1, 1),
+    [HabitatId]    INT NULL,
+    [JaulaId]      INT NULL,
     [ZonaPublicaId] INT NULL,
 
-    FOREIGN KEY (HabitatId) REFERENCES [Habitats]([Id]),
-    FOREIGN KEY (JaulaId) REFERENCES [Jaulas]([Id]),
+    FOREIGN KEY (HabitatId)     REFERENCES [Habitats]([Id]),
+    FOREIGN KEY (JaulaId)       REFERENCES [Jaulas]([Id]),
     FOREIGN KEY (ZonaPublicaId) REFERENCES [ZonasPublicas]([Id])
 );
 
 -- ================= MANTENIMIENTOS =================
 CREATE TABLE [Mantenimientos] (
-    [Id] INT PRIMARY KEY IDENTITY(1, 1),
-    [AreaId] INT NOT NULL,
+    [Id]                    INT PRIMARY KEY IDENTITY(1, 1),
+    [AreaId]                INT          NOT NULL,
+    [FechaReporte]          DATETIME2    NOT NULL,
+    [FechaProgramada]       DATETIME2    NOT NULL,
+    [Estado]                NVARCHAR(50) NOT NULL,
+    [EmpleadoResponsableId] INT          NOT NULL,
 
-    [FechaReporte] DATETIME2 NOT NULL,
-    [FechaProgramada] DATETIME2 NOT NULL,
-    [Estado] NVARCHAR(50) NOT NULL,
-
-    [EmpleadoResponsableId] INT NOT NULL,
-
-    FOREIGN KEY (AreaId) REFERENCES [Areas]([Id]),
+    FOREIGN KEY (AreaId)                REFERENCES [Areas]([Id]),
     FOREIGN KEY (EmpleadoResponsableId) REFERENCES [Empleados]([Id])
 );
 
+-- ================= AUDITORIAS =================
+CREATE TABLE [Auditorias] (
+    [IdAuditorias] INT IDENTITY(1,1) PRIMARY KEY,
+    [Tabla]        NVARCHAR(100) NOT NULL,
+    [Accion]       NVARCHAR(50)  NOT NULL,
+    [Datos]        NVARCHAR(MAX) NOT NULL,
+    [Fecha]        DATETIME      DEFAULT GETDATE(),
+    [Usuario]      NVARCHAR(50)  NULL
+);
+
+-- =================================================
+-- =================== INSERTS =====================
+-- =================================================
+
 -- ================= ZOOLOGICO =================
 INSERT INTO Zoologicos (Nombre, Ubicacion)
-VALUES ('Zoo Medell�n', 'Antioquia');
+VALUES ('Zoo Medellín', 'Antioquia');
 
 -- ================= ESPECIES =================
 INSERT INTO Especies (Descripcion, Tipo)
 VALUES 
-('Le�n africano', 'Mam�fero'),
-('Tigre de bengala', 'Mam�fero'),
-('Guacamaya', 'Ave');
+('León africano',    'Mamífero'),
+('Tigre de bengala', 'Mamífero'),
+('Guacamaya',        'Ave');
 
 -- ================= ENFERMEDADES =================
 INSERT INTO Enfermedades (Nombre, Descripcion)
 VALUES 
-('Gripe', 'Infecci�n respiratoria'),
-('Par�sitos', 'Infecci�n intestinal');
+('Gripe',      'Infección respiratoria'),
+('Parásitos',  'Infección intestinal');
 
 -- ================= VISITANTES =================
 INSERT INTO Visitantes (Nombre, TipoDocumento, NumeroDocumento)
 VALUES 
-('Juan Perez', 'CC', '111'),
+('Juan Perez',  'CC', '111'),
 ('Maria Lopez', 'CC', '222');
 
 -- ================= HABITATS =================
 INSERT INTO Habitats (Nombre, Tipo, CapacidadMaxima, Estado, ZoologicoId)
 VALUES 
 ('Sabana', 'Terrestre', 10, 'Activo', 1),
-('Selva', 'Terrestre', 8, 'Activo', 1);
+('Selva',  'Terrestre',  8, 'Activo', 1);
 
 -- ================= ZONAS PUBLICAS =================
 INSERT INTO ZonasPublicas (Nombre, Tipo, ZoologicoId)
@@ -293,41 +355,43 @@ VALUES
 (GETDATE(), 1),
 (GETDATE(), 2);
 
--- ================= Alimentaciones =================
-INSERT INTO Alimentaciones (Nombre, Naturaleza, FechaNacimiento, Alimentacion, EspecieId, JaulaId)
+-- ================= ANIMALES =================
+INSERT INTO Animales (Nombre, Naturaleza, FechaNacimiento, Alimentacion, Genero, EspecieId, JaulaId)
 VALUES 
-('Simba', 'Salvaje', '2020-01-01', 'Carn�voro', 1, 1),
-('Shere Khan', 'Salvaje', '2019-05-10', 'Carn�voro', 2, 2),
-('Lola', 'Domesticado', '2021-03-15', 'Frutas', 3, 2);
+('Simba',      'Salvaje',     '2020-01-01', 'Carnívoro', 'Macho',  1, 1),
+('Shere Khan', 'Salvaje',     '2019-05-10', 'Carnívoro', 'Macho',  2, 2),
+('Lola',       'Domesticado', '2021-03-15', 'Frutas',    'Hembra', 3, 2);
+
+-- ================= REPRODUCCIONES =================
+INSERT INTO Reproducciones 
+    (AnimalMadreId, AnimalPadreId, FechaAppariamiento, FechaNacimiento, CantidadCrias, Metodo, Estado, Observaciones)
+VALUES 
+(3, 1, '2023-01-15', '2023-04-20', 2, 'Natural',  'Exitosa',    'Nacieron 2 crías en buen estado'),
+(3, 2, '2024-06-01', NULL,         0, 'Asistida', 'En proceso', 'Proceso de reproducción asistida en curso'),
+(3, 1, '2022-08-10', NULL,         0, 'In vitro', 'Fallida',    'El proceso no fue exitoso');
 
 -- ================= EMPLEADOS =================
 INSERT INTO Empleados (Nombre, Cedula, Telefono, Email, Salario, FechaContratacion, ZoologicoId)
 VALUES 
-('Carlos Vet', '100', '3001', 'vet@mail.com', 3000, GETDATE(), 1),
-('Ana Gerente', '101', '3002', 'gerente@mail.com', 5000, GETDATE(), 1),
-('Luis Cuidador', '102', '3003', 'cuidador@mail.com', 2000, GETDATE(), 1),
-('Pedro Aseo', '103', '3004', 'aseo@mail.com', 1500, GETDATE(), 1),
-('Sofia Entrenadora', '104', '3005', 'trainer@mail.com', 2500, GETDATE(), 1);
+('Carlos Vet',       '100', '3001', 'vet@mail.com',      3000, GETDATE(), 1),
+('Ana Gerente',      '101', '3002', 'gerente@mail.com',  5000, GETDATE(), 1),
+('Luis Cuidador',    '102', '3003', 'cuidador@mail.com', 2000, GETDATE(), 1),
+('Pedro Aseo',       '103', '3004', 'aseo@mail.com',     1500, GETDATE(), 1),
+('Sofia Entrenadora','104', '3005', 'trainer@mail.com',  2500, GETDATE(), 1);
 
 -- ================= ROLES =================
-
--- Veterinario (Id = 1)
-INSERT INTO Veterinarios (Id, Especialidad, A�osExperiencia)
+INSERT INTO Veterinarios (Id, Especialidad, AñosExperiencia)
 VALUES (1, 'Felinos', 5);
 
--- Gerente (Id = 2)
 INSERT INTO Gerentes (Id)
 VALUES (2);
 
--- Cuidador (Id = 3)
-INSERT INTO CuidadorAlimentaciones (Id, EspecieId, Turno, A�osExperiencia)
-VALUES (3, 1, 'D�a', 3);
+INSERT INTO CuidadorAnimales (Id, EspecieId, Turno, AñosExperiencia)
+VALUES (3, 1, 'Día', 3);
 
--- Personal Aseo (Id = 4)
 INSERT INTO PersonalAseo (Id, ZonaAsignada, Turno, ProductosAsignados)
 VALUES (4, 'Zona Sabana', 'Noche', 'Desinfectante');
 
--- Entrenador (Id = 5)
 INSERT INTO Entrenadores (Id, Especialidad, TipoEntrenamiento)
 VALUES (5, 'Aves', 'Conductual');
 
@@ -336,17 +400,17 @@ INSERT INTO Diagnosticos (FechaDiagnostico, FechaCura, AnimalId, EnfermedadId, V
 VALUES 
 (GETDATE(), NULL, 1, 1, 1);
 
--- ================= HISTORIALES =================
+-- ================= HISTORIALES MEDICOS =================
 INSERT INTO HistorialesMedicos (AnimalId, Tratamiento, Medicamento, Dosis, FechaControl, EstadoActual)
 VALUES 
-(1, 'Reposo', 'Ibuprofeno', '2 veces al d�a', GETDATE(), 'En tratamiento');
+(1, 'Reposo', 'Ibuprofeno', '2 veces al día', GETDATE(), 'En tratamiento');
 
 -- ================= VACUNACIONES =================
 INSERT INTO Vacunaciones (AnimalId, NombreVacuna, Dosis, FechaAplicacion, FechaProximaDosis, VeterinarioId)
 VALUES 
 (1, 'Vacuna A', '1ml', GETDATE(), NULL, 1);
 
--- ================= Alimentaciones =================
+-- ================= ALIMENTACIONES =================
 INSERT INTO Alimentaciones (AnimalId, TipoDieta, CantidadDiaria)
 VALUES 
 (1, 'Carne', 5);

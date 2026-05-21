@@ -20,7 +20,7 @@ namespace Zoologicos_libreria.entidades
 
         // 🔗 Navegación
        
-        [ForeignKey("AnimalId")] public Alimentaciones? Animal { get; set; }
+        [ForeignKey("AnimalId")] public Animales? Animal { get; set; }
         [ForeignKey("VeterinarioId")] public Veterinarios? Veterinario { get; set; }
     }
 }
