@@ -1,13 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zoologicos_libreria.entidades;
 using Zoologicos_libreria.interfaces;
 using Zoologicos_libreria.Nucleo;
-using Zoologicos_servicios.Controllers;
 
 namespace Zoologicos_libreria.implementaciones
 {

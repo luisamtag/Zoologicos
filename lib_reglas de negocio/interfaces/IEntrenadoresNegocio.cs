@@ -1,6 +1,6 @@
 ﻿using Zoologicos_libreria.entidades;
 
-namespace Zoologicos_servicios.Controllers
+namespace Zoologicos_libreria.interfaces
 {
     public interface IEntrenadoresNegocio
     {

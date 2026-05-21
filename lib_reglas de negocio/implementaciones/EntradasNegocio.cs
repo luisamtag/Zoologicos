@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Zoologicos_libreria.entidades;
 using Zoologicos_libreria.interfaces;
 using Zoologicos_libreria.Nucleo;
-using Zoologicos_servicios.Controllers;
 
 namespace Zoologicos_libreria.implementaciones
 {
@@ -27,7 +26,6 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-            decimal precioBAse = entidad.ValorPagado;
 
 
             this.iConexion = new Conexion();

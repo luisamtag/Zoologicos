@@ -17,7 +17,6 @@ namespace Zoologicos_libreria.implementaciones
 
 
         public DbSet<Auditorias>? Auditorias { get; set; }
-
         public DbSet<Zoologicos>? Zoologicos { get; set; }
         public DbSet<Especies>? Especies { get; set; }
         public DbSet<Enfermedades>? Enfermedades { get; set; }
@@ -36,9 +35,9 @@ namespace Zoologicos_libreria.implementaciones
         public DbSet<Entrenadores>? Entrenadores { get; set; }
         public DbSet<Diagnosticos>? Diagnosticos { get; set; }
         public DbSet<HistorialesMedicos>? HistorialesMedicos { get; set; }
-
         public DbSet<Vacunaciones>? Vacunaciones { get; set; }
         public DbSet<Animales>? Animales { get; set; }
+        public DbSet<Reproduccion>? Reproducciones { get; set; }
         public DbSet<Entradas>? Entradas { get; set; }
         public DbSet<Areas>? Areas { get; set; }
 

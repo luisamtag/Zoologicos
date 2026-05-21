@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Zoologicos_libreria.entidades;
 using Zoologicos_libreria.interfaces;
 using Zoologicos_libreria.Nucleo;
-using Zoologicos_servicios.Controllers;
 
 namespace Zoologicos_libreria.implementaciones
 {
@@ -20,7 +19,7 @@ namespace Zoologicos_libreria.implementaciones
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
-            return this.iConexion.Diagnosticos.ToList();
+            return this.iConexion.Diagnosticos!.ToList();
         }
 
         public Diagnosticos Guardar(Diagnosticos entidad)

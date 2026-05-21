@@ -12,7 +12,6 @@ namespace Zoologicos_libreria.entidades
         public string Datos { get; set; } = string.Empty; // Guardaremos un JSON con los valores
         public DateTime Fecha { get; set; }
 
-        public string Usuario { get; set; }
 
 
     }

@@ -33,6 +33,7 @@ namespace Zoologicos_Pruebas.conexiones
                 Naturaleza = "Salvaje",
                 FechaNacimiento = DateTime.Now.AddYears(-2),
                 Alimentacion = "Carnivoro",
+                Genero = "Macho",
                 EspecieId = 1,
                 JaulaId = 1
             };
