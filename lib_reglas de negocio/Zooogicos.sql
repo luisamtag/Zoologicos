@@ -150,10 +150,17 @@ CREATE TABLE [Gerentes] (
 
 -- ================= CUIDADORES =================
 CREATE TABLE [CuidadorAnimales] (
+<<<<<<< HEAD
+    [Id] INT PRIMARY KEY,
+    [EspecieId] INT NULL,
+    [Turno] NVARCHAR(50) NOT NULL,
+    [AÒosExperiencia] INT NOT NULL,
+=======
     [Id]              INT PRIMARY KEY,
     [EspecieId]       INT          NULL,
     [Turno]           NVARCHAR(50) NOT NULL,
     [A√±osExperiencia] INT          NOT NULL,
+>>>>>>> f0cbc5d (se agrega otra entidad y se soluciona problemas de codigo)
 
     FOREIGN KEY (Id)       REFERENCES [Empleados]([Id]),
     FOREIGN KEY (EspecieId) REFERENCES [Especies]([Id])
@@ -296,6 +303,21 @@ CREATE TABLE [Mantenimientos] (
     FOREIGN KEY (EmpleadoResponsableId) REFERENCES [Empleados]([Id])
 );
 
+<<<<<<< HEAD
+
+-- ================= AUDITORIAS =================
+CREATE TABLE [Auditorias] (
+
+
+    [IdAuditorias] INT IDENTITY(1,1) PRIMARY KEY,
+    [Tabla] NVARCHAR(100) NOT NULL,
+    [Accion] NVARCHAR(50) NOT NULL,
+    [Datos] NVARCHAR(MAX) NOT NULL,
+    [Fecha] DATETIME DEFAULT GETDATE(),
+    [Usuario] NVARCHAR(50) -- Opcional: quiÈn hizo el cambio
+);
+
+=======
 -- ================= AUDITORIAS =================
 CREATE TABLE [Auditorias] (
     [IdAuditorias] INT IDENTITY(1,1) PRIMARY KEY,
@@ -310,6 +332,7 @@ CREATE TABLE [Auditorias] (
 -- =================== INSERTS =====================
 -- =================================================
 
+>>>>>>> f0cbc5d (se agrega otra entidad y se soluciona problemas de codigo)
 -- ================= ZOOLOGICO =================
 INSERT INTO Zoologicos (Nombre, Ubicacion)
 VALUES ('Zoo Medell√≠n', 'Antioquia');

@@ -2746,23 +2746,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Devco\\.nuget\\packages\\": {},
+    "C:\\Users\\Lui\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Devco\\Documents\\Zoologicos-main\\lib_reglas de negocio\\Zoologicos_libreria.csproj",
+      "projectUniqueName": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\Zoologicos_libreria.csproj",
       "projectName": "Zoologicos_libreria",
-      "projectPath": "C:\\Users\\Devco\\Documents\\Zoologicos-main\\lib_reglas de negocio\\Zoologicos_libreria.csproj",
-      "packagesPath": "C:\\Users\\Devco\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Devco\\Documents\\Zoologicos-main\\lib_reglas de negocio\\obj\\",
+      "projectPath": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\Zoologicos_libreria.csproj",
+      "packagesPath": "C:\\Users\\Lui\\.nuget\\packages\\",
+      "outputPath": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Devco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Lui\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2790,7 +2790,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net9.0": {
@@ -2817,7 +2817,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.314/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

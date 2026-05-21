@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zoologicos_libreria.entidades;
-using Zoologicos_libreria.interfaces;
-using Zoologicos_libreria.Nucleo;
 
 namespace Zoologicos_libreria.implementaciones
 {

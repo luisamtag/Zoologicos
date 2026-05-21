@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Devco\\Documents\\Zoologicos-main\\presentacion\\Zoologicos_consola.csproj": {}
+    "E:\\Programacion_2\\Zoologicos\\presentacion\\Zoologicos_consola.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Devco\\Documents\\Zoologicos-main\\lib_reglas de negocio\\Zoologicos_libreria.csproj": {
+    "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\Zoologicos_libreria.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Devco\\Documents\\Zoologicos-main\\lib_reglas de negocio\\Zoologicos_libreria.csproj",
+        "projectUniqueName": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\Zoologicos_libreria.csproj",
         "projectName": "Zoologicos_libreria",
-        "projectPath": "C:\\Users\\Devco\\Documents\\Zoologicos-main\\lib_reglas de negocio\\Zoologicos_libreria.csproj",
-        "packagesPath": "C:\\Users\\Devco\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Devco\\Documents\\Zoologicos-main\\lib_reglas de negocio\\obj\\",
+        "projectPath": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\Zoologicos_libreria.csproj",
+        "packagesPath": "C:\\Users\\Lui\\.nuget\\packages\\",
+        "outputPath": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Devco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Lui\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -45,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -72,24 +72,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.314/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Devco\\Documents\\Zoologicos-main\\presentacion\\Zoologicos_consola.csproj": {
+    "E:\\Programacion_2\\Zoologicos\\presentacion\\Zoologicos_consola.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Devco\\Documents\\Zoologicos-main\\presentacion\\Zoologicos_consola.csproj",
+        "projectUniqueName": "E:\\Programacion_2\\Zoologicos\\presentacion\\Zoologicos_consola.csproj",
         "projectName": "Zoologicos_consola",
-        "projectPath": "C:\\Users\\Devco\\Documents\\Zoologicos-main\\presentacion\\Zoologicos_consola.csproj",
-        "packagesPath": "C:\\Users\\Devco\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Devco\\Documents\\Zoologicos-main\\presentacion\\obj\\",
+        "projectPath": "E:\\Programacion_2\\Zoologicos\\presentacion\\Zoologicos_consola.csproj",
+        "packagesPath": "C:\\Users\\Lui\\.nuget\\packages\\",
+        "outputPath": "E:\\Programacion_2\\Zoologicos\\presentacion\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Devco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Lui\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -105,8 +105,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\Devco\\Documents\\Zoologicos-main\\lib_reglas de negocio\\Zoologicos_libreria.csproj": {
-                "projectPath": "C:\\Users\\Devco\\Documents\\Zoologicos-main\\lib_reglas de negocio\\Zoologicos_libreria.csproj"
+              "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\Zoologicos_libreria.csproj": {
+                "projectPath": "E:\\Programacion_2\\Zoologicos\\lib_reglas de negocio\\Zoologicos_libreria.csproj"
               }
             }
           }
@@ -121,7 +121,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -142,7 +142,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.314/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
