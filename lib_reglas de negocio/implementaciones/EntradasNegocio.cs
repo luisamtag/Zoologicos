@@ -26,6 +26,22 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
+            decimal descuentoDia = entidad.ValorPagado;
+            DateTime hoy = DateTime.Now;
+
+            if (hoy.DayOfWeek == DayOfWeek.Monday)
+            {
+                descuentoDia *= 0.90m;
+
+            }
+
+            //Descuento extra si es horario nocturno(ej.después de las 8 PM)
+            if (hoy.Hour >= 20)
+            {
+                descuentoDia -= 1.00m; // Un peso menos de descuento nocturno
+            }
+
+            entidad.ValorPagado = descuentoDia;
 
 
             this.iConexion = new Conexion();

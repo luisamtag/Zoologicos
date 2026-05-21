@@ -1,3 +1,5 @@
 se agregan codigo para las implementaciones e interfaces para que se haga CRUD
 
- 
+  se hace la logica de negocio para la clase Entradas
+
+   

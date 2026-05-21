@@ -154,7 +154,7 @@ CREATE TABLE [CuidadorAnimales] (
     [Id] INT PRIMARY KEY,
     [EspecieId] INT NULL,
     [Turno] NVARCHAR(50) NOT NULL,
-    [AñosExperiencia] INT NOT NULL,
+    [Aï¿½osExperiencia] INT NOT NULL,
 =======
     [Id]              INT PRIMARY KEY,
     [EspecieId]       INT          NULL,
@@ -314,7 +314,7 @@ CREATE TABLE [Auditorias] (
     [Accion] NVARCHAR(50) NOT NULL,
     [Datos] NVARCHAR(MAX) NOT NULL,
     [Fecha] DATETIME DEFAULT GETDATE(),
-    [Usuario] NVARCHAR(50) -- Opcional: quién hizo el cambio
+    [Usuario] NVARCHAR(50) -- Opcional: quiï¿½n hizo el cambio
 );
 
 =======
