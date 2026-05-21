@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\lib_reglas de negocio\Zoologicos_libreria.csproj" />
   </ItemGroup>
 
