@@ -27,6 +27,7 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
+            decimal precioBAse = entidad.ValorPagado;
 
 
             this.iConexion = new Conexion();
