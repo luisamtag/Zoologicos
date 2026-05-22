@@ -36,3 +36,16 @@ C:\Users\arqua\Desktop\Nueva carpeta (2)\Nueva carpeta\lib_reglas de negocio\obj
 C:\Users\arqua\Desktop\Nueva carpeta (2)\Nueva carpeta\lib_reglas de negocio\obj\Debug\net9.0\refint\Zoologicos_libreria.dll
 C:\Users\arqua\Desktop\Nueva carpeta (2)\Nueva carpeta\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.pdb
 C:\Users\arqua\Desktop\Nueva carpeta (2)\Nueva carpeta\lib_reglas de negocio\obj\Debug\net9.0\ref\Zoologicos_libreria.dll
+C:\Users\Devco\Documents\Zoologicos\lib_reglas de negocio\bin\Debug\net9.0\Zoologicos_libreria.deps.json
+C:\Users\Devco\Documents\Zoologicos\lib_reglas de negocio\bin\Debug\net9.0\Zoologicos_libreria.dll
+C:\Users\Devco\Documents\Zoologicos\lib_reglas de negocio\bin\Debug\net9.0\Zoologicos_libreria.pdb
+C:\Users\Devco\Documents\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.csproj.AssemblyReference.cache
+C:\Users\Devco\Documents\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Devco\Documents\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.AssemblyInfoInputs.cache
+C:\Users\Devco\Documents\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.AssemblyInfo.cs
+C:\Users\Devco\Documents\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.csproj.CoreCompileInputs.cache
+C:\Users\Devco\Documents\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.sourcelink.json
+C:\Users\Devco\Documents\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.dll
+C:\Users\Devco\Documents\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\refint\Zoologicos_libreria.dll
+C:\Users\Devco\Documents\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\Zoologicos_libreria.pdb
+C:\Users\Devco\Documents\Zoologicos\lib_reglas de negocio\obj\Debug\net9.0\ref\Zoologicos_libreria.dll

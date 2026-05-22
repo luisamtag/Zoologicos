@@ -150,17 +150,14 @@ CREATE TABLE [Gerentes] (
 
 -- ================= CUIDADORES =================
 CREATE TABLE [CuidadorAnimales] (
-<<<<<<< HEAD
     [Id] INT PRIMARY KEY,
     [EspecieId] INT NULL,
     [Turno] NVARCHAR(50) NOT NULL,
     [A�osExperiencia] INT NOT NULL,
-=======
     [Id]              INT PRIMARY KEY,
     [EspecieId]       INT          NULL,
     [Turno]           NVARCHAR(50) NOT NULL,
     [AñosExperiencia] INT          NOT NULL,
->>>>>>> f0cbc5d (se agrega otra entidad y se soluciona problemas de codigo)
 
     FOREIGN KEY (Id)       REFERENCES [Empleados]([Id]),
     FOREIGN KEY (EspecieId) REFERENCES [Especies]([Id])
@@ -226,6 +223,71 @@ CREATE TABLE [Vacunaciones] (
     FOREIGN KEY (AnimalId)      REFERENCES [Animales]([Id]),
     FOREIGN KEY (VeterinarioId) REFERENCES [Veterinarios]([Id])
 );
+
+-- ================= CUARENTENA =================
+CREATE TABLE [Cuarentenas] (
+    [Id]            INT             PRIMARY KEY IDENTITY(1,1),
+
+    [AnimalId]      INT             NOT NULL,
+    [VeterinarioId] INT             NOT NULL,
+
+    [FechaInicio]   DATETIME2       NOT NULL,
+    [FechaFin]      DATETIME2       NULL,           -- NULL mientras está Activa
+
+    [Motivo]        NVARCHAR(50)    NOT NULL
+                        CHECK ([Motivo] IN ('Animal Nuevo', 'Enfermedad', 'Adaptación')),
+
+    [Estado]        NVARCHAR(20)    NOT NULL
+                        CHECK ([Estado] IN ('Activa', 'Finalizada')),
+
+    [Observaciones] NVARCHAR(500)   NULL,
+
+    -- 🔗 FK → Animales
+    CONSTRAINT FK_Cuarentenas_Animal
+        FOREIGN KEY ([AnimalId]) REFERENCES [Animales]([Id]),
+
+    -- 🔗 FK → Veterinarios
+    CONSTRAINT FK_Cuarentenas_Veterinario
+        FOREIGN KEY ([VeterinarioId]) REFERENCES [Veterinarios]([Id])
+);
+GO
+
+-- ================= TRIGGER: Solo una cuarentena activa por animal =================
+CREATE TRIGGER TR_Cuarentenas_ValidarUnicaActiva
+ON [Cuarentenas]
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM inserted i
+        WHERE (
+            SELECT COUNT(*)
+            FROM Cuarentenas c
+            WHERE c.AnimalId = i.AnimalId
+              AND c.Estado = 'Activa'
+        ) > 1
+    )
+    BEGIN
+        RAISERROR('El animal ya tiene una cuarentena activa. Finalícela antes de crear una nueva.', 16, 1);
+        ROLLBACK TRANSACTION;
+        RETURN;
+    END
+
+    -- Validar que FechaFin no sea anterior a FechaInicio
+    IF EXISTS (
+        SELECT 1
+        FROM inserted i
+        WHERE i.FechaFin IS NOT NULL
+          AND i.FechaFin < i.FechaInicio
+    )
+    BEGIN
+        RAISERROR('La fecha de fin no puede ser anterior a la fecha de inicio.', 16, 1);
+        ROLLBACK TRANSACTION;
+        RETURN;
+    END
+END;
+GO
 
 -- ================= ALIMENTACIONES =================
 CREATE TABLE [Alimentaciones] (
@@ -303,8 +365,6 @@ CREATE TABLE [Mantenimientos] (
     FOREIGN KEY (EmpleadoResponsableId) REFERENCES [Empleados]([Id])
 );
 
-<<<<<<< HEAD
-
 -- ================= AUDITORIAS =================
 CREATE TABLE [Auditorias] (
 
@@ -317,7 +377,6 @@ CREATE TABLE [Auditorias] (
     [Usuario] NVARCHAR(50) -- Opcional: qui�n hizo el cambio
 );
 
-=======
 -- ================= AUDITORIAS =================
 CREATE TABLE [Auditorias] (
     [IdAuditorias] INT IDENTITY(1,1) PRIMARY KEY,
@@ -332,7 +391,6 @@ CREATE TABLE [Auditorias] (
 -- =================== INSERTS =====================
 -- =================================================
 
->>>>>>> f0cbc5d (se agrega otra entidad y se soluciona problemas de codigo)
 -- ================= ZOOLOGICO =================
 INSERT INTO Zoologicos (Nombre, Ubicacion)
 VALUES ('Zoo Medellín', 'Antioquia');
@@ -427,6 +485,14 @@ VALUES
 INSERT INTO HistorialesMedicos (AnimalId, Tratamiento, Medicamento, Dosis, FechaControl, EstadoActual)
 VALUES 
 (1, 'Reposo', 'Ibuprofeno', '2 veces al día', GETDATE(), 'En tratamiento');
+
+-- ================= CUARENTENA ======================
+INSERT INTO Cuarentenas (AnimalId, VeterinarioId, FechaInicio, FechaFin, Motivo, Estado, Observaciones)
+VALUES
+(1, 1, GETDATE(), NULL,                  'Animal Nuevo', 'Activa',    'Simba ingresó al zoológico, en periodo de adaptación'),
+(2, 1, GETDATE(), DATEADD(DAY, 15, GETDATE()), 'Enfermedad',   'Finalizada', 'Shere Khan presentó síntomas respiratorios, ya recuperado'),
+(3, 1, GETDATE(), NULL,                  'Adaptación',   'Activa',    'Lola en proceso de adaptación a su nuevo hábitat');
+
 
 -- ================= VACUNACIONES =================
 INSERT INTO Vacunaciones (AnimalId, NombreVacuna, Dosis, FechaAplicacion, FechaProximaDosis, VeterinarioId)
