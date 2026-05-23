@@ -1,0 +1,152 @@
+﻿@page
+@model Zoologicos_Presentacion.Pages.Ventanas.AlimentacionesModel
+
+@{
+    ViewData["Title"] = "Alimentacion";
+}
+
+<div class="text-center">
+    <form method="POST"
+        enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <h1 class="display-4">
+            Alimentacion
+        </h1>
+
+        <div class="bt_panel_buttons">
+            <input type="submit"
+                value="Refrescar"
+                asp-page-handler="BtRefrescar"/>
+            <input type="submit"
+                value="Nuevo"
+                asp-page-handler="BtNuevo"/>
+            <input type="submit"
+                value="Guardar"
+                asp-page-handler="BtGuardar"/>
+        </div>
+
+        @if (Model.Alimentacion != null)
+        {
+            <div>
+                <div class="form-group">
+                    <label>
+                        AnimalId
+                    </label>
+                    <div class="col-lg-6">
+                        <input id="inAnimalId"
+                               class="cts_forms form-control"
+                               asp-for="@Model.Alimentacion!.AnimalId" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        TipoDieta
+                    </label>
+                    <div class="col-lg-6">
+                        <input id="inTipoDieta"
+                               class="cts_forms form-control"
+                               asp-for="@Model.Alimentacion!.TipoDieta" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        CantidadDiaria
+                    </label>
+                    <div class="col-lg-6">
+                        <input id="inCantidadDiaria"
+                               type="number"
+                               class="cts_forms form-control"
+                               asp-for="@Model.Alimentacion!.CantidadDiaria" />
+                    </div>
+                </div>
+                
+                
+                
+                
+            </div>
+        }
+
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
+        }
+        
+        @if (@Model.Alimentacion != null && Model.Borrando)
+        {
+            <div class='popup'>
+                <div class='pp_ms_inner'>
+                    <div style='width:95%'>
+                        <h2 align="left">
+                            Mensaje
+                        </h2>
+
+                        <h4 align="left">
+                            Desea borrar el Alimentacion?
+                        </h4>
+                        <h6>
+                            @Model.Alimentacion!.AnimalId
+                        </h6>
+
+                        <input type="submit"
+                               value="Cerrar"
+                               asp-page-handler="BtCerrar"
+                               class="btn btn-secondary" />
+                        <input type="submit"
+                               value="Borrar"
+                               asp-page-handler="BtBorrar"
+                               class="btn btn-secondary" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (Model != null && Model.Lista != null && Model.Lista.Count > 0)
+        {
+            <table class="tb_data table table-striped table-bordered table-hover">
+                <tr>
+                    <th>
+                        AnimalId
+                    </th>
+                    <th>
+                        TipoDieta
+                    </th>
+                    <th>
+                        CantidadDiaria
+                    </th>
+                    
+                    <th class="cl_actions">
+                        Acción
+                    </th>
+                </tr>
+                @foreach (var elemento in Model.Lista)
+                {
+                    <tr>
+                        <td>
+                            @elemento.AnimalId
+                        </td>
+                        <td>
+                            @elemento.TipoDieta
+                        </td>
+                        <td>
+                            @elemento.CantidadDiaria
+                        </td>
+                        
+                        <td>
+                            <input type="submit"
+                                value="Modicar"
+                                asp-page-handler="BtModificar"
+                                class="btn btn-secondary"
+                                asp-route-data="@elemento.Id" />
+                            <input type="submit"
+                                value="Borrar"
+                                asp-page-handler="BtBorrarVal"
+                                class="btn btn-secondary"
+                                asp-route-data="@elemento.Id" />
+                        </td>
+                    </tr>
+                }
+            </table> 
+        }
+    </form>
+</div>

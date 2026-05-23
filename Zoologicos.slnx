@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/1. presentaciones/">
-    <Project Path="presentacion/Zoologicos_consola.csproj" />
+    <Project Path="Zoologicos_libreria_Presentacion/Zoologicos_libreria_Presentacion.csproj" Id="08af8d9f-2519-49e5-8b34-494c55b8bb10" />
+    <Project Path="Zoologicos_Presentacion/Zoologicos_presentacion.csproj" Id="96e3fb54-cf69-4284-a27a-44dcf4b61a83" />
   </Folder>
   <Folder Name="/2. servicios/">
     <Project Path="lib_reglas de negocio/Zoologicos_libreria.csproj" />
