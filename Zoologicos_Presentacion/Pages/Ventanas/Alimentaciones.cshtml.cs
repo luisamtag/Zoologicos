@@ -76,7 +76,7 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
                     Alimentacion = iAlimentacionesNegocio.Guardar(Alimentacion!);
                 else
                 {
-                    //Alimentacion = iAlimentacionesNegocio.Actualizar(Alimentacion!);
+                    Alimentacion = iAlimentacionesNegocio.Modificar(Alimentacion!);
                 }
                 if (Alimentacion!.Id == 0)
                     return;

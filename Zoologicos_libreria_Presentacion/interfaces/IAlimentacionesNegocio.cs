@@ -11,5 +11,6 @@ namespace Zoologicos_libreria_Presentacion.interfaces
         Alimentaciones Modificar(Alimentaciones entidad);
 
         bool Borrar(int id);
+        //Alimentaciones Borrar(Alimentaciones entidad);
     }
 }
