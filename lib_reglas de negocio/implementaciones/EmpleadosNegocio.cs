@@ -21,15 +21,21 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
-
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
+
+            //No permitir dos empleados con la misma cédula en el mismo zoológico
+            var existe = this.iConexion.Empleados!.Any(e =>
+                e.Cedula == entidad.Cedula &&
+                e.ZoologicoId == entidad.ZoologicoId);
+            if (existe)
+                throw new Exception($"Ya existe un empleado con la cédula '{entidad.Cedula}' en este zoológico");
 
             this.iConexion!.Empleados!.Add(entidad);
             this.iConexion!.SaveChanges();
             return entidad;
         }
+
 
         public Empleados Modificar(Empleados entidad)
         {

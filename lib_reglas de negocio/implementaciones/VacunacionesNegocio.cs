@@ -26,10 +26,16 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
-
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
+
+            //El animal no puede tener la misma vacuna activa sin vencer
+            var vacunaActiva = this.iConexion.Vacunaciones!.Any(v =>
+                v.AnimalId == entidad.AnimalId &&
+                v.NombreVacuna == entidad.NombreVacuna &&
+                (v.FechaProximaDosis == null || v.FechaProximaDosis > DateTime.Now));
+            if (vacunaActiva)
+                throw new Exception($"El animal ya tiene la vacuna '{entidad.NombreVacuna}' activa. Espere a que venza la dosis actual");
 
             this.iConexion!.Vacunaciones!.Add(entidad);
             this.iConexion!.SaveChanges();

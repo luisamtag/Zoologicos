@@ -22,7 +22,9 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
+            //Debe tener al menos una referencia (Hábitat, Jaula o Zona Pública)
+            if (entidad.HabitatId == null && entidad.JaulaId == null && entidad.ZonaPublicaId == null)
+                throw new Exception("El área debe estar asociada a al menos un Hábitat, Jaula o Zona Pública");
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");

@@ -26,7 +26,9 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
+            //La fecha programada no puede ser anterior a la fecha de reporte
+            if (entidad.FechaProgramada < entidad.FechaReporte)
+                throw new Exception("La fecha programada no puede ser anterior a la fecha de reporte");
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
@@ -35,6 +37,7 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion!.SaveChanges();
             return entidad;
         }
+
 
         public Mantenimientos Modificar(Mantenimientos entidad)
         {

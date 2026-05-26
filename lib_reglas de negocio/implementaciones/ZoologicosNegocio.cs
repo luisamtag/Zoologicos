@@ -26,10 +26,15 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
-
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
+
+            //No permitir dos zoológicos con el mismo nombre y ubicación
+            var existe = this.iConexion.Zoologicos!.Any(z =>
+                z.Nombre == entidad.Nombre &&
+                z.Ubicacion == entidad.Ubicacion);
+            if (existe)
+                throw new Exception($"Ya existe un zoológico con el nombre '{entidad.Nombre}' en '{entidad.Ubicacion}'");
 
             this.iConexion!.Zoologicos!.Add(entidad);
             this.iConexion!.SaveChanges();

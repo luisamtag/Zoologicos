@@ -26,7 +26,9 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
+            //La fecha de control no puede ser una fecha futura
+            if (entidad.FechaControl > DateTime.Now)
+                throw new Exception("La fecha de control no puede ser una fecha futura");
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
@@ -35,6 +37,7 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion!.SaveChanges();
             return entidad;
         }
+
 
         public HistorialesMedicos Modificar(HistorialesMedicos entidad)
         {

@@ -27,7 +27,10 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
+            //El turno solo puede ser Día, Noche o Mixto
+            var turnosValidos = new[] { "Día", "Noche", "Mixto" };
+            if (!turnosValidos.Contains(entidad.Turno))
+                throw new Exception("Turno no válido. Use: Día, Noche o Mixto");
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");

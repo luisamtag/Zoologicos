@@ -26,7 +26,9 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
+            //La cantidad disponible no puede ser negativa
+            if (entidad.CantidadDisponible < 0)
+                throw new Exception("La cantidad disponible no puede ser negativa");
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");

@@ -26,10 +26,15 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
-
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
+
+            //No permitir dos especies con la misma descripción y tipo
+            var existe = this.iConexion.Especies!.Any(e =>
+                e.Descripcion == entidad.Descripcion &&
+                e.Tipo == entidad.Tipo);
+            if (existe)
+                throw new Exception($"Ya existe la especie '{entidad.Descripcion}' de tipo '{entidad.Tipo}'");
 
             this.iConexion!.Especies!.Add(entidad);
             this.iConexion!.SaveChanges();

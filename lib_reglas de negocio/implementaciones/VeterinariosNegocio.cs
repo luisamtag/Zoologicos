@@ -26,7 +26,9 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
+            //Los años de experiencia deben ser mayores a 0
+            if (entidad.AñosExperiencia <= 0)
+                throw new Exception("Los años de experiencia del veterinario deben ser mayores a 0");
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");

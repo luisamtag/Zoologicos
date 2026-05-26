@@ -26,15 +26,21 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
-
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
+
+            //No permitir dos visitantes con el mismo número y tipo de documento
+            var existe = this.iConexion.Visitantes!.Any(v =>
+                v.NumeroDocumento == entidad.NumeroDocumento &&
+                v.TipoDocumento == entidad.TipoDocumento);
+            if (existe)
+                throw new Exception($"Ya existe un visitante con el documento '{entidad.TipoDocumento}: {entidad.NumeroDocumento}'");
 
             this.iConexion!.Visitantes!.Add(entidad);
             this.iConexion!.SaveChanges();
             return entidad;
         }
+
 
         public Visitantes Modificar(Visitantes entidad)
         {

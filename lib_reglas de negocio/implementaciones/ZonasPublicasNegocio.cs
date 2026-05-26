@@ -21,17 +21,22 @@ namespace Zoologicos_libreria.implementaciones
             return this.iConexion. ZonasPublicas!.ToList();
         }
 
-        public  ZonasPublicas Guardar( ZonasPublicas entidad)
+        public ZonasPublicas Guardar(ZonasPublicas entidad)
         {
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
-
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
-            this.iConexion!. ZonasPublicas!.Add(entidad);
+            //No permitir dos zonas con el mismo nombre en el mismo zoológico
+            var existe = this.iConexion.ZonasPublicas!.Any(z =>
+                z.Nombre == entidad.Nombre &&
+                z.ZoologicoId == entidad.ZoologicoId);
+            if (existe)
+                throw new Exception($"Ya existe una zona pública con el nombre '{entidad.Nombre}' en este zoológico");
+
+            this.iConexion!.ZonasPublicas!.Add(entidad);
             this.iConexion!.SaveChanges();
             return entidad;
         }

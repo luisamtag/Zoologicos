@@ -24,12 +24,7 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
-            // ✅ REGLA DE NEGOCIO 1: Validar que el animal existe
-            var animal = this.iConexion.Animales!.FirstOrDefault(a => a.Id == entidad.AnimalId);
-            if (animal == null)
-                throw new Exception("El animal especificado no existe");
-
-            // ✅ REGLA DE NEGOCIO 2: Un animal no puede tener dos cuarentenas activas
+            // ✅Un animal no puede tener dos cuarentenas activas
             var cuarentenaActiva = this.iConexion.Cuarentenas!.Any(c =>
                 c.AnimalId == entidad.AnimalId &&
                 c.Estado == "Activa");
@@ -37,12 +32,6 @@ namespace Zoologicos_libreria.implementaciones
             if (cuarentenaActiva)
                 throw new Exception("El animal ya tiene una cuarentena activa. Finalícela antes de crear una nueva");
 
-            // ✅ REGLA DE NEGOCIO 3: Validar motivos permitidos
-            var motivosValidos = new[] { "Animal Nuevo", "Enfermedad", "Adaptación" };
-            if (!motivosValidos.Contains(entidad.Motivo))
-                throw new Exception("Motivo no válido. Use: Animal Nuevo, Enfermedad o Adaptación");
-
-            // ✅ REGLA DE NEGOCIO 4: El estado inicial siempre es Activa
             entidad.Estado = "Activa";
             entidad.FechaFin = null;
             entidad.FechaInicio = DateTime.Now;

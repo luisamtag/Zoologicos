@@ -16,6 +16,7 @@ namespace Zoologicos_libreria.implementaciones
             return this.iConexion.Reproducciones!.ToList();
         }
 
+
         public Reproduccion Guardar(Reproduccion entidad)
         {
             if (entidad.Id != 0)
@@ -23,6 +24,14 @@ namespace Zoologicos_libreria.implementaciones
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
+
+            //Madre y padre deben ser de la misma especie
+            var madre = this.iConexion.Animales!.FirstOrDefault(a => a.Id == entidad.AnimalMadreId);
+            var padre = this.iConexion.Animales!.FirstOrDefault(a => a.Id == entidad.AnimalPadreId);
+            if (madre == null || padre == null)
+                throw new Exception("Uno de los animales especificados no existe");
+            if (madre.EspecieId != padre.EspecieId)
+                throw new Exception("Los animales deben ser de la misma especie para reproducirse");
 
             this.iConexion!.Reproducciones!.Add(entidad);
             this.iConexion!.SaveChanges();

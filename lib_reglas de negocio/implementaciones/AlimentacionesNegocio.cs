@@ -25,7 +25,9 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
+            // La cantidad diaria no puede ser menor o igual a 0
+            if (entidad.CantidadDiaria <= 0)
+                throw new Exception("La cantidad diaria de alimentación debe ser mayor a 0");
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");

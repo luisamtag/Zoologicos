@@ -26,10 +26,19 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
-
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
+
+            //Solo puede haber un gerente por zoológico
+            var empleado = this.iConexion.Empleados!.FirstOrDefault(e => e.Id == entidad.Id);
+            if (empleado == null)
+                throw new Exception("El empleado no existe. Regístrelo primero en Empleados");
+
+            var gerenteExiste = this.iConexion.Gerentes!
+                .Any(g => this.iConexion.Empleados!
+                    .Any(e => e.Id == g.Id && e.ZoologicoId == empleado.ZoologicoId));
+            if (gerenteExiste)
+                throw new Exception("Ya existe un gerente asignado a este zoológico");
 
             this.iConexion!.Gerentes!.Add(entidad);
             this.iConexion!.SaveChanges();

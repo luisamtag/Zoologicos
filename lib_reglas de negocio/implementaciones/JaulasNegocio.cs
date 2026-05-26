@@ -26,7 +26,9 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
+            //La fecha de compra no puede ser una fecha futura
+            if (entidad.FechaCompra > DateTime.Now)
+                throw new Exception("La fecha de compra no puede ser una fecha futura");
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");

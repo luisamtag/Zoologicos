@@ -27,7 +27,9 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
+            //La fecha de diagnóstico no puede ser futura
+            if (entidad.FechaDiagnostico > DateTime.Now)
+                throw new Exception("La fecha de diagnóstico no puede ser una fecha futura");
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
@@ -36,6 +38,7 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion!.SaveChanges();
             return entidad;
         }
+
 
         public Diagnosticos Modificar(Diagnosticos entidad)
         {

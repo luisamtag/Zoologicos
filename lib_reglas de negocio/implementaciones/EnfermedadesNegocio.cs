@@ -26,10 +26,13 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
-
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
+
+            //No permitir dos enfermedades con el mismo nombre
+            var existe = this.iConexion.Enfermedades!.Any(e => e.Nombre == entidad.Nombre);
+            if (existe)
+                throw new Exception($"Ya existe una enfermedad registrada con el nombre '{entidad.Nombre}'");
 
             this.iConexion!.Enfermedades!.Add(entidad);
             this.iConexion!.SaveChanges();

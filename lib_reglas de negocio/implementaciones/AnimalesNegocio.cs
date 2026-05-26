@@ -23,13 +23,16 @@ namespace Zoologicos_libreria.implementaciones
         public Animales Guardar(Animales entidad)
         {
             if (entidad.Id != 0)
-            throw new Exception("ya se guardo");
+                throw new Exception("ya se guardo");
 
-
+            //El género solo puede ser Macho o Hembra
+            var generosValidos = new[] { "Macho", "Hembra" };
+            if (!generosValidos.Contains(entidad.Genero))
+                throw new Exception("Género no válido. Use: Macho o Hembra");
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
-            
+
             this.iConexion!.Animales!.Add(entidad);
             this.iConexion!.SaveChanges();
             return entidad;

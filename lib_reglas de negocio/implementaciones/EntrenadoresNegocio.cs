@@ -26,10 +26,13 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
 
-
-
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
+
+            //El empleado debe existir antes de asignarle rol de Entrenador
+            var empleado = this.iConexion.Empleados!.FirstOrDefault(e => e.Id == entidad.Id);
+            if (empleado == null)
+                throw new Exception("El empleado no existe. Regístrelo primero en Empleados antes de asignarle el rol de Entrenador");
 
             this.iConexion!.Entrenadores!.Add(entidad);
             this.iConexion!.SaveChanges();
