@@ -1,24 +1,23 @@
-using Zoologicos_libreria.entidades;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Zoologicos_libreria.entidades; // Revisa que este namespace sea el de tu clase Areas
+
 using Zoologicos_libreria_Presentacion.implementaciones;
 using Zoologicos_libreria_Presentacion.interfaces;
 
-
-
 namespace Zoologicos_Presentacion.Pages.Ventanas
-
 {
-    public class AlimentacionesModel : PageModel
+    public class AreasModel : PageModel
     {
-        private IAlimentacionesNegocio iAlimentacionesNegocio;
-        [BindProperty] public bool Borrando { get; set; }
-        [BindProperty] public List<Alimentaciones>? Lista { get; set; }
-        [BindProperty] public Alimentaciones? Alimentacion { get; set; }
+        private IAreasNegocio iAreasNegocio;
 
-        public AlimentacionesModel()
+        [BindProperty] public bool Borrando { get; set; }
+        [BindProperty] public List<Areas>? Lista { get; set; }
+        [BindProperty] public Areas? Area { get; set; }
+
+        public AreasModel()
         {
-            iAlimentacionesNegocio = new AlimentacionesNegocio();
+            iAreasNegocio = new AreasNegocio();
         }
 
         public void OnGet()
@@ -35,10 +34,12 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
         {
             try
             {
-                if (iAlimentacionesNegocio == null)
+                if (iAreasNegocio == null)
                     return;
-                Lista = iAlimentacionesNegocio.Listar();
-                Alimentacion = null;
+
+                Lista = iAreasNegocio.Listar();
+                Area = null;
+                Borrando = false;
             }
             catch (Exception ex)
             {
@@ -48,7 +49,7 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
 
         public void OnPostBtNuevo()
         {
-            Alimentacion = new Alimentaciones();
+            Area = new Areas();
         }
 
         public void OnPostBtModificar(string data)
@@ -56,7 +57,7 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
             try
             {
                 OnPostBtRefrescar();
-                Alimentacion = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                Area = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
                 Lista = null;
                 Borrando = false;
             }
@@ -70,16 +71,21 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
         {
             try
             {
-                if (Alimentacion == null)
+                if (Area == null)
                     return;
-                if (Alimentacion!.Id == 0)
-                    Alimentacion = iAlimentacionesNegocio.Guardar(Alimentacion!);
+
+                if (Area.Id == 0)
+                {
+                    Area = iAreasNegocio.Guardar(Area);
+                }
                 else
                 {
-                    Alimentacion = iAlimentacionesNegocio.Modificar(Alimentacion!);
+                    Area = iAreasNegocio.Modificar(Area);
                 }
-                if (Alimentacion!.Id == 0)
+
+                if (Area == null || Area.Id == 0)
                     return;
+
                 OnPostBtRefrescar();
             }
             catch (Exception ex)
@@ -92,11 +98,14 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
         {
             try
             {
-                if (Alimentacion == null)
+                if (Area == null)
                     return;
-                    bool eliminado = iAlimentacionesNegocio.Borrar(Alimentacion.Id);
+
+                bool eliminado = iAreasNegocio.Borrar(Area.Id);
+
                 if (!eliminado)
-                    throw new Exception("No se pudo eliminar el registro en el servidor.");
+                    throw new Exception("No se pudo eliminar el registro del área en el servidor.");
+
                 OnPostBtRefrescar();
             }
             catch (Exception ex)
@@ -110,7 +119,7 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
             try
             {
                 OnPostBtRefrescar();
-                Alimentacion = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                Area = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
                 Borrando = true;
                 Lista = null;
             }

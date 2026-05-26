@@ -1,24 +1,22 @@
-using Zoologicos_libreria.entidades;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Zoologicos_libreria.entidades; // Donde se encuentre CuidadorAnimales
 using Zoologicos_libreria_Presentacion.implementaciones;
 using Zoologicos_libreria_Presentacion.interfaces;
 
-
-
 namespace Zoologicos_Presentacion.Pages.Ventanas
-
 {
-    public class AlimentacionesModel : PageModel
+    public class CuidadorAnimalesModel : PageModel
     {
-        private IAlimentacionesNegocio iAlimentacionesNegocio;
-        [BindProperty] public bool Borrando { get; set; }
-        [BindProperty] public List<Alimentaciones>? Lista { get; set; }
-        [BindProperty] public Alimentaciones? Alimentacion { get; set; }
+        private ICuidadorAnimalesNegocio iCuidadorAnimalesNegocio;
 
-        public AlimentacionesModel()
+        [BindProperty] public bool Borrando { get; set; }
+        [BindProperty] public List<CuidadorAnimales>? Lista { get; set; }
+        [BindProperty] public CuidadorAnimales? Cuidador { get; set; }
+
+        public CuidadorAnimalesModel()
         {
-            iAlimentacionesNegocio = new AlimentacionesNegocio();
+            iCuidadorAnimalesNegocio = new CuidadorAnimalesNegocio();
         }
 
         public void OnGet()
@@ -35,10 +33,12 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
         {
             try
             {
-                if (iAlimentacionesNegocio == null)
+                if (iCuidadorAnimalesNegocio == null)
                     return;
-                Lista = iAlimentacionesNegocio.Listar();
-                Alimentacion = null;
+
+                Lista = iCuidadorAnimalesNegocio.Listar();
+                Cuidador = null;
+                Borrando = false;
             }
             catch (Exception ex)
             {
@@ -48,7 +48,9 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
 
         public void OnPostBtNuevo()
         {
-            Alimentacion = new Alimentaciones();
+            Cuidador = new CuidadorAnimales();
+            Cuidador.Turno = ""; // Evita problemas de nulos en el select al iniciar
+            Cuidador.AñosExperiencia = 0;
         }
 
         public void OnPostBtModificar(string data)
@@ -56,7 +58,7 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
             try
             {
                 OnPostBtRefrescar();
-                Alimentacion = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                Cuidador = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
                 Lista = null;
                 Borrando = false;
             }
@@ -70,16 +72,25 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
         {
             try
             {
-                if (Alimentacion == null)
+                if (Cuidador == null)
                     return;
-                if (Alimentacion!.Id == 0)
-                    Alimentacion = iAlimentacionesNegocio.Guardar(Alimentacion!);
+
+                // Validación de Negocio usando la propiedad de texto obligatoria (Turno)
+                if (string.IsNullOrEmpty(Cuidador.Turno))
+                    throw new Exception("Falta información: El turno es un campo obligatorio.");
+
+                if (Cuidador.Id == 0)
+                {
+                    Cuidador = iCuidadorAnimalesNegocio.Guardar(Cuidador);
+                }
                 else
                 {
-                    Alimentacion = iAlimentacionesNegocio.Modificar(Alimentacion!);
+                    Cuidador = iCuidadorAnimalesNegocio.Modificar(Cuidador);
                 }
-                if (Alimentacion!.Id == 0)
+
+                if (Cuidador == null || Cuidador.Id == 0)
                     return;
+
                 OnPostBtRefrescar();
             }
             catch (Exception ex)
@@ -92,11 +103,14 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
         {
             try
             {
-                if (Alimentacion == null)
+                if (Cuidador == null)
                     return;
-                    bool eliminado = iAlimentacionesNegocio.Borrar(Alimentacion.Id);
+
+                bool eliminado = iCuidadorAnimalesNegocio.Borrar(Cuidador.Id);
+
                 if (!eliminado)
-                    throw new Exception("No se pudo eliminar el registro en el servidor.");
+                    throw new Exception("No se pudo eliminar al cuidador en el servidor.");
+
                 OnPostBtRefrescar();
             }
             catch (Exception ex)
@@ -110,7 +124,7 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
             try
             {
                 OnPostBtRefrescar();
-                Alimentacion = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                Cuidador = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
                 Borrando = true;
                 Lista = null;
             }

@@ -36,7 +36,7 @@ namespace Zoologicos_libreria.implementaciones
         public DbSet<Vacunaciones>?       Vacunaciones       { get; set; }
         public DbSet<Animales>?           Animales           { get; set; }
         public DbSet<Reproduccion>?       Reproducciones     { get; set; }
-        public DbSet<Cuarentena>?         Cuarentenas        { get; set; }
+        public DbSet<Cuarentenas>?         Cuarentenas        { get; set; }
         public DbSet<Entradas>?           Entradas           { get; set; }
         public DbSet<Areas>?              Areas              { get; set; }
         public DbSet<Mantenimientos>?     Mantenimientos     { get; set; }

@@ -1,0 +1,129 @@
+﻿@page
+@model Zoologicos_Presentacion.Pages.Ventanas.EmpleadosModel
+
+@{
+    ViewData["Title"] = "Empleados";
+}
+
+<div class="text-center">
+    <form method="POST" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <h1 class="display-4">
+            Gestión de Empleados
+        </h1>
+
+        <div class="bt_panel_buttons">
+            <input type="submit" value="Refrescar" asp-page-handler="BtRefrescar" />
+            <input type="submit" value="Nuevo" asp-page-handler="BtNuevo" />
+            <input type="submit" value="Guardar" asp-page-handler="BtGuardar" />
+        </div>
+
+        @if (Model.Empleado != null)
+        {
+            <div class="row justify-content-center text-left" style="text-align: left; margin-bottom: 20px;">
+                <div class="col-lg-6">
+                    
+                    <div class="form-group">
+                        <label>Nombre Completo</label>
+                        <input id="inNombre" class="cts_forms form-control" asp-for="@Model.Empleado!.Nombre" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cédula / Identificación</label>
+                        <input id="inCedula" class="cts_forms form-control" asp-for="@Model.Empleado!.Cedula" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input id="inTelefono" type="tel" class="cts_forms form-control" asp-for="@Model.Empleado!.Telefono" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Correo Electrónico</label>
+                        <input id="inEmail" type="email" class="cts_forms form-control" asp-for="@Model.Empleado!.Email" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Salario Mensual</label>
+                        <input id="inSalario" type="number" step="0.01" min="0" class="cts_forms form-control" asp-for="@Model.Empleado!.Salario" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Contratación</label>
+                        <input id="inFechaContratacion" type="date" class="cts_forms form-control" asp-for="@Model.Empleado!.FechaContratacion" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Zoológico ID (Sede)</label>
+                        <input id="inZoologicoId" type="number" class="cts_forms form-control" asp-for="@Model.Empleado!.ZoologicoId" required />
+                    </div>
+                    
+                </div>
+            </div>
+        }
+
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
+        }
+        
+        @if (@Model.Empleado != null && Model.Borrando)
+        {
+            <div class='popup'>
+                <div class='pp_ms_inner'>
+                    <div style='width:95%'>
+                        <h2 align="left">Mensaje</h2>
+                        <h4 align="left">¿Desea despedir o dar de baja a este empleado?</h4>
+                        <h6 align="left">
+                            <strong>Empleado:</strong> @Model.Empleado!.Nombre <br />
+                            <strong>Cédula:</strong> @Model.Empleado!.Cedula
+                        </h6>
+
+                        <input type="submit" value="Cerrar" asp-page-handler="BtCerrar" class="btn btn-secondary" />
+                        <input type="submit" value="Borrar" asp-page-handler="BtBorrar" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (Model != null && Model.Lista != null && Model.Lista.Count > 0)
+        {
+            <table class="tb_data table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Cédula</th>
+                        <th class="cl_hidden">Teléfono</th>
+                        <th class="cl_hidden">Email</th>
+                        <th>Salario</th>
+                        <th>Contratación</th>
+                        <th class="cl_hidden">Zoológico ID</th>
+                        <th class="cl_actions">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>@elemento.Id</td>
+                            <td>@elemento.Nombre</td>
+                            <td>@elemento.Cedula</td>
+                            <td class="cl_hidden">@elemento.Telefono</td>
+                            <td class="cl_hidden">@elemento.Email</td>
+                            <td>@elemento.Salario.ToString("C")</td>
+                            <td>@elemento.FechaContratacion.ToString("dd/MM/yyyy")</td>
+                            <td class="cl_hidden">@elemento.ZoologicoId</td>
+                            <td>
+                                <input type="submit" value="Modificar" asp-page-handler="BtModificar" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                                <input type="submit" value="Borrar" asp-page-handler="BtBorrarVal" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </form>
+</div>

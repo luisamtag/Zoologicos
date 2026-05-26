@@ -29,7 +29,7 @@ namespace Zoologicos_libreria.interfaces
         DbSet<Vacunaciones>?      Vacunaciones      { get; set; }
         DbSet<Animales>?          Animales          { get; set; }
         DbSet<Reproduccion>?      Reproducciones    { get; set; }
-        DbSet<Cuarentena>?        Cuarentenas       { get; set; } 
+        DbSet<Cuarentenas>?        Cuarentenas       { get; set; } 
         DbSet<Entradas>?          Entradas          { get; set; }
         DbSet<Areas>?             Areas             { get; set; }
         DbSet<Mantenimientos>?    Mantenimientos    { get; set; }

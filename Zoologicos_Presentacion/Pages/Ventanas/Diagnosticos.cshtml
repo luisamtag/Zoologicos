@@ -1,0 +1,129 @@
+﻿@page
+@model Zoologicos_Presentacion.Pages.Ventanas.DiagnosticosModel
+
+@{
+    ViewData["Title"] = "Diagnósticos Médicos";
+}
+
+<div class="text-center">
+    <form method="POST" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <h1 class="display-4">
+            Historial de Diagnósticos
+        </h1>
+
+        <!-- Panel Principal de Botones -->
+        <div class="bt_panel_buttons">
+            <input type="submit" value="Refrescar" asp-page-handler="BtRefrescar" />
+            <input type="submit" value="Nuevo" asp-page-handler="BtNuevo" />
+            <input type="submit" value="Guardar" asp-page-handler="BtGuardar" />
+        </div>
+
+        <!-- Formulario de Edición / Creación -->
+        @if (Model.Diagnostico != null)
+        {
+            <div class="row justify-content-center text-left" style="text-align: left; margin-bottom: 20px;">
+                <div class="col-lg-6">
+                    
+                    <div class="form-group">
+                        <label>Animal ID</label>
+                        <input id="inAnimalId" type="number" class="cts_forms form-control" asp-for="@Model.Diagnostico!.AnimalId" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Enfermedad ID</label>
+                        <input id="inEnfermedadId" type="number" class="cts_forms form-control" asp-for="@Model.Diagnostico!.EnfermedadId" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Veterinario ID</label>
+                        <input id="inVeterinarioId" type="number" class="cts_forms form-control" asp-for="@Model.Diagnostico!.VeterinarioId" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha del Diagnóstico</label>
+                        <input id="inFechaDiagnostico" type="date" class="cts_forms form-control" asp-for="@Model.Diagnostico!.FechaDiagnostico" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Curación (Opcional)</label>
+                        <input id="inFechaCura" type="date" class="cts_forms form-control" asp-for="@Model.Diagnostico!.FechaCura" />
+                    </div>
+                    
+                </div>
+            </div>
+        }
+
+        <!-- Zona de Alertas y Errores -->
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
+        }
+        
+        <!-- Popup de Confirmación de Borrado -->
+        @if (@Model.Diagnostico != null && Model.Borrando)
+        {
+            <div class='popup'>
+                <div class='pp_ms_inner'>
+                    <div style='width:95%'>
+                        <h2 align="left">Mensaje</h2>
+                        <h4 align="left">¿Desea eliminar este registro médico?</h4>
+                        <h6 align="left">
+                            <strong>ID Diagnóstico:</strong> @Model.Diagnostico!.Id <br />
+                            <strong>Animal ID:</strong> @Model.Diagnostico!.AnimalId
+                        </h6>
+
+                        <input type="submit" value="Cerrar" asp-page-handler="BtCerrar" class="btn btn-secondary" />
+                        <input type="submit" value="Borrar" asp-page-handler="BtBorrar" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Tabla de Datos Históricos -->
+        @if (Model != null && Model.Lista != null && Model.Lista.Count > 0)
+        {
+            <table class="tb_data table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Animal ID</th>
+                        <th>Enfermedad ID</th>
+                        <th class="cl_hidden">Veterinario ID</th>
+                        <th>Fecha Diagnóstico</th>
+                        <th>Fecha Alta / Cura</th>
+                        <th class="cl_actions">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>@elemento.Id</td>
+                            <td>@elemento.AnimalId</td>
+                            <td>@elemento.EnfermedadId</td>
+                            <td class="cl_hidden">@elemento.VeterinarioId</td>
+                            <td>@elemento.FechaDiagnostico.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                @if (elemento.FechaCura.HasValue)
+                                {
+                                    @elemento.FechaCura.Value.ToString("dd/MM/yyyy")
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger text-white">Tratamiento Activo 🏥</span>
+                                }
+                            </td>
+                            <td>
+                                <input type="submit" value="Modificar" asp-page-handler="BtModificar" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                                <input type="submit" value="Borrar" asp-page-handler="BtBorrarVal" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </form>
+</div>

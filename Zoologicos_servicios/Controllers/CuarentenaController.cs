@@ -7,49 +7,49 @@ namespace Zoologicos_servicios.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class CuarentenaController : ControllerBase
+    public class CuarentenasController : ControllerBase
     {
-        private ICuarentenaNegocio? ICuarentenaNegocio;
+        private ICuarentenasNegocio? ICuarentenasNegocio;
 
-        public CuarentenaController()
+        public CuarentenasController()
         {
-            this.ICuarentenaNegocio = new CuarentenaNegocio();
+            this.ICuarentenasNegocio = new CuarentenasNegocio();
         }
 
         [HttpGet]
-        public List<Cuarentena> Listar()
+        public List<Cuarentenas> Listar()
         {
-            if (this.ICuarentenaNegocio == null)
+            if (this.ICuarentenasNegocio == null)
                 throw new Exception("no implementado");
 
-            return this.ICuarentenaNegocio.Listar();
+            return this.ICuarentenasNegocio.Listar();
         }
 
         [HttpPost]
-        public Cuarentena Guardar(Cuarentena entidad)
+        public Cuarentenas Guardar(Cuarentenas entidad)
         {
-            if (this.ICuarentenaNegocio == null)
+            if (this.ICuarentenasNegocio == null)
                 throw new Exception("no implementado");
 
-            return this.ICuarentenaNegocio.Guardar(entidad);
+            return this.ICuarentenasNegocio.Guardar(entidad);
         }
 
         [HttpPut]
-        public Cuarentena Modificar(Cuarentena entidad)
+        public Cuarentenas Modificar(Cuarentenas entidad)
         {
-            if (this.ICuarentenaNegocio == null)
+            if (this.ICuarentenasNegocio == null)
                 throw new Exception("No implementado");
 
-            return this.ICuarentenaNegocio.Modificar(entidad);
+            return this.ICuarentenasNegocio.Modificar(entidad);
         }
 
         [HttpDelete]
         public bool Borrar(int id)
         {
-            if (this.ICuarentenaNegocio == null)
+            if (this.ICuarentenasNegocio == null)
                 throw new Exception("No implementado");
 
-            return this.ICuarentenaNegocio.Borrar(id);
+            return this.ICuarentenasNegocio.Borrar(id);
         }
     }
 }

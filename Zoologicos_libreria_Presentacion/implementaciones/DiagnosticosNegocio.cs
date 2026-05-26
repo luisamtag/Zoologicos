@@ -6,11 +6,11 @@ using Zoologicos_libreria_Presentacion.interfaces;
 
 namespace Zoologicos_libreria_Presentacion.implementaciones
 {
-    public class AlimentacionesNegocio : IAlimentacionesNegocio
+    public class DiagnosticosNegocio : IDiagnosticosNegocio
     {
         private IComunicaciones? iComunicaciones;
-        private const string BaseUrl = "http://localhost:5144/Alimentaciones/";
-        public List<Alimentaciones> Listar()
+        private const string BaseUrl = "http://localhost:5144/Diagnosticos/";
+        public List<Diagnosticos> Listar()
         {
             this.iComunicaciones = new Comunicaciones();
 
@@ -25,24 +25,32 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
             if (!respuesta.ContainsKey("Valor"))
                 throw new Exception("No funciono");
 
-            return JsonConvert.DeserializeObject<List<Alimentaciones>>(respuesta["Valor"].ToString()!)!;
+            return JsonConvert.DeserializeObject<List<Diagnosticos>>(respuesta["Valor"].ToString()!)!;
         }
 
-        public Alimentaciones Guardar(Alimentaciones entidad)
+        public Diagnosticos Guardar(Diagnosticos entidad)
         {
+            // 1. Validar que no sea un registro ya existente
             if (entidad.Id != 0)
-                throw new Exception("Ya se guardo");
+                throw new Exception("Ya se guardó");
 
-            if (string.IsNullOrEmpty(entidad.TipoDieta))
-                throw new Exception("Falta informacion");
+            //  VALIDACIÓN NUMÉRICA: Aseguramos que se hayan seleccionado IDs válidos
+            if (entidad.AnimalId <= 0 || entidad.EnfermedadId <= 0 || entidad.VeterinarioId <= 0)
+            {
+                throw new Exception("Falta información: Debe especificar un Animal, una Enfermedad y un Veterinario válidos.");
+            }
 
+            //  VALIDACIÓN DE FECHA: Aseguramos que no venga la fecha vacía por defecto de C#
+            if (entidad.FechaDiagnostico == DateTime.MinValue)
+            {
+                throw new Exception("Falta información: La fecha de diagnóstico no es válida.");
+            }
 
-            this.iComunicaciones = new Comunicaciones();
-
+            // Preparamos el paquete de datos para la API
             var datos = new Dictionary<string, object>();
             datos["Url"] = BaseUrl + "Guardar";
-            datos["Metodo"] = "POST";       // <- Le avisamos que es un POST
-            datos["Entidad"] = entidad;     // <- Pasamos el objeto real para que viaje a la API
+            datos["Metodo"] = "POST";
+            datos["Entidad"] = entidad;
 
             var comunicaciones = new Comunicaciones();
             var task = comunicaciones.Ejecutar(datos)!;
@@ -50,12 +58,19 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
             var respuesta = task.Result;
 
             if (!respuesta.ContainsKey("Valor"))
-                throw new Exception("No funciono");
+                throw new Exception("No funcionó la comunicación con el servidor.");
 
-            return JsonConvert.DeserializeObject<Alimentaciones>(respuesta["Valor"].ToString()!)!;
+            // 🛠️ CONTROL DE NULOS: Extraemos y validamos el JSON de forma segura para evitar advertencias
+            string? jsonRespuesta = respuesta["Valor"]?.ToString();
+
+            if (string.IsNullOrEmpty(jsonRespuesta))
+                throw new Exception("El servidor respondió con éxito pero devolvió un resultado vacío.");
+
+            // Retornamos el objeto mapeado limpiamente
+            return JsonConvert.DeserializeObject<Diagnosticos>(jsonRespuesta)!;
         }
 
-        public Alimentaciones Modificar(Alimentaciones entidad)
+        public Diagnosticos Modificar(Diagnosticos entidad)
         {
             if (entidad.Id == 0)
                 throw new Exception("El registro no existe para ser modificado.");
@@ -75,11 +90,11 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
             if (!respuesta.ContainsKey("Valor"))
                 throw new Exception("No se pudo modificar.");
 
-            return JsonConvert.DeserializeObject<Alimentaciones>(respuesta["Valor"].ToString())!;
+            return JsonConvert.DeserializeObject<Diagnosticos>(respuesta["Valor"].ToString())!;
         }
 
         public bool Borrar(int id)
-        //public Alimentaciones Borrar (Alimentaciones entidad)
+        //public Diagnosticos Borrar (Diagnosticos entidad)
         {
             
             this.iComunicaciones = new Comunicaciones();

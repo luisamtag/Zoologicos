@@ -6,11 +6,11 @@ using Zoologicos_libreria_Presentacion.interfaces;
 
 namespace Zoologicos_libreria_Presentacion.implementaciones
 {
-    public class AlimentacionesNegocio : IAlimentacionesNegocio
+    public class CuarentenasNegocio : ICuarentenasNegocio
     {
         private IComunicaciones? iComunicaciones;
-        private const string BaseUrl = "http://localhost:5144/Alimentaciones/";
-        public List<Alimentaciones> Listar()
+        private const string BaseUrl = "http://localhost:5144/Cuarentenas/";
+        public List<Cuarentenas> Listar()
         {
             this.iComunicaciones = new Comunicaciones();
 
@@ -25,15 +25,15 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
             if (!respuesta.ContainsKey("Valor"))
                 throw new Exception("No funciono");
 
-            return JsonConvert.DeserializeObject<List<Alimentaciones>>(respuesta["Valor"].ToString()!)!;
+            return JsonConvert.DeserializeObject<List<Cuarentenas>>(respuesta["Valor"].ToString()!)!;
         }
 
-        public Alimentaciones Guardar(Alimentaciones entidad)
+        public Cuarentenas Guardar(Cuarentenas entidad)
         {
             if (entidad.Id != 0)
                 throw new Exception("Ya se guardo");
 
-            if (string.IsNullOrEmpty(entidad.TipoDieta))
+            if (string.IsNullOrEmpty(entidad.Motivo))
                 throw new Exception("Falta informacion");
 
 
@@ -52,10 +52,10 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
             if (!respuesta.ContainsKey("Valor"))
                 throw new Exception("No funciono");
 
-            return JsonConvert.DeserializeObject<Alimentaciones>(respuesta["Valor"].ToString()!)!;
+            return JsonConvert.DeserializeObject<Cuarentenas>(respuesta["Valor"].ToString()!)!;
         }
 
-        public Alimentaciones Modificar(Alimentaciones entidad)
+        public Cuarentenas Modificar(Cuarentenas entidad)
         {
             if (entidad.Id == 0)
                 throw new Exception("El registro no existe para ser modificado.");
@@ -75,11 +75,17 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
             if (!respuesta.ContainsKey("Valor"))
                 throw new Exception("No se pudo modificar.");
 
-            return JsonConvert.DeserializeObject<Alimentaciones>(respuesta["Valor"].ToString())!;
+            string? jsonRespuesta = respuesta["Valor"]?.ToString();
+
+            // 2. Validamos con certeza matemática que NO sea nulo ni esté vacío
+            if (string.IsNullOrEmpty(jsonRespuesta))
+                throw new Exception("El servidor respondió con éxito pero no devolvió datos.");
+
+            return JsonConvert.DeserializeObject<Cuarentenas>(jsonRespuesta)!;
         }
 
         public bool Borrar(int id)
-        //public Alimentaciones Borrar (Alimentaciones entidad)
+        //public Cuarentenas Borrar (Cuarentenas entidad)
         {
             
             this.iComunicaciones = new Comunicaciones();

@@ -1,24 +1,22 @@
-using Zoologicos_libreria.entidades;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Zoologicos_libreria.entidades; // Revisa el nombre exacto de tus entidades
 using Zoologicos_libreria_Presentacion.implementaciones;
 using Zoologicos_libreria_Presentacion.interfaces;
 
-
-
 namespace Zoologicos_Presentacion.Pages.Ventanas
-
 {
-    public class AlimentacionesModel : PageModel
+    public class DiagnosticosModel : PageModel
     {
-        private IAlimentacionesNegocio iAlimentacionesNegocio;
-        [BindProperty] public bool Borrando { get; set; }
-        [BindProperty] public List<Alimentaciones>? Lista { get; set; }
-        [BindProperty] public Alimentaciones? Alimentacion { get; set; }
+        private IDiagnosticosNegocio iDiagnosticosNegocio;
 
-        public AlimentacionesModel()
+        [BindProperty] public bool Borrando { get; set; }
+        [BindProperty] public List<Diagnosticos>? Lista { get; set; }
+        [BindProperty] public Diagnosticos? Diagnostico { get; set; }
+
+        public DiagnosticosModel()
         {
-            iAlimentacionesNegocio = new AlimentacionesNegocio();
+            iDiagnosticosNegocio = new DiagnosticosNegocio();
         }
 
         public void OnGet()
@@ -35,10 +33,12 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
         {
             try
             {
-                if (iAlimentacionesNegocio == null)
+                if (iDiagnosticosNegocio == null)
                     return;
-                Lista = iAlimentacionesNegocio.Listar();
-                Alimentacion = null;
+
+                Lista = iDiagnosticosNegocio.Listar();
+                Diagnostico = null;
+                Borrando = false;
             }
             catch (Exception ex)
             {
@@ -48,7 +48,9 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
 
         public void OnPostBtNuevo()
         {
-            Alimentacion = new Alimentaciones();
+            Diagnostico = new Diagnosticos();
+            // Inicializamos el diagnóstico con la fecha del día actual
+            Diagnostico.FechaDiagnostico = DateTime.Today;
         }
 
         public void OnPostBtModificar(string data)
@@ -56,7 +58,7 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
             try
             {
                 OnPostBtRefrescar();
-                Alimentacion = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                Diagnostico = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
                 Lista = null;
                 Borrando = false;
             }
@@ -70,16 +72,21 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
         {
             try
             {
-                if (Alimentacion == null)
+                if (Diagnostico == null)
                     return;
-                if (Alimentacion!.Id == 0)
-                    Alimentacion = iAlimentacionesNegocio.Guardar(Alimentacion!);
+
+                if (Diagnostico.Id == 0)
+                {
+                    Diagnostico = iDiagnosticosNegocio.Guardar(Diagnostico);
+                }
                 else
                 {
-                    Alimentacion = iAlimentacionesNegocio.Modificar(Alimentacion!);
+                    Diagnostico = iDiagnosticosNegocio.Modificar(Diagnostico);
                 }
-                if (Alimentacion!.Id == 0)
+
+                if (Diagnostico == null || Diagnostico.Id == 0)
                     return;
+
                 OnPostBtRefrescar();
             }
             catch (Exception ex)
@@ -92,11 +99,14 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
         {
             try
             {
-                if (Alimentacion == null)
+                if (Diagnostico == null)
                     return;
-                    bool eliminado = iAlimentacionesNegocio.Borrar(Alimentacion.Id);
+
+                bool eliminado = iDiagnosticosNegocio.Borrar(Diagnostico.Id);
+
                 if (!eliminado)
-                    throw new Exception("No se pudo eliminar el registro en el servidor.");
+                    throw new Exception("No se pudo eliminar el registro médico en el servidor.");
+
                 OnPostBtRefrescar();
             }
             catch (Exception ex)
@@ -110,7 +120,7 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
             try
             {
                 OnPostBtRefrescar();
-                Alimentacion = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                Diagnostico = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
                 Borrando = true;
                 Lista = null;
             }

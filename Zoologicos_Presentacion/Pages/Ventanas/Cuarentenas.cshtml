@@ -1,0 +1,137 @@
+﻿@page
+@model Zoologicos_Presentacion.Pages.Ventanas.CuarentenasModel
+
+@{
+    ViewData["Title"] = "Cuarentenas";
+}
+
+<div class="text-center">
+    <form method="POST" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <h1 class="display-4">
+            Control de Cuarentenas
+        </h1>
+
+        <div class="bt_panel_buttons">
+            <input type="submit" value="Refrescar" asp-page-handler="BtRefrescar" />
+            <input type="submit" value="Nuevo" asp-page-handler="BtNuevo" />
+            <input type="submit" value="Guardar" asp-page-handler="BtGuardar" />
+        </div>
+
+        @if (Model.Cuarentena != null)
+        {
+            <div class="row justify-content-center text-left" style="text-align: left; margin-bottom: 20px;">
+                <div class="col-lg-6">
+                    
+                    <div class="form-group">
+                        <label>Animal ID</label>
+                        <input id="inAnimalId" type="number" class="cts_forms form-control" asp-for="@Model.Cuarentena!.AnimalId" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Veterinario ID</label>
+                        <input id="inVeterinarioId" type="number" class="cts_forms form-control" asp-for="@Model.Cuarentena!.VeterinarioId" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Inicio</label>
+                        <input id="inFechaInicio" type="date" class="cts_forms form-control" asp-for="@Model.Cuarentena!.FechaInicio" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Fin (Opcional)</label>
+                        <input id="inFechaFin" type="date" class="cts_forms form-control" asp-for="@Model.Cuarentena!.FechaFin" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Motivo (Ej: Enfermedad, Animal Nuevo, Adaptación)</label>
+                        <input id="inMotivo" class="cts_forms form-control" asp-for="@Model.Cuarentena!.Motivo" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <select id="inEstado" class="cts_forms form-control" asp-for="@Model.Cuarentena!.Estado" required>
+                            <option value="">-- Seleccione Estado --</option>
+                            <option value="Activa">Activa</option>
+                            <option value="Finalizada">Finalizada</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Observaciones (Opcional)</label>
+                        <textarea id="inObservaciones" class="cts_forms form-control" rows="3" asp-for="@Model.Cuarentena!.Observaciones"></textarea>
+                    </div>
+                    
+                </div>
+            </div>
+        }
+
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
+        }
+        
+        @if (@Model.Cuarentena != null && Model.Borrando)
+        {
+            <div class='popup'>
+                <div class='pp_ms_inner'>
+                    <div style='width:95%'>
+                        <h2 align="left">Mensaje</h2>
+                        <h4 align="left">¿Desea eliminar este registro de Cuarentena?</h4>
+                        <h6 align="left">
+                            <strong>ID Cuarentena:</strong> @Model.Cuarentena!.Id <br />
+                            <strong>Motivo:</strong> @Model.Cuarentena!.Motivo
+                        </h6>
+
+                        <input type="submit" value="Cerrar" asp-page-handler="BtCerrar" class="btn btn-secondary" />
+                        <input type="submit" value="Borrar" asp-page-handler="BtBorrar" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (Model != null && Model.Lista != null && Model.Lista.Count > 0)
+        {
+            <table class="tb_data table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Animal</th>
+                        <th class="cl_hidden">Veterinario</th>
+                        <th>Inicio</th>
+                        <th>Fin</th>
+                        <th>Motivo</th>
+                        <th>Estado</th>
+                        <th class="cl_hidden">Observaciones</th>
+                        <th class="cl_actions">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>@elemento.Id</td>
+                            <td>@elemento.AnimalId</td>
+                            <td class="cl_hidden">@elemento.VeterinarioId</td>
+                            <td>@elemento.FechaInicio.ToString("dd/MM/yyyy")</td>
+                            <td>@(elemento.FechaFin?.ToString("dd/MM/yyyy") ?? "En Curso 🟢")</td>
+                            <td>@elemento.Motivo</td>
+                            <td>
+                                <span class="badge @(elemento.Estado == "Activa" ? "bg-warning text-dark" : "bg-success text-white")">
+                                    @elemento.Estado
+                                </span>
+                            </td>
+                            <td class="cl_hidden">@(elemento.Observaciones ?? "-")</td>
+                            <td>
+                                <input type="submit" value="Modificar" asp-page-handler="BtModificar" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                                <input type="submit" value="Borrar" asp-page-handler="BtBorrarVal" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </form>
+</div>

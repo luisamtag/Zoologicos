@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿
+
+
+using Newtonsoft.Json;
 using Zoologicos_libreria.entidades;
 
 using Zoologicos_libreria_Presentacion.Implementaciones;
@@ -6,11 +9,11 @@ using Zoologicos_libreria_Presentacion.interfaces;
 
 namespace Zoologicos_libreria_Presentacion.implementaciones
 {
-    public class AlimentacionesNegocio : IAlimentacionesNegocio
+    public class AreasNegocio : IAreasNegocio
     {
         private IComunicaciones? iComunicaciones;
-        private const string BaseUrl = "http://localhost:5144/Alimentaciones/";
-        public List<Alimentaciones> Listar()
+        private const string BaseUrl = "http://localhost:5144/Areas/";
+        public List<Areas> Listar()
         {
             this.iComunicaciones = new Comunicaciones();
 
@@ -25,24 +28,24 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
             if (!respuesta.ContainsKey("Valor"))
                 throw new Exception("No funciono");
 
-            return JsonConvert.DeserializeObject<List<Alimentaciones>>(respuesta["Valor"].ToString()!)!;
+            return JsonConvert.DeserializeObject<List<Areas>>(respuesta["Valor"].ToString()!)!;
         }
 
-        public Alimentaciones Guardar(Alimentaciones entidad)
+        public Areas Guardar(Areas entidad)
         {
             if (entidad.Id != 0)
                 throw new Exception("Ya se guardo");
 
-            if (string.IsNullOrEmpty(entidad.TipoDieta))
-                throw new Exception("Falta informacion");
-
-
-            this.iComunicaciones = new Comunicaciones();
+            // 🛠️ ERROR CORREGIDO: Validamos si todos los IDs opcionales vienen nulos
+            if (entidad.HabitatId == null && entidad.JaulaId == null && entidad.ZonaPublicaId == null)
+            {
+                throw new Exception("Falta información: El área debe estar asociada al menos a un Hábitat, Jaula o Zona Pública.");
+            }
 
             var datos = new Dictionary<string, object>();
             datos["Url"] = BaseUrl + "Guardar";
-            datos["Metodo"] = "POST";       // <- Le avisamos que es un POST
-            datos["Entidad"] = entidad;     // <- Pasamos el objeto real para que viaje a la API
+            datos["Metodo"] = "POST";
+            datos["Entidad"] = entidad;
 
             var comunicaciones = new Comunicaciones();
             var task = comunicaciones.Ejecutar(datos)!;
@@ -52,10 +55,10 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
             if (!respuesta.ContainsKey("Valor"))
                 throw new Exception("No funciono");
 
-            return JsonConvert.DeserializeObject<Alimentaciones>(respuesta["Valor"].ToString()!)!;
+            return JsonConvert.DeserializeObject<Areas>(respuesta["Valor"].ToString()!)!;
         }
 
-        public Alimentaciones Modificar(Alimentaciones entidad)
+        public Areas Modificar(Areas entidad)
         {
             if (entidad.Id == 0)
                 throw new Exception("El registro no existe para ser modificado.");
@@ -75,11 +78,11 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
             if (!respuesta.ContainsKey("Valor"))
                 throw new Exception("No se pudo modificar.");
 
-            return JsonConvert.DeserializeObject<Alimentaciones>(respuesta["Valor"].ToString())!;
+            return JsonConvert.DeserializeObject<Areas>(respuesta["Valor"].ToString())!;
         }
 
         public bool Borrar(int id)
-        //public Alimentaciones Borrar (Alimentaciones entidad)
+        //public Areas Borrar (Areas entidad)
         {
             
             this.iComunicaciones = new Comunicaciones();

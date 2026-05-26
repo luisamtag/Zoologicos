@@ -10,7 +10,7 @@ namespace Zoologicos_Pruebas.conexiones
     public class CuarentenaUnitaria
     {
         private IConexion? iConexion;
-        private Cuarentena? entidad;
+        private Cuarentenas? entidad;
 
         [TestMethod]
         public void Ejecutar()
@@ -26,7 +26,7 @@ namespace Zoologicos_Pruebas.conexiones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
-            this.entidad = new Cuarentena()
+            this.entidad = new Cuarentenas()
             {
                 AnimalId = 1,           // Simba
                 VeterinarioId = 1,      // Carlos Vet
@@ -62,7 +62,7 @@ namespace Zoologicos_Pruebas.conexiones
             this.entidad!.FechaFin = DateTime.Now;
             this.entidad!.Observaciones = "Cuarentena finalizada correctamente";
 
-            var entry = this.iConexion!.Entry<Cuarentena>(this.entidad!);
+            var entry = this.iConexion!.Entry<Cuarentenas>(this.entidad!);
             entry.State = EntityState.Modified;
             this.iConexion.SaveChanges();
         }

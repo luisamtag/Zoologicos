@@ -1,24 +1,22 @@
-using Zoologicos_libreria.entidades;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Zoologicos_libreria.entidades; // Namespace donde esté tu clase Cuarentena
 using Zoologicos_libreria_Presentacion.implementaciones;
 using Zoologicos_libreria_Presentacion.interfaces;
 
-
-
 namespace Zoologicos_Presentacion.Pages.Ventanas
-
 {
-    public class AlimentacionesModel : PageModel
+    public class CuarentenasModel : PageModel
     {
-        private IAlimentacionesNegocio iAlimentacionesNegocio;
-        [BindProperty] public bool Borrando { get; set; }
-        [BindProperty] public List<Alimentaciones>? Lista { get; set; }
-        [BindProperty] public Alimentaciones? Alimentacion { get; set; }
+        private ICuarentenasNegocio iCuarentenasNegocio;
 
-        public AlimentacionesModel()
+        [BindProperty] public bool Borrando { get; set; }
+        [BindProperty] public List<Cuarentenas>? Lista { get; set; }
+        [BindProperty] public Cuarentenas? Cuarentena { get; set; }
+
+        public CuarentenasModel()
         {
-            iAlimentacionesNegocio = new AlimentacionesNegocio();
+            iCuarentenasNegocio = new CuarentenasNegocio();
         }
 
         public void OnGet()
@@ -35,10 +33,12 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
         {
             try
             {
-                if (iAlimentacionesNegocio == null)
+                if (iCuarentenasNegocio == null)
                     return;
-                Lista = iAlimentacionesNegocio.Listar();
-                Alimentacion = null;
+
+                Lista = iCuarentenasNegocio.Listar();
+                Cuarentena = null;
+                Borrando = false;
             }
             catch (Exception ex)
             {
@@ -48,7 +48,10 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
 
         public void OnPostBtNuevo()
         {
-            Alimentacion = new Alimentaciones();
+            Cuarentena = new Cuarentenas();
+            // Asignamos por defecto el día de hoy al abrir el formulario de nuevo registro
+            Cuarentena.FechaInicio = DateTime.Today;
+            Cuarentena.Estado = "Activa"; // Estado inicial lógico
         }
 
         public void OnPostBtModificar(string data)
@@ -56,7 +59,7 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
             try
             {
                 OnPostBtRefrescar();
-                Alimentacion = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                Cuarentena = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
                 Lista = null;
                 Borrando = false;
             }
@@ -70,16 +73,21 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
         {
             try
             {
-                if (Alimentacion == null)
+                if (Cuarentena == null)
                     return;
-                if (Alimentacion!.Id == 0)
-                    Alimentacion = iAlimentacionesNegocio.Guardar(Alimentacion!);
+
+                if (Cuarentena.Id == 0)
+                {
+                    Cuarentena = iCuarentenasNegocio.Guardar(Cuarentena);
+                }
                 else
                 {
-                    Alimentacion = iAlimentacionesNegocio.Modificar(Alimentacion!);
+                    Cuarentena = iCuarentenasNegocio.Modificar(Cuarentena);
                 }
-                if (Alimentacion!.Id == 0)
+
+                if (Cuarentena == null || Cuarentena.Id == 0)
                     return;
+
                 OnPostBtRefrescar();
             }
             catch (Exception ex)
@@ -92,11 +100,14 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
         {
             try
             {
-                if (Alimentacion == null)
+                if (Cuarentena == null)
                     return;
-                    bool eliminado = iAlimentacionesNegocio.Borrar(Alimentacion.Id);
+
+                bool eliminado = iCuarentenasNegocio.Borrar(Cuarentena.Id);
+
                 if (!eliminado)
-                    throw new Exception("No se pudo eliminar el registro en el servidor.");
+                    throw new Exception("No se pudo eliminar el registro de cuarentena en el servidor.");
+
                 OnPostBtRefrescar();
             }
             catch (Exception ex)
@@ -110,7 +121,7 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
             try
             {
                 OnPostBtRefrescar();
-                Alimentacion = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                Cuarentena = Lista!.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
                 Borrando = true;
                 Lista = null;
             }

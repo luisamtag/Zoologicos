@@ -5,18 +5,18 @@ using Zoologicos_libreria.Nucleo;
 
 namespace Zoologicos_libreria.implementaciones
 {
-    public class CuarentenaNegocio : ICuarentenaNegocio
+    public class CuarentenasNegocio : ICuarentenasNegocio
     {
         private IConexion? iConexion;
 
-        public List<Cuarentena> Listar()
+        public List<Cuarentenas> Listar()
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
             return this.iConexion.Cuarentenas!.ToList();
         }
 
-        public Cuarentena Guardar(Cuarentena entidad)
+        public Cuarentenas Guardar(Cuarentenas entidad)
         {
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
@@ -24,13 +24,13 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
-            // ✅Un animal no puede tener dos cuarentenas activas
-            var cuarentenaActiva = this.iConexion.Cuarentenas!.Any(c =>
+            // ✅Un animal no puede tener dos Cuarentenas activas
+            var CuarentenasActiva = this.iConexion.Cuarentenas!.Any(c =>
                 c.AnimalId == entidad.AnimalId &&
                 c.Estado == "Activa");
 
-            if (cuarentenaActiva)
-                throw new Exception("El animal ya tiene una cuarentena activa. Finalícela antes de crear una nueva");
+            if (CuarentenasActiva)
+                throw new Exception("El animal ya tiene una Cuarentenas activa. Finalícela antes de crear una nueva");
 
             entidad.Estado = "Activa";
             entidad.FechaFin = null;
@@ -41,7 +41,7 @@ namespace Zoologicos_libreria.implementaciones
             return entidad;
         }
 
-        public Cuarentena Modificar(Cuarentena entidad)
+        public Cuarentenas Modificar(Cuarentenas entidad)
         {
             if (entidad == null)
                 throw new Exception("FaltaInformacion");
@@ -59,13 +59,13 @@ namespace Zoologicos_libreria.implementaciones
 
             // ✅ REGLA DE NEGOCIO 6: Si se finaliza, debe registrar FechaFin
             if (entidad.Estado == "Finalizada" && entidad.FechaFin == null)
-                throw new Exception("Al finalizar una cuarentena debe registrar la fecha de fin");
+                throw new Exception("Al finalizar una Cuarentenas debe registrar la fecha de fin");
 
             // ✅ REGLA DE NEGOCIO 7: FechaFin no puede ser anterior a FechaInicio
             if (entidad.FechaFin != null && entidad.FechaFin < entidad.FechaInicio)
                 throw new Exception("La fecha de fin no puede ser anterior a la fecha de inicio");
 
-            var entry = this.iConexion!.Entry<Cuarentena>(entidad);
+            var entry = this.iConexion!.Entry<Cuarentenas>(entidad);
             entry.State = EntityState.Modified;
             this.iConexion!.SaveChanges();
             return entidad;
@@ -81,9 +81,9 @@ namespace Zoologicos_libreria.implementaciones
             if (entidad == null)
                 throw new Exception("NoExisteRegistro");
 
-            // ✅ REGLA DE NEGOCIO 8: No se puede borrar una cuarentena activa
+            // ✅ REGLA DE NEGOCIO 8: No se puede borrar una Cuarentenas activa
             if (entidad.Estado == "Activa")
-                throw new Exception("No se puede eliminar una cuarentena activa. Primero finalícela");
+                throw new Exception("No se puede eliminar una Cuarentenas activa. Primero finalícela");
 
             this.iConexion.Cuarentenas!.Remove(entidad);
             this.iConexion.SaveChanges();

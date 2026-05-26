@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Zoologicos_libreria.entidades
 {
-    public class Cuarentena
+    public class Cuarentenas
     {
         public int Id { get; set; }
 
