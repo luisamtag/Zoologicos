@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Zoologicos_libreria")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee5c0e2186a5ae891198c55a76e36bd7559ca91d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8525f38d139e569dec72df096360ce6d6b907bf0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Zoologicos_libreria")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Zoologicos_libreria")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

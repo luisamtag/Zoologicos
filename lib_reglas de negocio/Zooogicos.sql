@@ -135,7 +135,7 @@ CREATE TABLE [Empleados] (
 
 -- ================= VETERINARIOS =================
 CREATE TABLE [Veterinarios] (
-    [Id]               INT PRIMARY KEY,
+    [Id]               INT PRIMARY KEY IDENTITY (1, 1),
     [Especialidad]     NVARCHAR(100) NOT NULL,
     [AñosExperiencia]  INT           NOT NULL,
 
@@ -144,28 +144,27 @@ CREATE TABLE [Veterinarios] (
 
 -- ================= GERENTES =================
 CREATE TABLE [Gerentes] (
-    [Id] INT PRIMARY KEY,
+    [Id] INT PRIMARY KEY IDENTITY (1, 1),
     FOREIGN KEY (Id) REFERENCES [Empleados]([Id])
 );
 
 -- ================= CUIDADORES =================
 CREATE TABLE [CuidadorAnimales] (
-    [Id] INT PRIMARY KEY,
+    [Id] INT PRIMARY KEY IDENTITY(1, 1),
     [EspecieId] INT NULL,
     [Turno] NVARCHAR(50) NOT NULL,
     [A�osExperiencia] INT NOT NULL,
-    [Id]              INT PRIMARY KEY,
-    [EspecieId]       INT          NULL,
-    [Turno]           NVARCHAR(50) NOT NULL,
+    [IdEmpleado]  INT NOT NULL,
+    [IdEspecie] INT NOT NULL,
     [AñosExperiencia] INT          NOT NULL,
 
-    FOREIGN KEY (Id)       REFERENCES [Empleados]([Id]),
+    FOREIGN KEY (IdEmpleado) REFERENCES [Empleados]([Id]),
     FOREIGN KEY (EspecieId) REFERENCES [Especies]([Id])
 );
 
 -- ================= PERSONAL ASEO =================
 CREATE TABLE [PersonalAseo] (
-    [Id]                INT PRIMARY KEY,
+    [Id]                INT PRIMARY KEY IDENTITY (1, 1),
     [ZonaAsignada]      NVARCHAR(100) NOT NULL,
     [Turno]             NVARCHAR(50)  NOT NULL,
     [ProductosAsignados] NVARCHAR(200) NOT NULL,
@@ -175,11 +174,12 @@ CREATE TABLE [PersonalAseo] (
 
 -- ================= ENTRENADORES =================
 CREATE TABLE [Entrenadores] (
-    [Id]              INT PRIMARY KEY,
+    [Id]              INT PRIMARY KEY IDENTITY (1, 1),
+	[IdEmpleado]  INT NOT NULL,
     [Especialidad]    NVARCHAR(100) NOT NULL,
     [TipoEntrenamiento] NVARCHAR(100) NOT NULL,
 
-    FOREIGN KEY (Id) REFERENCES [Empleados]([Id])
+    FOREIGN KEY (IdEmpleado) REFERENCES [Empleados]([Id])
 );
 
 -- ================= DIAGNOSTICOS =================
@@ -375,16 +375,6 @@ CREATE TABLE [Auditorias] (
     [Datos] NVARCHAR(MAX) NOT NULL,
     [Fecha] DATETIME DEFAULT GETDATE(),
     [Usuario] NVARCHAR(50) -- Opcional: qui�n hizo el cambio
-);
-
--- ================= AUDITORIAS =================
-CREATE TABLE [Auditorias] (
-    [IdAuditorias] INT IDENTITY(1,1) PRIMARY KEY,
-    [Tabla]        NVARCHAR(100) NOT NULL,
-    [Accion]       NVARCHAR(50)  NOT NULL,
-    [Datos]        NVARCHAR(MAX) NOT NULL,
-    [Fecha]        DATETIME      DEFAULT GETDATE(),
-    [Usuario]      NVARCHAR(50)  NULL
 );
 
 -- =================================================
