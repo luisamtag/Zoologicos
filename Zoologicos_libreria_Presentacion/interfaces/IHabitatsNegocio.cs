@@ -1,0 +1,16 @@
+﻿using Zoologicos_libreria.entidades;
+
+namespace Zoologicos_libreria_Presentacion.interfaces
+{
+    public interface IHabitatsNegocio
+    {
+        List<Habitats> Listar();
+
+        Habitats Guardar(Habitats entidad);
+
+        Habitats Modificar(Habitats entidad);
+
+        bool Borrar(int id);
+        //Habitats Borrar(Habitats entidad);
+    }
+}

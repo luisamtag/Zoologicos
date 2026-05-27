@@ -1,0 +1,125 @@
+﻿@page
+@model Zoologicos_Presentacion.Pages.Ventanas.MantenimientosModel
+
+@{
+    ViewData["Title"] = "Órdenes de Mantenimiento";
+}
+
+<div class="text-center">
+    <form method="POST" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <h1 class="display-4">
+            Control de Órdenes de Mantenimiento
+        </h1>
+
+        <div class="bt_panel_buttons">
+            <input type="submit" value="Refrescar" asp-page-handler="BtRefrescar" />
+            <input type="submit" value="Nuevo" asp-page-handler="BtNuevo" />
+            <input type="submit" value="Guardar" asp-page-handler="BtGuardar" />
+        </div>
+
+        @if (Model.Mantenimiento != null)
+        {
+            <div class="row justify-content-center text-left" style="text-align: left; margin-bottom: 20px;">
+                <div class="col-lg-6">
+                    
+                    <div class="form-group">
+                        <label>Área / Hábitat ID</label>
+                        <input id="inAreaId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Mantenimiento!.AreaId" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Empleado Responsable ID (Técnico)</label>
+                        <input id="inEmpleadoId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Mantenimiento!.EmpleadoResponsableId" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Reporte (Solicitud)</label>
+                        <input id="inFechaReporte" type="date" class="cts_forms form-control" asp-for="@Model.Mantenimiento!.FechaReporte" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha Programada (Ejecución)</label>
+                        <input id="inFechaProgramada" type="date" class="cts_forms form-control" asp-for="@Model.Mantenimiento!.FechaProgramada" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado del Mantenimiento</label>
+                        <select id="inEstado" class="cts_forms form-control" asp-for="@Model.Mantenimiento!.Estado" required>
+                            <option value="">-- Seleccione Estado --</option>
+                            <option value="Pendiente">Pendiente / Solicitado</option>
+                            <option value="En Progreso">En Progreso / Ejecución</option>
+                            <option value="Completado">Completado / Terminado</option>
+                            <option value="Cancelado">Cancelado</option>
+                        </select>
+                    </div>
+                    
+                </div>
+            </div>
+        }
+
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
+        }
+        
+        @if (@Model.Mantenimiento != null && Model.Borrando)
+        {
+            <div class='popup'>
+                <div class='pp_ms_inner'>
+                    <div style='width:95%'>
+                        <h2 align="left">Mensaje</h2>
+                        <h4 align="left">¿Desea eliminar de forma permanente esta orden de mantenimiento?</h4>
+                        <h6 align="left">
+                            <strong>ID Orden:</strong> @Model.Mantenimiento!.Id <br />
+                            <strong>Área afectada ID:</strong> @Model.Mantenimiento!.AreaId
+                        </h6>
+
+                        <input type="submit" value="Cerrar" asp-page-handler="BtCerrar" class="btn btn-secondary" />
+                        <input type="submit" value="Borrar" asp-page-handler="BtBorrar" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (Model != null && Model.Lista != null && Model.Lista.Count > 0)
+        {
+            <table class="tb_data table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID Orden</th>
+                        <th>Área ID</th>
+                        <th>Técnico ID</th>
+                        <th>Fecha Reporte</th>
+                        <th>Fecha Programada</th>
+                        <th>Estado</th>
+                        <th class="cl_actions">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>🛠️ Orden #@elemento.Id</td>
+                            <td>🌿 Área #@elemento.AreaId</td>
+                            <td>👷 Empleado #@elemento.EmpleadoResponsableId</td>
+                            <td>@elemento.FechaReporte.ToString("dd/MM/yyyy")</td>
+                            <td>@elemento.FechaProgramada.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <span class="badge @(elemento.Estado == "Completado" ? "bg-success" : elemento.Estado == "En Progreso" ? "bg-info text-dark" : "bg-warning text-dark")">
+                                    @elemento.Estado
+                                </span>
+                            </td>
+                            <td>
+                                <input type="submit" value="Modificar" asp-page-handler="BtModificar" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                                <input type="submit" value="Borrar" asp-page-handler="BtBorrarVal" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </form>
+</div>

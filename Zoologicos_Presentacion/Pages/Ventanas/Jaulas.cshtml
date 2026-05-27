@@ -1,0 +1,94 @@
+﻿@page
+@model Zoologicos_Presentacion.Pages.Ventanas.JaulasModel
+
+@{
+    ViewData["Title"] = "Control de Jaulas";
+}
+
+<div class="text-center">
+    <form method="POST" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <h1 class="display-4">
+            Inventario de Jaulas / Recintos Especiales
+        </h1>
+
+        <div class="bt_panel_buttons">
+            <input type="submit" value="Refrescar" asp-page-handler="BtRefrescar" />
+            <input type="submit" value="Nuevo" asp-page-handler="BtNuevo" />
+            <input type="submit" value="Guardar" asp-page-handler="BtGuardar" />
+        </div>
+
+        @if (Model.Jaula != null)
+        {
+            <div class="row justify-content-center text-left" style="text-align: left; margin-bottom: 20px;">
+                <div class="col-lg-6">
+                    
+                    <div class="form-group">
+                        <label>Hábitat ID (Ubicación / Bioma Destino)</label>
+                        <input id="inHabitatId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Jaula!.HabitatId" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Adquisición / Compra</label>
+                        <input id="inFechaCompra" type="date" class="cts_forms form-control" asp-for="@Model.Jaula!.FechaCompra" required />
+                    </div>
+                    
+                </div>
+            </div>
+        }
+
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
+        }
+        
+        @if (@Model.Jaula != null && Model.Borrando)
+        {
+            <div class='popup'>
+                <div class='pp_ms_inner'>
+                    <div style='width:95%'>
+                        <h2 align="left">Mensaje</h2>
+                        <h4 align="left">¿Desea dar de baja permanentemente esta Jaula?</h4>
+                        <h6 align="left">
+                            <strong>ID Jaula:</strong> @Model.Jaula!.Id <br />
+                            <strong>Ubicada en Hábitat ID:</strong> @Model.Jaula!.HabitatId
+                        </h6>
+
+                        <input type="submit" value="Cerrar" asp-page-handler="BtCerrar" class="btn btn-secondary" />
+                        <input type="submit" value="Borrar" asp-page-handler="BtBorrar" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (Model != null && Model.Lista != null && Model.Lista.Count > 0)
+        {
+            <table class="tb_data table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID Jaula</th>
+                        <th>Hábitat ID Asignado</th>
+                        <th>Fecha de Adquisición / Compra</th>
+                        <th class="cl_actions">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>⚙️ Jaula #@elemento.Id</td>
+                            <td>🌿 Hábitat #@elemento.HabitatId</td>
+                            <td>@elemento.FechaCompra.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <input type="submit" value="Modificar" asp-page-handler="BtModificar" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                                <input type="submit" value="Borrar" asp-page-handler="BtBorrarVal" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </form>
+</div>

@@ -11,7 +11,7 @@ namespace Zoologicos_Pruebas.conexiones
     public class ReproduccionUnitaria
     {
         private IConexion? iConexion;
-        private Reproduccion? entidad;
+        private Reproducciones? entidad;
 
         [TestMethod]
         public void Ejecutar()
@@ -28,7 +28,7 @@ namespace Zoologicos_Pruebas.conexiones
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
             // Requiere: AnimalMadreId con Genero='Hembra' y AnimalPadreId con Genero='Macho'
-            this.entidad = new Reproduccion()
+            this.entidad = new Reproducciones()
             {
                 AnimalMadreId = 3,  // Lola - Hembra
                 AnimalPadreId = 1,  // Simba - Macho
@@ -63,7 +63,7 @@ namespace Zoologicos_Pruebas.conexiones
 
             this.entidad!.Estado = "Exitosa";
             this.entidad!.CantidadCrias = 3;
-            var entry = this.iConexion!.Entry<Reproduccion>(this.entidad!);
+            var entry = this.iConexion!.Entry<Reproducciones>(this.entidad!);
             entry.State = EntityState.Modified;
             this.iConexion.SaveChanges();
         }

@@ -11,7 +11,7 @@ namespace Zoologicos_libreria.entidades
         public int CapacidadMaxima { get; set; }
         public string Estado { get; set; } = null!;
 
-        
+        //FK
         public int ZoologicoId { get; set; }
 
         

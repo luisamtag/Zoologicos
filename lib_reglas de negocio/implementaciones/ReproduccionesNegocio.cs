@@ -5,11 +5,11 @@ using Zoologicos_libreria.Nucleo;
 
 namespace Zoologicos_libreria.implementaciones
 {
-    public class ReproduccionNegocio : IReproduccionNegocio
+    public class ReproduccionesNegocio : IReproduccionesNegocio
     {
         private IConexion? iConexion;
 
-        public List<Reproduccion> Listar()
+        public List<Reproducciones> Listar()
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
@@ -17,7 +17,7 @@ namespace Zoologicos_libreria.implementaciones
         }
 
 
-        public Reproduccion Guardar(Reproduccion entidad)
+        public Reproducciones Guardar(Reproducciones entidad)
         {
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
@@ -38,7 +38,7 @@ namespace Zoologicos_libreria.implementaciones
             return entidad;
         }
 
-        public Reproduccion Modificar(Reproduccion entidad)
+        public Reproducciones Modificar(Reproducciones entidad)
         {
             if (entidad == null)
                 throw new Exception("FaltaInformacion");
@@ -49,7 +49,7 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
-            var entry = this.iConexion!.Entry<Reproduccion>(entidad);
+            var entry = this.iConexion!.Entry<Reproducciones>(entidad);
             entry.State = EntityState.Modified;
             this.iConexion!.SaveChanges();
             return entidad;

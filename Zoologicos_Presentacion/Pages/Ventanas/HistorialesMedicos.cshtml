@@ -1,0 +1,132 @@
+﻿@page
+@model Zoologicos_Presentacion.Pages.Ventanas.HistorialesMedicosModel
+
+@{
+    ViewData["Title"] = "Historial Médico Clínico";
+}
+
+<div class="text-center">
+    <form method="POST" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <h1 class="display-4">
+            Historiales Médicos de Animales
+        </h1>
+
+        <div class="bt_panel_buttons">
+            <input type="submit" value="Refrescar" asp-page-handler="BtRefrescar" />
+            <input type="submit" value="Nuevo" asp-page-handler="BtNuevo" />
+            <input type="submit" value="Guardar" asp-page-handler="BtGuardar" />
+        </div>
+
+        @if (Model.HistorialMedico != null)
+        {
+            <div class="row justify-content-center text-left" style="text-align: left; margin-bottom: 20px;">
+                <div class="col-lg-6">
+                    
+                    <div class="form-group">
+                        <label>Animal ID (Paciente)</label>
+                        <input id="inAnimalId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.HistorialMedico!.AnimalId" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Control / Revisión</label>
+                        <input id="inFechaControl" type="date" class="cts_forms form-control" asp-for="@Model.HistorialMedico!.FechaControl" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tratamiento Aplicado</label>
+                        <textarea id="inTratamiento" class="cts_forms form-control" rows="3" asp-for="@Model.HistorialMedico!.Tratamiento" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Medicamento Suministrado</label>
+                        <input id="inMedicamento" class="cts_forms form-control" asp-for="@Model.HistorialMedico!.Medicamento" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Dosis / Frecuencia</label>
+                        <input id="inDosis" class="cts_forms form-control" asp-for="@Model.HistorialMedico!.Dosis" placeholder="Ej: 5ml cada 12 horas" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado Actual de Salud</label>
+                        <select id="inEstadoActual" class="cts_forms form-control" asp-for="@Model.HistorialMedico!.EstadoActual" required>
+                            <option value="">-- Seleccione Estado --</option>
+                            <option value="Estable">Estable / Recuperado</option>
+                            <option value="En Observación">En Observación</option>
+                            <option value="Crítico">Crítico</option>
+                            <option value="En Cuarentena">En Cuarentena / Aislado</option>
+                        </select>
+                    </div>
+                    
+                </div>
+            </div>
+        }
+
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
+        }
+        
+        @if (@Model.HistorialMedico != null && Model.Borrando)
+        {
+            <div class='popup'>
+                <div class='pp_ms_inner'>
+                    <div style='width:95%'>
+                        <h2 align="left">Mensaje</h2>
+                        <h4 align="left">¿Desea eliminar este registro del historial clínico?</h4>
+                        <h6 align="left">
+                            <strong>ID Control:</strong> @Model.HistorialMedico!.Id <br />
+                            <strong>Medicamento:</strong> @Model.HistorialMedico!.Medicamento
+                        </h6>
+
+                        <input type="submit" value="Cerrar" asp-page-handler="BtCerrar" class="btn btn-secondary" />
+                        <input type="submit" value="Borrar" asp-page-handler="BtBorrar" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (Model != null && Model.Lista != null && Model.Lista.Count > 0)
+        {
+            <table class="tb_data table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID Reg.</th>
+                        <th>Animal ID</th>
+                        <th>Fecha Control</th>
+                        <th>Tratamiento</th>
+                        <th>Medicamento / Dosis</th>
+                        <th>Estado Salud</th>
+                        <th class="cl_actions">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>@elemento.Id</td>
+                            <td>🐾 Paciente #@elemento.AnimalId</td>
+                            <td>@elemento.FechaControl.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                @(elemento.Tratamiento.Length > 40 ? elemento.Tratamiento.Substring(0, 40) + "..." : elemento.Tratamiento)
+                            </td>
+                            <td><strong>@elemento.Medicamento</strong> <br /><small class="text-muted">@elemento.Dosis</small></td>
+                            <td>
+                                <span class="badge @(elemento.EstadoActual == "Estable" ? "bg-success" : elemento.EstadoActual == "Crítico" ? "bg-danger" : "bg-warning text-dark")">
+                                    @elemento.EstadoActual
+                                </span>
+                            </td>
+                            <td>
+                                <input type="submit" value="Modificar" asp-page-handler="BtModificar" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                                <input type="submit" value="Borrar" asp-page-handler="BtBorrarVal" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </form>
+</div>

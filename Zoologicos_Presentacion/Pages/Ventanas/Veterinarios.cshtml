@@ -1,0 +1,112 @@
+﻿@page
+@model Zoologicos_Presentacion.Pages.Ventanas.VeterinariosModel
+
+@{
+    ViewData["Title"] = "Cuerpo Médico Veterinario";
+}
+
+<div class="text-center">
+    <form method="POST" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <h1 class="display-4">
+            Gestión de Médicos Veterinarios
+        </h1>
+
+        <!-- Panel Principal de Botones -->
+        <div class="bt_panel_buttons">
+            <input type="submit" value="Refrescar" asp-page-handler="BtRefrescar" />
+            <input type="submit" value="Nuevo" asp-page-handler="BtNuevo" />
+            <input type="submit" value="Guardar" asp-page-handler="BtGuardar" />
+        </div>
+
+        <!-- Formulario de Edición / Creación -->
+        @if (Model.Veterinario != null)
+        {
+            <div class="row justify-content-center text-left" style="text-align: left; margin-bottom: 20px;">
+                <div class="col-lg-6">
+                    
+                    <!-- Nota: Los campos heredados de Empleados (Nombre, Cedula, etc.) se gestionan en su respectivo flujo base -->
+
+                    <div class="form-group">
+                        <label>Especialidad Médica</label>
+                        <select id="inEspecialidad" class="cts_forms form-control" asp-for="@Model.Veterinario!.Especialidad" required>
+                            <option value="">-- Seleccione Especialidad --</option>
+                            <option value="Mamíferos Grandes">Mamíferos Grandes</option>
+                            <option value="Aves / Ornitología">Aves / Ornitología</option>
+                            <option value="Reptiles y Anfibios / Herpetología">Reptiles y Anfibios / Herpetología</option>
+                            <option value="Animales Marinos">Animales Marinos</option>
+                            <option value="Cirugía General Veterinaria">Cirugía General Veterinaria</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Años de Experiencia Clínica</label>
+                        <input id="inAniosExperiencia" type="number" min="0" max="60" class="cts_forms form-control" asp-for="@Model.Veterinario!.AñosExperiencia" required />
+                    </div>
+                    
+                </div>
+            </div>
+        }
+
+        <!-- Zona de Alertas y Errores -->
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
+        }
+        
+        <!-- Popup de Confirmación de Borrado -->
+        @if (@Model.Veterinario != null && Model.Borrando)
+        {
+            <div class='popup'>
+                <div class='pp_ms_inner'>
+                    <div style='width:95%'>
+                        <h2 align="left">Mensaje</h2>
+                        <h4 align="left">¿Desea retirar al veterinario del cuerpo médico?</h4>
+                        <h6 align="left">
+                            <strong>Veterinario ID:</strong> @Model.Veterinario!.Id <br />
+                            <strong>Especialidad:</strong> @Model.Veterinario!.Especialidad
+                        </h6>
+
+                        <input type="submit" value="Cerrar" asp-page-handler="BtCerrar" class="btn btn-secondary" />
+                        <input type="submit" value="Borrar" asp-page-handler="BtBorrar" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Tabla de Datos Históricos -->
+        @if (Model != null && Model.Lista != null && Model.Lista.Count > 0)
+        {
+            <table class="tb_data table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Especialidad Médica</th>
+                        <th>Años de Experiencia</th>
+                        <th class="cl_actions">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>🩺 Veterinario #@elemento.Id</td>
+                            <td><strong>@elemento.Especialidad</strong></td>
+                            <td>
+                                <span class="badge @(elemento.AñosExperiencia >= 10 ? "bg-success" : "bg-info text-dark")">
+                                    @elemento.AñosExperiencia años
+                                </span>
+                            </td>
+                            <td>
+                                <input type="submit" value="Modificar" asp-page-handler="BtModificar" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                                <input type="submit" value="Borrar" asp-page-handler="BtBorrarVal" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </form>
+</div>

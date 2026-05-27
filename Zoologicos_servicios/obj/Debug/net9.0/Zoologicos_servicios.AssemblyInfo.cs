@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Zoologicos_servicios")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2401600c3c141c44cd2b9411d4b57873e5e8562f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6103532ce5bd62ef3e64075475e29cd42f41f417")]
 [assembly: System.Reflection.AssemblyProductAttribute("Zoologicos_servicios")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Zoologicos_servicios")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

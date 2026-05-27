@@ -35,7 +35,7 @@ namespace Zoologicos_libreria.implementaciones
         public DbSet<HistorialesMedicos>? HistorialesMedicos { get; set; }
         public DbSet<Vacunaciones>?       Vacunaciones       { get; set; }
         public DbSet<Animales>?           Animales           { get; set; }
-        public DbSet<Reproduccion>?       Reproducciones     { get; set; }
+        public DbSet<Reproducciones>?       Reproducciones     { get; set; }
         public DbSet<Cuarentenas>?         Cuarentenas        { get; set; }
         public DbSet<Entradas>?           Entradas           { get; set; }
         public DbSet<Areas>?              Areas              { get; set; }

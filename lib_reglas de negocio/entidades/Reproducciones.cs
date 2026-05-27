@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Zoologicos_libreria.entidades
 {
-    public class Reproduccion
+    public class Reproducciones
     {
         public int Id { get; set; }
         public int AnimalMadreId { get; set; }      // FK → Animales

@@ -1,0 +1,116 @@
+﻿@page
+@model Zoologicos_Presentacion.Pages.Ventanas.EntradasModel
+
+@{
+    ViewData["Title"] = "Taquilla - Entradas";
+}
+
+<div class="text-center">
+    <form method="POST" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <h1 class="display-4">
+            Control de Entradas / Taquilla
+        </h1>
+
+        <div class="bt_panel_buttons">
+            <input type="submit" value="Refrescar" asp-page-handler="BtRefrescar" />
+            <input type="submit" value="Nuevo" asp-page-handler="BtNuevo" />
+            <input type="submit" value="Guardar" asp-page-handler="BtGuardar" />
+        </div>
+
+        @if (Model.Entrada != null)
+        {
+            <div class="row justify-content-center text-left" style="text-align: left; margin-bottom: 20px;">
+                <div class="col-lg-6">
+                    
+                    <div class="form-group">
+                        <label>Visitante ID</label>
+                        <input id="inVisitanteId" type="number" class="cts_forms form-control" asp-for="@Model.Entrada!.VisitanteId" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de la Visita</label>
+                        <input id="inFechaVisita" type="date" class="cts_forms form-control" asp-for="@Model.Entrada!.FechaVisita" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipo de Entrada</label>
+                        <select id="inTipoEntrada" class="cts_forms form-control" asp-for="@Model.Entrada!.TipoEntrada" required>
+                            <option value="">-- Seleccione Tipo --</option>
+                            <option value="General">General</option>
+                            <option value="Niño">Niño / Estudiante</option>
+                            <option value="Adulto Mayor">Adulto Mayor</option>
+                            <option value="VIP">Pase VIP</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Valor Pagado</label>
+                        <input id="inValorPagado" type="number" step="0.01" min="0" class="cts_forms form-control" asp-for="@Model.Entrada!.ValorPagado" required />
+                    </div>
+                    
+                </div>
+            </div>
+        }
+
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
+        }
+        
+        @if (@Model.Entrada != null && Model.Borrando)
+        {
+            <div class='popup'>
+                <div class='pp_ms_inner'>
+                    <div style='width:95%'>
+                        <h2 align="left">Mensaje</h2>
+                        <h4 align="left">¿Desea anular o borrar esta entrada?</h4>
+                        <h6 align="left">
+                            <strong>ID Entrada:</strong> @Model.Entrada!.Id <br />
+                            <strong>Tipo:</strong> @Model.Entrada!.TipoEntrada
+                        </h6>
+
+                        <input type="submit" value="Cerrar" asp-page-handler="BtCerrar" class="btn btn-secondary" />
+                        <input type="submit" value="Borrar" asp-page-handler="BtBorrar" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (Model != null && Model.Lista != null && Model.Lista.Count > 0)
+        {
+            <table class="tb_data table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Ticket ID</th>
+                        <th>Visitante ID</th>
+                        <th>Fecha de Visita</th>
+                        <th>Tipo de Entrada</th>
+                        <th>Total Pagado</th>
+                        <th class="cl_actions">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>@elemento.Id</td>
+                            <td>@elemento.VisitanteId</td>
+                            <td>@elemento.FechaVisita.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <span class="badge bg-info text-dark">@elemento.TipoEntrada</span>
+                            </td>
+                            <td><strong>@elemento.ValorPagado.ToString("C")</strong></td>
+                            <td>
+                                <input type="submit" value="Modificar" asp-page-handler="BtModificar" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                                <input type="submit" value="Borrar" asp-page-handler="BtBorrarVal" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </form>
+</div>

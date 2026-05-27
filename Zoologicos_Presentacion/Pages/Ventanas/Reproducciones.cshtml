@@ -1,0 +1,159 @@
+﻿@page
+@model Zoologicos_Presentacion.Pages.Ventanas.ReproduccionesModel
+
+@{
+    ViewData["Title"] = "Programa de Reproducción";
+}
+
+<div class="text-center">
+    <form method="POST" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <h1 class="display-4">
+            Control del Programa de Reproducción
+        </h1>
+
+        <div class="bt_panel_buttons">
+            <input type="submit" value="Refrescar" asp-page-handler="BtRefrescar" />
+            <input type="submit" value="Nuevo" asp-page-handler="BtNuevo" />
+            <input type="submit" value="Guardar" asp-page-handler="BtGuardar" />
+        </div>
+
+        @if (Model.Reproduccion != null)
+        {
+            <div class="row justify-content-center text-left" style="text-align: left; margin-bottom: 20px;">
+                <div class="col-lg-6">
+                    
+                    <div class="form-group">
+                        <label>Animal Madre ID</label>
+                        <input id="inMadreId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Reproduccion!.AnimalMadreId" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Animal Padre ID</label>
+                        <input id="inPadreId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Reproduccion!.AnimalPadreId" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Apareamiento</label>
+                        <input id="inFechaApareamiento" type="date" class="cts_forms form-control" asp-for="@Model.Reproduccion!.FechaAppariamiento" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Método de Reproducción</label>
+                        <select id="inMetodo" class="cts_forms form-control" asp-for="@Model.Reproduccion!.Metodo" required>
+                            <option value="">-- Seleccione Método --</option>
+                            <option value="Natural">Natural</option>
+                            <option value="Asistida">Asistida</option>
+                            <option value="In vitro">In vitro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado del Proceso</label>
+                        <select id="inEstado" class="cts_forms form-control" asp-for="@Model.Reproduccion!.Estado" required>
+                            <option value="">-- Seleccione Estado --</option>
+                            <option value="En proceso">En proceso / Gestación</option>
+                            <option value="Exitosa">Exitosa / Nacimiento</option>
+                            <option value="Fallida">Fallida / No exitosa</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Nacimiento / Parto (Opcional)</label>
+                        <input id="inFechaNacimiento" type="date" class="cts_forms form-control" asp-for="@Model.Reproduccion!.FechaNacimiento" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cantidad de Crías</label>
+                        <input id="inCantidadCrias" type="number" min="0" class="cts_forms form-control" asp-for="@Model.Reproduccion!.CantidadCrias" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Observaciones Clínicas / Seguimiento</label>
+                        <textarea id="inObservaciones" class="cts_forms form-control" rows="3" asp-for="@Model.Reproduccion!.Observaciones" placeholder="Detalles de la gestación, comportamiento, etc."></textarea>
+                    </div>
+                    
+                </div>
+            </div>
+        }
+
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
+        }
+        
+        @if (@Model.Reproduccion != null && Model.Borrando)
+        {
+            <div class='popup'>
+                <div class='pp_ms_inner'>
+                    <div style='width:95%'>
+                        <h2 align="left">Mensaje</h2>
+                        <h4 align="left">¿Desea eliminar permanentemente este registro de reproducción?</h4>
+                        <h6 align="left">
+                            <strong>ID Proceso:</strong> @Model.Reproduccion!.Id <br />
+                            <strong>Madre ID:</strong> @Model.Reproduccion!.AnimalMadreId | <strong>Padre ID:</strong> @Model.Reproduccion!.AnimalPadreId
+                        </h6>
+
+                        <input type="submit" value="Cerrar" asp-page-handler="BtCerrar" class="btn btn-secondary" />
+                        <input type="submit" value="Borrar" asp-page-handler="BtBorrar" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (Model != null && Model.Lista != null && Model.Lista.Count > 0)
+        {
+            <table class="tb_data table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Progenitores (M / P)</th>
+                        <th>Fecha Apareamiento</th>
+                        <th>Método</th>
+                        <th>Estado</th>
+                        <th>Fecha Parto</th>
+                        <th>Crías</th>
+                        <th class="cl_hidden">Observaciones</th>
+                        <th class="cl_actions">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>🧬 #@elemento.Id</td>
+                            <td>🐾 @elemento.AnimalMadreId ♀️ / @elemento.AnimalPadreId ♂️</td>
+                            <td>@elemento.FechaAppariamiento.ToString("dd/MM/yyyy")</td>
+                            <td>@elemento.Metodo</td>
+                            <td>
+                                <span class="badge @(elemento.Estado == "Exitosa" ? "bg-success" : elemento.Estado == "Fallida" ? "bg-danger" : "bg-warning text-dark")">
+                                    @elemento.Estado
+                                </span>
+                            </td>
+                            <td>
+                                @(elemento.FechaNacimiento.HasValue? elemento.FechaNacimiento.Value.ToString("dd/MM/yyyy") : "Pendiente ⏳")
+                            </td>
+                            <td><strong>@elemento.CantidadCrias</strong></td>
+                            <td class="cl_hidden">
+                                @if (!string.IsNullOrEmpty(elemento.Observaciones))
+                                {
+                                    @(elemento.Observaciones.Length > 35 ? elemento.Observaciones.Substring(0, 35) + "..." : elemento.Observaciones)
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+                            </td>
+                            <td>
+                                <input type="submit" value="Modificar" asp-page-handler="BtModificar" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                                <input type="submit" value="Borrar" asp-page-handler="BtBorrarVal" class="btn btn-secondary btn-sm" asp-route-data="@elemento.Id" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </form>
+</div>
