@@ -26,7 +26,7 @@
                     
                     <div class="form-group">
                         <label>Visitante ID</label>
-                        <input id="inVisitanteId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Entrada!.VisitanteId" placeholder="Ej: 45" required />
+                        <input id="inVisitanteId" type="number" class="cts_forms form-control" asp-for="@Model.Entrada!.VisitanteId" required />
                     </div>
 
                     <div class="form-group">
@@ -36,12 +36,18 @@
 
                     <div class="form-group">
                         <label>Tipo de Entrada</label>
-                        <input id="inTipoEntrada" type="text" class="cts_forms form-control" asp-for="@Model.Entrada!.TipoEntrada" placeholder="Escriba el tipo (Ej: General, Niño, Adulto Mayor, VIP)" required />
+                        <select id="inTipoEntrada" class="cts_forms form-control" asp-for="@Model.Entrada!.TipoEntrada" required>
+                            <option value="">-- Seleccione Tipo --</option>
+                            <option value="General">General</option>
+                            <option value="Niño">Niño / Estudiante</option>
+                            <option value="Adulto Mayor">Adulto Mayor</option>
+                            <option value="VIP">Pase VIP</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label>Valor Pagado</label>
-                        <input id="inValorPagado" type="number" step="0.01" min="0" class="cts_forms form-control" asp-for="@Model.Entrada!.ValorPagado" placeholder="Ej: 25000" required />
+                        <input id="inValorPagado" type="number" step="0.01" min="0" class="cts_forms form-control" asp-for="@Model.Entrada!.ValorPagado" required />
                     </div>
                     
                 </div>
@@ -90,8 +96,8 @@
                     @foreach (var elemento in Model.Lista)
                     {
                         <tr>
-                            <td>🎟️ #@elemento.Id</td>
-                            <td>👤 Visitante #@elemento.VisitanteId</td>
+                            <td>@elemento.Id</td>
+                            <td>@elemento.VisitanteId</td>
                             <td>@elemento.FechaVisita.ToString("dd/MM/yyyy")</td>
                             <td>
                                 <span class="badge bg-info text-dark">@elemento.TipoEntrada</span>

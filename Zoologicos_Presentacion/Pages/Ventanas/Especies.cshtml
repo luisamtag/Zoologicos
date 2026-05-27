@@ -25,13 +25,13 @@
                 <div class="col-lg-6">
                     
                     <div class="form-group">
-                        <label>Tipo de Especie</label>
-                        <input id="inTipo" class="cts_forms form-control" asp-for="@Model.Especie!.Tipo" placeholder="Ej: Mamífero, Ave, Reptil, Anfibio" required />
+                        <label>Tipo de Especie (Ej: Mamífero, Ave, Reptil)</label>
+                        <input id="inTipo" class="cts_forms form-control" asp-for="@Model.Especie!.Tipo" required />
                     </div>
 
                     <div class="form-group">
-                        <label>Descripción / Nombre de la Especie</label>
-                        <textarea id="inDescripcion" class="cts_forms form-control" rows="3" asp-for="@Model.Especie!.Descripcion" placeholder="Ej: León Africano (Panthera leo), Pingüino de Humboldt" required></textarea>
+                        <label>Descripción / Nombre de la Especie (Ej: León Africano, Pingüino de Humboldt)</label>
+                        <textarea id="inDescripcion" class="cts_forms form-control" rows="3" asp-for="@Model.Especie!.Descripcion" required></textarea>
                     </div>
                     
                 </div>
@@ -68,7 +68,7 @@
             <table class="tb_data table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>ID Reg.</th>
+                        <th>ID</th>
                         <th>Tipo</th>
                         <th>Descripción / Nombre Científico o Común</th>
                         <th class="cl_actions">Acción</th>
@@ -78,7 +78,7 @@
                     @foreach (var elemento in Model.Lista)
                     {
                         <tr>
-                            <td>🐾 #@elemento.Id</td>
+                            <td>@elemento.Id</td>
                             <td><span class="badge bg-secondary text-white">@elemento.Tipo</span></td>
                             <td><strong>@elemento.Descripcion</strong></td>
                             <td>

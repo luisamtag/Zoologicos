@@ -27,42 +27,28 @@
                 <div class="col-lg-6">
                     
                     <div class="form-group">
-                        <label>Nombre del Hábitat</label>
-                        <input id="inNombre" class="cts_forms form-control" asp-for="@Model.Habitat!.Nombre" placeholder="Ej: Sabana Africana, Aviario Principal" required />
+                        <label>Nombre del Hábitat (Ej: Sabana Africana, Aviario Principal)</label>
+                        <input id="inNombre" class="cts_forms form-control" asp-for="@Model.Habitat!.Nombre" required />
                     </div>
 
                     <div class="form-group">
-                        <label>Tipo de Bioma / Ambiente</label>
-                        <input id="inTipo" class="cts_forms form-control" asp-for="@Model.Habitat!.Tipo" list="biomasSugeridos" placeholder="Escriba o seleccione un bioma..." required />
-                        <datalist id="biomasSugeridos">
-                            <option value="Terrestre" />
-                            <option value="Acuático" />
-                            <option value="Desértico" />
-                            <option value="Tundra" />
-                            <option value="Selva Húmeda" />
-                            <option value="Aviario" />
-                        </datalist>
+                        <label>Tipo de Bioma / Ambiente (Ej: Terrestre, Acuático, Desértico)</label>
+                        <input id="inTipo" class="cts_forms form-control" asp-for="@Model.Habitat!.Tipo" required />
                     </div>
 
                     <div class="form-group">
                         <label>Capacidad Máxima de Ejemplares</label>
-                        <input id="inCapacidad" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Habitat!.CapacidadMaxima" placeholder="Ej: 15" required />
+                        <input id="inCapacidad" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Habitat!.CapacidadMaxima" required />
                     </div>
 
                     <div class="form-group">
-                        <label>Estado del Hábitat</label>
-                        <input id="inEstado" class="cts_forms form-control" asp-for="@Model.Habitat!.Estado" list="estadosSugeridos" placeholder="Escriba o seleccione un estado..." required />
-                        <datalist id="estadosSugeridos">
-                            <option value="Excelente" />
-                            <option value="En Mantenimiento" />
-                            <option value="Cuarentena" />
-                            <option value="Restricción Parcial" />
-                        </datalist>
+                        <label>Estado del Hábitat (Ej: Excelente, En Mantenimiento, Cuarentena)</label>
+                        <input id="inEstado" class="cts_forms form-control" asp-for="@Model.Habitat!.Estado" required />
                     </div>
 
                     <div class="form-group">
                         <label>Zoológico ID (Ubicación Sede)</label>
-                        <input id="inZoologicoId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Habitat!.ZoologicoId" placeholder="Ej: 1" required />
+                        <input id="inZoologicoId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Habitat!.ZoologicoId" required />
                     </div>
                     
                 </div>
@@ -73,6 +59,7 @@
         @if (ViewData.ContainsKey("Mensaje"))
         {
             @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
         }
         
         <!-- Popup de Confirmación de Borrado -->
@@ -101,7 +88,7 @@
             <table class="tb_data table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>ID Reg.</th>
+                        <th>ID</th>
                         <th>Nombre</th>
                         <th>Tipo / Bioma</th>
                         <th>Capacidad Máx.</th>
@@ -114,12 +101,12 @@
                     @foreach (var elemento in Model.Lista)
                     {
                         <tr>
-                            <td>🌿 #@elemento.Id</td>
-                            <td><strong>@elemento.Nombre</strong></td>
+                            <td>@elemento.Id</td>
+                            <td><strong>🌿 @elemento.Nombre</strong></td>
                             <td>@elemento.Tipo</td>
                             <td>@elemento.CapacidadMaxima animales</td>
                             <td>
-                                <span class="badge @(elemento.Estado.ToLower().Contains("mantenimiento") ? "bg-warning text-dark" : elemento.Estado.ToLower().Contains("cuarentena") ? "bg-danger text-white" : "bg-success text-white")">
+                                <span class="badge @(elemento.Estado.ToLower().Contains("mantenimiento") ? "bg-warning text-dark" : "bg-success text-white")">
                                     @elemento.Estado
                                 </span>
                             </td>

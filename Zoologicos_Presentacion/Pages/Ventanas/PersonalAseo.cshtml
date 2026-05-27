@@ -35,12 +35,12 @@
 
                     <div class="form-group">
                         <label>Turno de Trabajo</label>
-                        <input id="inTurno" class="cts_forms form-control" asp-for="@Model.Personal!.Turno" list="turnosSugeridos" placeholder="Escriba o seleccione un turno..." required />
-                        <datalist id="turnosSugeridos">
-                            <option value="Mañana" />
-                            <option value="Tarde" />
-                            <option value="Noche" />
-                        </datalist>
+                        <select id="inTurno" class="cts_forms form-control" asp-for="@Model.Personal!.Turno" required>
+                            <option value="">-- Seleccione Turno --</option>
+                            <option value="Mañana">Mañana (06:00 - 14:00)</option>
+                            <option value="Tarde">Tarde (14:00 - 22:00)</option>
+                            <option value="Noche">Noche (22:00 - 06:00)</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -56,6 +56,7 @@
         @if (ViewData.ContainsKey("Mensaje"))
         {
             @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
         }
         
         <!-- Popup de Confirmación de Borrado -->
@@ -84,7 +85,7 @@
             <table class="tb_data table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>ID Reg.</th>
+                        <th>ID</th>
                         <th>Zona Asignada</th>
                         <th>Turno</th>
                         <th>Insumos / Productos</th>
@@ -95,10 +96,10 @@
                     @foreach (var elemento in Model.Lista)
                     {
                         <tr>
-                            <td>🧹 #@elemento.Id</td>
-                            <td><strong>@elemento.ZonaAsignada</strong></td>
+                            <td>🪣 Empleado #@elemento.Id</td>
+                            <td><strong> @elemento.ZonaAsignada</strong></td>
                             <td>
-                                <span class="badge @(elemento.Turno == "Mañana" ? "bg-success text-white" : elemento.Turno == "Tarde" ? "bg-warning text-dark" : "bg-dark text-white")">
+                                <span class="badge @(elemento.Turno == "Mañana" ? "bg-success" : elemento.Turno == "Tarde" ? "bg-warning text-dark" : "bg-dark text-white")">
                                     @elemento.Turno
                                 </span>
                             </td>

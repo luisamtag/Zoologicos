@@ -26,12 +26,12 @@
                     
                     <div class="form-group">
                         <label>Área / Hábitat ID</label>
-                        <input id="inAreaId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Mantenimiento!.AreaId" placeholder="Ej: 2" required />
+                        <input id="inAreaId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Mantenimiento!.AreaId" required />
                     </div>
 
                     <div class="form-group">
                         <label>Empleado Responsable ID (Técnico)</label>
-                        <input id="inEmpleadoId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Mantenimiento!.EmpleadoResponsableId" placeholder="Ej: 14" required />
+                        <input id="inEmpleadoId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Mantenimiento!.EmpleadoResponsableId" required />
                     </div>
 
                     <div class="form-group">
@@ -46,13 +46,13 @@
 
                     <div class="form-group">
                         <label>Estado del Mantenimiento</label>
-                        <input id="inEstado" class="cts_forms form-control" asp-for="@Model.Mantenimiento!.Estado" list="estadosMantenimientoSugeridos" placeholder="Escriba o seleccione un estado..." required />
-                        <datalist id="estadosMantenimientoSugeridos">
-                            <option value="Pendiente" />
-                            <option value="En Progreso" />
-                            <option value="Completado" />
-                            <option value="Cancelado" />
-                        </datalist>
+                        <select id="inEstado" class="cts_forms form-control" asp-for="@Model.Mantenimiento!.Estado" required>
+                            <option value="">-- Seleccione Estado --</option>
+                            <option value="Pendiente">Pendiente / Solicitado</option>
+                            <option value="En Progreso">En Progreso / Ejecución</option>
+                            <option value="Completado">Completado / Terminado</option>
+                            <option value="Cancelado">Cancelado</option>
+                        </select>
                     </div>
                     
                 </div>
@@ -62,6 +62,7 @@
         @if (ViewData.ContainsKey("Mensaje"))
         {
             @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
         }
         
         @if (@Model.Mantenimiento != null && Model.Borrando)
@@ -88,7 +89,7 @@
             <table class="tb_data table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>ID Reg.</th>
+                        <th>ID Orden</th>
                         <th>Área ID</th>
                         <th>Técnico ID</th>
                         <th>Fecha Reporte</th>
@@ -101,13 +102,13 @@
                     @foreach (var elemento in Model.Lista)
                     {
                         <tr>
-                            <td>🔧 #@elemento.Id</td>
+                            <td>🛠️ Orden #@elemento.Id</td>
                             <td>🌿 Área #@elemento.AreaId</td>
-                            <td>CONTRATISTA #@elemento.EmpleadoResponsableId</td>
+                            <td>👷 Empleado #@elemento.EmpleadoResponsableId</td>
                             <td>@elemento.FechaReporte.ToString("dd/MM/yyyy")</td>
                             <td>@elemento.FechaProgramada.ToString("dd/MM/yyyy")</td>
                             <td>
-                                <span class="badge @(elemento.Estado == "Completado" ? "bg-success text-white" : elemento.Estado == "En Progreso" ? "bg-info text-dark" : elemento.Estado == "Cancelado" ? "bg-danger text-white" : "bg-warning text-dark")">
+                                <span class="badge @(elemento.Estado == "Completado" ? "bg-success" : elemento.Estado == "En Progreso" ? "bg-info text-dark" : "bg-warning text-dark")">
                                     @elemento.Estado
                                 </span>
                             </td>

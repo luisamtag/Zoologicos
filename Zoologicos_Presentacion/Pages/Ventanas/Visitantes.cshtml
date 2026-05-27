@@ -31,13 +31,13 @@
 
                     <div class="form-group">
                         <label>Tipo de Documento</label>
-                        <input id="inTipoDocumento" class="cts_forms form-control" asp-for="@Model.Visitante!.TipoDocumento" list="tiposDocSugeridos" placeholder="Escriba o seleccione un tipo..." required />
-                        <datalist id="tiposDocSugeridos">
-                            <option value="CC" />
-                            <option value="TI" />
-                            <option value="CE" />
-                            <option value="Pasaporte" />
-                        </datalist>
+                        <select id="inTipoDocumento" class="cts_forms form-control" asp-for="@Model.Visitante!.TipoDocumento" required>
+                            <option value="">-- Seleccione Tipo --</option>
+                            <option value="CC">Cédula de Ciudadanía (CC)</option>
+                            <option value="TI">Tarjeta de Identidad (TI)</option>
+                            <option value="CE">Cédula de Extranjería (CE)</option>
+                            <option value="Pasaporte">Pasaporte</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -49,13 +49,12 @@
             </div>
         }
 
-        <!-- Zona de Alertas y Errores -->
         @if (ViewData.ContainsKey("Mensaje"))
         {
             @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
         }
         
-        <!-- Popup de Confirmación de Borrado -->
         @if (@Model.Visitante != null && Model.Borrando)
         {
             <div class='popup'>
@@ -75,7 +74,6 @@
             </div>
         }
 
-        <!-- Tabla de Datos Históricos -->
         @if (Model != null && Model.Lista != null && Model.Lista.Count > 0)
         {
             <table class="tb_data table table-striped table-bordered table-hover">

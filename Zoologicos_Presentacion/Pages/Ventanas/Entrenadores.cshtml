@@ -26,17 +26,17 @@
                     
                     <div class="form-group">
                         <label>Nombre del Entrenador</label>
-                        <input id="inNombre" class="cts_forms form-control" asp-for="@Model.Entrenador!.Nombre" placeholder="Ej: Marcos Antonio Solís" required />
+                        <input id="inNombre" class="cts_forms form-control" asp-for="@Model.Entrenador!.Nombre" required />
                     </div>
 
                     <div class="form-group">
-                        <label>Especialidad</label>
-                        <input id="inEspecialidad" class="cts_forms form-control" asp-for="@Model.Entrenador!.Especialidad" placeholder="Ej: Cetáceos, Primates, Aves de Presa" required />
+                        <label>Especialidad (Ej: Cetáceos, Primates, Aves)</label>
+                        <input id="inEspecialidad" class="cts_forms form-control" asp-for="@Model.Entrenador!.Especialidad" required />
                     </div>
 
                     <div class="form-group">
-                        <label>Tipo de Entrenamiento</label>
-                        <input id="inTipoEntrenamiento" class="cts_forms form-control" asp-for="@Model.Entrenador!.TipoEntrenamiento" placeholder="Ej: Refuerzo Positivo, Condicionamiento Clásico" required />
+                        <label>Tipo de Entrenamiento (Ej: Refuerzo Positivo, Condicionamiento)</label>
+                        <input id="inTipoEntrenamiento" class="cts_forms form-control" asp-for="@Model.Entrenador!.TipoEntrenamiento" required />
                     </div>
                     
                 </div>
@@ -73,7 +73,7 @@
             <table class="tb_data table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>ID Reg.</th>
+                        <th>ID</th>
                         <th>Nombre</th>
                         <th>Especialidad</th>
                         <th>Tipo de Entrenamiento</th>
@@ -84,8 +84,8 @@
                     @foreach (var elemento in Model.Lista)
                     {
                         <tr>
-                            <td>🤸 #@elemento.Id</td>
-                            <td><strong>@elemento.Nombre</strong></td>
+                            <td>@elemento.Id</td>
+                            <td>@elemento.Nombre</td>
                             <td>@elemento.Especialidad</td>
                             <td>@elemento.TipoEntrenamiento</td>
                             <td>

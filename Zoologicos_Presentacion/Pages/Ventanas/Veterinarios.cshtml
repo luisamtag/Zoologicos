@@ -30,19 +30,19 @@
 
                     <div class="form-group">
                         <label>Especialidad Médica</label>
-                        <input id="inEspecialidad" class="cts_forms form-control" asp-for="@Model.Veterinario!.Especialidad" list="especialidadesSugeridas" placeholder="Escriba o seleccione una especialidad..." required />
-                        <datalist id="especialidadesSugeridas">
-                            <option value="Mamíferos Grandes" />
-                            <option value="Aves / Ornitología" />
-                            <option value="Reptiles y Anfibios / Herpetología" />
-                            <option value="Animales Marinos" />
-                            <option value="Cirugía General Veterinaria" />
-                        </datalist>
+                        <select id="inEspecialidad" class="cts_forms form-control" asp-for="@Model.Veterinario!.Especialidad" required>
+                            <option value="">-- Seleccione Especialidad --</option>
+                            <option value="Mamíferos Grandes">Mamíferos Grandes</option>
+                            <option value="Aves / Ornitología">Aves / Ornitología</option>
+                            <option value="Reptiles y Anfibios / Herpetología">Reptiles y Anfibios / Herpetología</option>
+                            <option value="Animales Marinos">Animales Marinos</option>
+                            <option value="Cirugía General Veterinaria">Cirugía General Veterinaria</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label>Años de Experiencia Clínica</label>
-                        <input id="inAniosExperiencia" type="number" min="0" max="60" class="cts_forms form-control" asp-for="@Model.Veterinario!.AñosExperiencia" placeholder="Ej: 5" required />
+                        <input id="inAniosExperiencia" type="number" min="0" max="60" class="cts_forms form-control" asp-for="@Model.Veterinario!.AñosExperiencia" required />
                     </div>
                     
                 </div>
@@ -53,6 +53,7 @@
         @if (ViewData.ContainsKey("Mensaje"))
         {
             @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
         }
         
         <!-- Popup de Confirmación de Borrado -->
@@ -81,7 +82,7 @@
             <table class="tb_data table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>ID Reg.</th>
+                        <th>ID</th>
                         <th>Especialidad Médica</th>
                         <th>Años de Experiencia</th>
                         <th class="cl_actions">Acción</th>
@@ -91,10 +92,10 @@
                     @foreach (var elemento in Model.Lista)
                     {
                         <tr>
-                            <td>🩺 #@elemento.Id</td>
+                            <td>🩺 Veterinario #@elemento.Id</td>
                             <td><strong>@elemento.Especialidad</strong></td>
                             <td>
-                                <span class="badge @(elemento.AñosExperiencia >= 10 ? "bg-success text-white" : "bg-info text-dark")">
+                                <span class="badge @(elemento.AñosExperiencia >= 10 ? "bg-success" : "bg-info text-dark")">
                                     @elemento.AñosExperiencia años
                                 </span>
                             </td>

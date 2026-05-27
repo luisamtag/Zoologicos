@@ -26,12 +26,12 @@
                     
                     <div class="form-group">
                         <label>Animal Madre ID</label>
-                        <input id="inMadreId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Reproduccion!.AnimalMadreId" placeholder="Ej: 12" required />
+                        <input id="inMadreId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Reproduccion!.AnimalMadreId" required />
                     </div>
 
                     <div class="form-group">
                         <label>Animal Padre ID</label>
-                        <input id="inPadreId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Reproduccion!.AnimalPadreId" placeholder="Ej: 7" required />
+                        <input id="inPadreId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Reproduccion!.AnimalPadreId" required />
                     </div>
 
                     <div class="form-group">
@@ -41,22 +41,22 @@
 
                     <div class="form-group">
                         <label>Método de Reproducción</label>
-                        <input id="inMetodo" class="cts_forms form-control" asp-for="@Model.Reproduccion!.Metodo" list="metodosSugeridos" placeholder="Escriba o seleccione un método..." required />
-                        <datalist id="metodosSugeridos">
-                            <option value="Natural" />
-                            <option value="Asistida" />
-                            <option value="In vitro" />
-                        </datalist>
+                        <select id="inMetodo" class="cts_forms form-control" asp-for="@Model.Reproduccion!.Metodo" required>
+                            <option value="">-- Seleccione Método --</option>
+                            <option value="Natural">Natural</option>
+                            <option value="Asistida">Asistida</option>
+                            <option value="In vitro">In vitro</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label>Estado del Proceso</label>
-                        <input id="inEstado" class="cts_forms form-control" asp-for="@Model.Reproduccion!.Estado" list="estadosSugeridos" placeholder="Escriba o seleccione un estado..." required />
-                        <datalist id="estadosSugeridos">
-                            <option value="En proceso" />
-                            <option value="Exitosa" />
-                            <option value="Fallida" />
-                        </datalist>
+                        <select id="inEstado" class="cts_forms form-control" asp-for="@Model.Reproduccion!.Estado" required>
+                            <option value="">-- Seleccione Estado --</option>
+                            <option value="En proceso">En proceso / Gestación</option>
+                            <option value="Exitosa">Exitosa / Nacimiento</option>
+                            <option value="Fallida">Fallida / No exitosa</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -66,7 +66,7 @@
 
                     <div class="form-group">
                         <label>Cantidad de Crías</label>
-                        <input id="inCantidadCrias" type="number" min="0" class="cts_forms form-control" asp-for="@Model.Reproduccion!.CantidadCrias" placeholder="Ej: 0" required />
+                        <input id="inCantidadCrias" type="number" min="0" class="cts_forms form-control" asp-for="@Model.Reproduccion!.CantidadCrias" required />
                     </div>
 
                     <div class="form-group">
@@ -78,13 +78,12 @@
             </div>
         }
 
-        <!-- Zona de Alertas y Errores -->
         @if (ViewData.ContainsKey("Mensaje"))
         {
             @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
         }
         
-        <!-- Popup de Confirmación de Borrado -->
         @if (@Model.Reproduccion != null && Model.Borrando)
         {
             <div class='popup'>
@@ -104,13 +103,12 @@
             </div>
         }
 
-        <!-- Tabla de Datos Históricos -->
         @if (Model != null && Model.Lista != null && Model.Lista.Count > 0)
         {
             <table class="tb_data table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>ID Reg.</th>
+                        <th>ID</th>
                         <th>Progenitores (M / P)</th>
                         <th>Fecha Apareamiento</th>
                         <th>Método</th>
@@ -130,7 +128,7 @@
                             <td>@elemento.FechaAppariamiento.ToString("dd/MM/yyyy")</td>
                             <td>@elemento.Metodo</td>
                             <td>
-                                <span class="badge @(elemento.Estado == "Exitosa" ? "bg-success text-white" : elemento.Estado == "Fallida" ? "bg-danger text-white" : "bg-warning text-dark")">
+                                <span class="badge @(elemento.Estado == "Exitosa" ? "bg-success" : elemento.Estado == "Fallida" ? "bg-danger" : "bg-warning text-dark")">
                                     @elemento.Estado
                                 </span>
                             </td>
