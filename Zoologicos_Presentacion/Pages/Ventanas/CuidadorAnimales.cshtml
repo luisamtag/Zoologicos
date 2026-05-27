@@ -26,17 +26,12 @@
                     
                     <div class="form-group">
                         <label>Nombre del Empleado</label>
-                        <input id="inNombre" class="cts_forms form-control" asp-for="@Model.Cuidador!.Nombre" required />
+                        <input id="inNombre" class="cts_forms form-control" asp-for="@Model.Cuidador!.Nombre" placeholder="Ej: Juan Carlos Pérez" required />
                     </div>
 
                     <div class="form-group">
-                        <label>Turno (Ej: Mañana, Tarde, Noche)</label>
-                        <select id="inTurno" class="cts_forms form-control" asp-for="@Model.Cuidador!.Turno" required>
-                            <option value="">-- Seleccione Turno --</option>
-                            <option value="Mañana">Mañana</option>
-                            <option value="Tarde">Tarde</option>
-                            <option value="Noche">Noche</option>
-                        </select>
+                        <label>Turno</label>
+                        <input id="inTurno" class="cts_forms form-control" asp-for="@Model.Cuidador!.Turno" placeholder="Escriba el turno (Ej: Mañana, Tarde, Noche)" required />
                     </div>
 
                     <div class="form-group">
@@ -46,7 +41,7 @@
 
                     <div class="form-group">
                         <label>Especie ID Asignada (Opcional)</label>
-                        <input id="inEspecieId" type="number" class="cts_forms form-control" asp-for="@Model.Cuidador!.EspecieId" />
+                        <input id="inEspecieId" type="number" class="cts_forms form-control" asp-for="@Model.Cuidador!.EspecieId" placeholder="Ej: 5" />
                     </div>
                     
                 </div>
@@ -95,8 +90,8 @@
                     @foreach (var elemento in Model.Lista)
                     {
                         <tr>
-                            <td>@elemento.Id</td>
-                            <td>@elemento.Nombre</td>
+                            <td>#@elemento.Id</td>
+                            <td><strong>@elemento.Nombre</strong></td>
                             <td>@elemento.Turno</td>
                             <td>@elemento.AñosExperiencia años</td>
                             <td class="cl_hidden">@(elemento.EspecieId?.ToString() ?? "Ninguna / General 🐾")</td>

@@ -27,18 +27,18 @@
                 <div class="col-lg-6">
                     
                     <div class="form-group">
-                        <label>Animal ID</label>
-                        <input id="inAnimalId" type="number" class="cts_forms form-control" asp-for="@Model.Diagnostico!.AnimalId" required />
+                        <label>Animal ID (Paciente)</label>
+                        <input id="inAnimalId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Diagnostico!.AnimalId" placeholder="Ej: 12" required />
                     </div>
 
                     <div class="form-group">
-                        <label>Enfermedad ID</label>
-                        <input id="inEnfermedadId" type="number" class="cts_forms form-control" asp-for="@Model.Diagnostico!.EnfermedadId" required />
+                        <label>Enfermedad ID (Patología)</label>
+                        <input id="inEnfermedadId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Diagnostico!.EnfermedadId" placeholder="Ej: 4" required />
                     </div>
 
                     <div class="form-group">
-                        <label>Veterinario ID</label>
-                        <input id="inVeterinarioId" type="number" class="cts_forms form-control" asp-for="@Model.Diagnostico!.VeterinarioId" required />
+                        <label>Veterinario ID (Médico Responsable)</label>
+                        <input id="inVeterinarioId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Diagnostico!.VeterinarioId" placeholder="Ej: 2" required />
                     </div>
 
                     <div class="form-group">
@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Fecha de Curación (Opcional)</label>
+                        <label>Fecha de Curación / Alta (Opcional)</label>
                         <input id="inFechaCura" type="date" class="cts_forms form-control" asp-for="@Model.Diagnostico!.FechaCura" />
                     </div>
                     
@@ -88,7 +88,7 @@
             <table class="tb_data table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>ID Reg.</th>
                         <th>Animal ID</th>
                         <th>Enfermedad ID</th>
                         <th class="cl_hidden">Veterinario ID</th>
@@ -101,15 +101,17 @@
                     @foreach (var elemento in Model.Lista)
                     {
                         <tr>
-                            <td>@elemento.Id</td>
-                            <td>@elemento.AnimalId</td>
-                            <td>@elemento.EnfermedadId</td>
-                            <td class="cl_hidden">@elemento.VeterinarioId</td>
+                            <td>📋 #@elemento.Id</td>
+                            <td>🐾 Paciente #@elemento.AnimalId</td>
+                            <td>🦠 Patología #@elemento.EnfermedadId</td>
+                            <td class="cl_hidden">🩺 Dr./Dra. #@elemento.VeterinarioId</td>
                             <td>@elemento.FechaDiagnostico.ToString("dd/MM/yyyy")</td>
                             <td>
                                 @if (elemento.FechaCura.HasValue)
                                 {
-                                    @elemento.FechaCura.Value.ToString("dd/MM/yyyy")
+                                    <span class="badge bg-success text-white">
+                                        @elemento.FechaCura.Value.ToString("dd/MM/yyyy")
+                                    </span>
                                 }
                                 else
                                 {

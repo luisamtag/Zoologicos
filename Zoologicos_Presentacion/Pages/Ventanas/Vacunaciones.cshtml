@@ -28,12 +28,12 @@
                     
                     <div class="form-group">
                         <label>Animal ID (Paciente)</label>
-                        <input id="inAnimalId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Vacunacion!.AnimalId" required />
+                        <input id="inAnimalId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Vacunacion!.AnimalId" placeholder="Ej: 5" required />
                     </div>
 
                     <div class="form-group">
                         <label>Veterinario ID (Responsable)</label>
-                        <input id="inVeterinarioId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Vacunacion!.VeterinarioId" required />
+                        <input id="inVeterinarioId" type="number" min="1" class="cts_forms form-control" asp-for="@Model.Vacunacion!.VeterinarioId" placeholder="Ej: 3" required />
                     </div>
 
                     <div class="form-group">
@@ -64,7 +64,6 @@
         @if (ViewData.ContainsKey("Mensaje"))
         {
             @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
-            ;
         }
         
         <!-- Popup de Confirmación de Borrado -->
@@ -116,7 +115,7 @@
                             <td>
                                 @if (elemento.FechaProximaDosis.HasValue)
                                 {
-                                    <span class="badge @(elemento.FechaProximaDosis.Value <= DateTime.Today ? "bg-warning text-dark" : "bg-info text-dark")">
+                                    <span class="badge @(elemento.FechaProximaDosis.Value <= DateTime.Today ? "bg-danger text-white" : "bg-info text-dark")">
                                         @elemento.FechaProximaDosis.Value.ToString("dd/MM/yyyy")
                                     </span>
                                 }
