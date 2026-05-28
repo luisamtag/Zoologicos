@@ -48,7 +48,7 @@ namespace Zoologicos_libreria.implementaciones
 
                 if (!cuarentenaActiva)
                 {
-                    var cuarentena = new Cuarentena
+                    var cuarentena = new Cuarentenas
                     {
                         AnimalId = entidad.AnimalId,
                         VeterinarioId = 1, // Asignar veterinario por defecto o ajustar según lógica
@@ -89,7 +89,7 @@ namespace Zoologicos_libreria.implementaciones
                 if (!cuarentenaActiva)
                 {
                     var motivo = entidad.TipoIngreso == "Donación" ? "Animal Nuevo" : "Adaptación";
-                    var cuarentena = new Cuarentena
+                    var cuarentena = new Cuarentenas
                     {
                         AnimalId = entidad.AnimalId,
                         VeterinarioId = 1,

@@ -5,7 +5,3 @@ obj/
 *.user
 *.suo
 *.vsidx
-<<<<<<< HEAD
-.vs/
-=======
->>>>>>> 619cb57 (se agrega otra entidad y se soluciona problemas de codigo)
