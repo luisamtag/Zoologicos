@@ -5,18 +5,18 @@ using Zoologicos_libreria.Nucleo;
 
 namespace Zoologicos_libreria.implementaciones
 {
-    public class CuarentenaNegocio : ICuarentenasNegocio
+    public class IngresosNegocio : IIngresosNegocio
     {
         private IConexion? iConexion;
 
-        public List<Cuarentenas> Listar()
+        public List<Ingresos> Listar()
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
-            return this.iConexion.Cuarentenas!.ToList();
+            return this.iConexion.Ingresos!.ToList();
         }
 
-        public Cuarentenas Guardar(Cuarentenas entidad)
+        public Ingresos Guardar(Ingresos entidad)
         {
             if (entidad.Id != 0)
                 throw new Exception("ya se guardo");
@@ -24,24 +24,30 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
-            //Un animal no puede tener dos cuarentenas activas
-            var cuarentenaActiva = this.iConexion.Cuarentenas!.Any(c =>
-                c.AnimalId == entidad.AnimalId &&
-                c.Estado == "Activa");
+            // ✅ REGLA DE NEGOCIO: Al aceptar el ingreso, crear automáticamente una Cuarentena
+            if (entidad.Estado == "Aceptado")
+            {
+                var motivo = entidad.TipoIngreso == "Donación" ? "Animal Nuevo" : "Adaptación";
+                var cuarentena = new Cuarentena
+                {
+                    AnimalId      = entidad.AnimalId,
+                    VeterinarioId = 1,
+                    FechaInicio   = DateTime.Now,
+                    FechaFin      = null,
+                    Motivo        = motivo,
+                    Estado        = "Activa",
+                    Observaciones = $"Cuarentena generada automáticamente por ingreso tipo '{entidad.TipoIngreso}'"
+                };
+                this.iConexion.Cuarentenas!.Add(cuarentena);
+            }
 
-            if (cuarentenaActiva)
-                throw new Exception("El animal ya tiene una cuarentena activa. Finalícela antes de crear una nueva");
-
-            entidad.Estado = "Activa";
-            entidad.FechaFin = null;
-            entidad.FechaInicio = DateTime.Now;
-
-            this.iConexion!.Cuarentenas!.Add(entidad);
+            entidad.FechaIngreso = DateTime.Now;
+            this.iConexion!.Ingresos!.Add(entidad);
             this.iConexion!.SaveChanges();
             return entidad;
         }
 
-        public Cuarentenas Modificar(Cuarentenas entidad)
+        public Ingresos Modificar(Ingresos entidad)
         {
             if (entidad == null)
                 throw new Exception("FaltaInformacion");
@@ -52,11 +58,7 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
-            //Al finalizar, la FechaFin no puede ser mayor a la fecha actual
-            if (entidad.Estado == "Finalizada" && entidad.FechaFin > DateTime.Now)
-                throw new Exception("La fecha de fin no puede ser mayor a la fecha actual");
-
-            var entry = this.iConexion!.Entry<Cuarentenas>(entidad);
+            var entry = this.iConexion!.Entry<Ingresos>(entidad);
             entry.State = EntityState.Modified;
             this.iConexion!.SaveChanges();
             return entidad;
@@ -67,16 +69,12 @@ namespace Zoologicos_libreria.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
-            var entidad = this.iConexion.Cuarentenas!.FirstOrDefault(x => x.Id == id);
+            var entidad = this.iConexion.Ingresos!.FirstOrDefault(x => x.Id == id);
 
             if (entidad == null)
                 throw new Exception("NoExisteRegistro");
 
-            // No se puede borrar una cuarentena activa
-            if (entidad.Estado == "Activa")
-                throw new Exception("No se puede eliminar una cuarentena activa. Primero finalícela");
-
-            this.iConexion.Cuarentenas!.Remove(entidad);
+            this.iConexion.Ingresos!.Remove(entidad);
             this.iConexion.SaveChanges();
             return true;
         }

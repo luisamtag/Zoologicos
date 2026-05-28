@@ -1,5 +1,4 @@
 using Zoologicos_libreria.entidades;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -29,7 +28,8 @@ namespace Zoologicos_libreria.interfaces
         DbSet<Vacunaciones>?      Vacunaciones      { get; set; }
         DbSet<Animales>?          Animales          { get; set; }
         DbSet<Reproducciones>?      Reproducciones    { get; set; }
-        DbSet<Cuarentenas>?        Cuarentenas       { get; set; } 
+        DbSet<Cuarentenas>?        Cuarentenas       { get; set; }
+        DbSet<Ingresos>?          Ingresos          { get; set; }  
         DbSet<Entradas>?          Entradas          { get; set; }
         DbSet<Areas>?             Areas             { get; set; }
         DbSet<Mantenimientos>?    Mantenimientos    { get; set; }

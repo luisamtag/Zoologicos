@@ -1,0 +1,162 @@
+@page
+@model Zoologicos_Presentacion.Pages.Ventanas.IngresosModel
+
+@{
+    ViewData["Title"] = "Ingresos";
+}
+
+<div class="text-center">
+    <form method="POST" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <h1 class="display-4">Ingresos de Animales</h1>
+
+        <div class="bt_panel_buttons">
+            <input type="submit"
+                   value="Refrescar"
+                   asp-page-handler="BtRefrescar" />
+            <input type="submit"
+                   value="Nuevo"
+                   asp-page-handler="BtNuevo" />
+            <input type="submit"
+                   value="Guardar"
+                   asp-page-handler="BtGuardar" />
+        </div>
+
+        @if (Model.Ingreso != null)
+        {
+            <div>
+                <div class="form-group">
+                    <label>Animal Id</label>
+                    <div class="col-lg-6">
+                        <input id="inAnimalId"
+                               type="number"
+                               class="cts_forms form-control"
+                               asp-for="@Model.Ingreso!.AnimalId" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Zoológico Id</label>
+                    <div class="col-lg-6">
+                        <input id="inZoologicoId"
+                               type="number"
+                               class="cts_forms form-control"
+                               asp-for="@Model.Ingreso!.ZoologicoId" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tipo de Ingreso</label>
+                    <div class="col-lg-6">
+                        <select class="cts_forms form-control"
+                                asp-for="@Model.Ingreso!.TipoIngreso">
+                            <option value="">-- Seleccione --</option>
+                            <option value="Donación">Donación</option>
+                            <option value="Rescate">Rescate</option>
+                            <option value="Traslado">Traslado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Procedencia</label>
+                    <div class="col-lg-6">
+                        <input id="inProcedencia"
+                               class="cts_forms form-control"
+                               asp-for="@Model.Ingreso!.Procedencia" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Estado</label>
+                    <div class="col-lg-6">
+                        <select class="cts_forms form-control"
+                                asp-for="@Model.Ingreso!.Estado">
+                            <option value="">-- Seleccione --</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Aceptado">Aceptado</option>
+                            <option value="Rechazado">Rechazado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Observaciones</label>
+                    <div class="col-lg-6">
+                        <textarea id="inObservaciones"
+                                  class="cts_forms form-control"
+                                  asp-for="@Model.Ingreso!.Observaciones"></textarea>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
+        }
+
+        @if (Model.Ingreso != null && Model.Borrando)
+        {
+            <div class="popup">
+                <div class="pp_ms_inner">
+                    <div style="width:95%">
+                        <h2 align="left">Confirmar</h2>
+                        <h4 align="left">¿Desea borrar el ingreso?</h4>
+                        <h6>Animal Id: @Model.Ingreso!.AnimalId — @Model.Ingreso!.TipoIngreso</h6>
+
+                        <input type="submit"
+                               value="Cerrar"
+                               asp-page-handler="BtCerrar"
+                               class="btn btn-secondary" />
+                        <input type="submit"
+                               value="Borrar"
+                               asp-page-handler="BtBorrar"
+                               class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (Model != null && Model.Lista != null && Model.Lista.Count > 0)
+        {
+            <table class="tb_data table table-striped table-bordered table-hover">
+                <tr>
+                    <th>Animal Id</th>
+                    <th>Zoológico Id</th>
+                    <th>Fecha Ingreso</th>
+                    <th>Tipo Ingreso</th>
+                    <th>Procedencia</th>
+                    <th>Estado</th>
+                    <th>Observaciones</th>
+                    <th class="cl_actions">Acción</th>
+                </tr>
+                @foreach (var elemento in Model.Lista)
+                {
+                    <tr>
+                        <td>@elemento.AnimalId</td>
+                        <td>@elemento.ZoologicoId</td>
+                        <td>@elemento.FechaIngreso.ToString("dd/MM/yyyy")</td>
+                        <td>@elemento.TipoIngreso</td>
+                        <td>@elemento.Procedencia</td>
+                        <td>@elemento.Estado</td>
+                        <td>@elemento.Observaciones</td>
+                        <td>
+                            <input type="submit"
+                                   value="Modificar"
+                                   asp-page-handler="BtModificar"
+                                   class="btn btn-secondary"
+                                   asp-route-data="@elemento.Id" />
+                            <input type="submit"
+                                   value="Borrar"
+                                   asp-page-handler="BtBorrarVal"
+                                   class="btn btn-danger"
+                                   asp-route-data="@elemento.Id" />
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    </form>
+</div>

@@ -230,16 +230,12 @@ CREATE TABLE [Cuarentenas] (
 
     [AnimalId]      INT             NOT NULL,
     [VeterinarioId] INT             NOT NULL,
-
     [FechaInicio]   DATETIME2       NOT NULL,
     [FechaFin]      DATETIME2       NULL,           -- NULL mientras está Activa
-
     [Motivo]        NVARCHAR(50)    NOT NULL
                         CHECK ([Motivo] IN ('Animal Nuevo', 'Enfermedad', 'Adaptación')),
-
     [Estado]        NVARCHAR(20)    NOT NULL
                         CHECK ([Estado] IN ('Activa', 'Finalizada')),
-
     [Observaciones] NVARCHAR(500)   NULL,
 
     -- 🔗 FK → Animales
@@ -288,6 +284,63 @@ BEGIN
     END
 END;
 GO
+
+-- ================= TABLA INGRESOS =================
+CREATE TABLE [Ingresos] (
+    [Id]            INT             PRIMARY KEY IDENTITY(1,1),
+
+    [AnimalId]      INT             NOT NULL,
+    [ZoologicoId]   INT             NOT NULL,
+    [FechaIngreso]  DATETIME2       NOT NULL,
+    [TipoIngreso]   NVARCHAR(50)    NOT NULL
+                        CHECK ([TipoIngreso] IN ('Donación', 'Rescate', 'Traslado')),
+    [Procedencia]   NVARCHAR(200)   NOT NULL,
+    [Estado]        NVARCHAR(50)    NOT NULL
+                        CHECK ([Estado] IN ('Pendiente', 'Aceptado', 'Rechazado')),
+    [Observaciones] NVARCHAR(500)   NULL,
+
+    -- 🔗 FK → Animales
+    CONSTRAINT FK_Ingresos_Animal
+        FOREIGN KEY ([AnimalId]) REFERENCES [Animales]([Id]),
+
+    -- 🔗 FK → Zoologicos
+    CONSTRAINT FK_Ingresos_Zoologico
+        FOREIGN KEY ([ZoologicoId]) REFERENCES [Zoologicos]([Id])
+);
+GO
+
+-- ================= TRIGGER: Al aceptar ingreso crear cuarentena =================
+CREATE TRIGGER TR_Ingresos_CrearCuarentena
+ON [Ingresos]
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    -- Solo actuar cuando el estado es Aceptado
+    IF EXISTS (SELECT 1 FROM inserted WHERE Estado = 'Aceptado')
+    BEGIN
+        INSERT INTO Cuarentenas (AnimalId, VeterinarioId, FechaInicio, FechaFin, Motivo, Estado, Observaciones)
+        SELECT
+            i.AnimalId,
+            1, -- VeterinarioId por defecto
+            GETDATE(),
+            NULL,
+            CASE i.TipoIngreso
+                WHEN 'Donación' THEN 'Animal Nuevo'
+                ELSE 'Adaptación'
+            END,
+            'Activa',
+            'Cuarentena generada automáticamente por ingreso tipo ' + i.TipoIngreso
+        FROM inserted i
+        WHERE i.Estado = 'Aceptado'
+          AND NOT EXISTS (
+              SELECT 1 FROM Cuarentenas c
+              WHERE c.AnimalId = i.AnimalId
+                AND c.Estado = 'Activa'
+          );
+    END
+END;
+GO
+
 
 -- ================= ALIMENTACIONES =================
 CREATE TABLE [Alimentaciones] (
@@ -482,6 +535,13 @@ VALUES
 (1, 1, GETDATE(), NULL,                  'Animal Nuevo', 'Activa',    'Simba ingresó al zoológico, en periodo de adaptación'),
 (2, 1, GETDATE(), DATEADD(DAY, 15, GETDATE()), 'Enfermedad',   'Finalizada', 'Shere Khan presentó síntomas respiratorios, ya recuperado'),
 (3, 1, GETDATE(), NULL,                  'Adaptación',   'Activa',    'Lola en proceso de adaptación a su nuevo hábitat');
+
+-- ================= INGRESOS =================
+INSERT INTO Ingresos (AnimalId, ZoologicoId, FechaIngreso, TipoIngreso, Procedencia, Estado, Observaciones)
+VALUES
+(1, 1, GETDATE(), 'Rescate',   'Colombia - CRQ Quindío',          'Pendiente', 'Animal rescatado de tráfico ilegal'),
+(2, 1, GETDATE(), 'Donación',  'Zoológico de Cali',               'Aceptado',  'Donación institucional'),
+(3, 1, GETDATE(), 'Traslado',  'Parque Natural Sierra Nevada',    'Aceptado',  'Traslado por exceso de capacidad');
 
 
 -- ================= VACUNACIONES =================

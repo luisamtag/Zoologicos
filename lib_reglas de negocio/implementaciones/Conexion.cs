@@ -37,11 +37,11 @@ namespace Zoologicos_libreria.implementaciones
         public DbSet<Animales>?           Animales           { get; set; }
         public DbSet<Reproducciones>?       Reproducciones     { get; set; }
         public DbSet<Cuarentenas>?         Cuarentenas        { get; set; }
+        public DbSet<Ingresos>?           Ingresos           { get; set; } 
         public DbSet<Entradas>?           Entradas           { get; set; }
         public DbSet<Areas>?              Areas              { get; set; }
         public DbSet<Mantenimientos>?     Mantenimientos     { get; set; }
 
-        // Interceptamos el guardado de datos
         public override int SaveChanges()
         {
             var cambios = ChangeTracker.Entries()
@@ -60,7 +60,6 @@ namespace Zoologicos_libreria.implementaciones
                     Fecha = DateTime.Now,
                     Datos = JsonSerializer.Serialize(cambio.Entity)
                 };
-
                 this.Auditorias!.Add(auditoria);
             }
 
