@@ -9,7 +9,7 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
     public class ZonasPublicasNegocio : IZonasPublicasNegocio
     {
         private IComunicaciones? iComunicaciones;
-        private const string BaseUrl = "http://localhost:5144/ZonasPublicas/";
+        private const string BaseUrl = "http://localhost:5202/ZonasPublicas/";
         public List<ZonasPublicas> Listar()
         {
             this.iComunicaciones = new Comunicaciones();

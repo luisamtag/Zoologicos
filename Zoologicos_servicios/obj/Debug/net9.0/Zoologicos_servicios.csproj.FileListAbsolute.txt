@@ -260,7 +260,6 @@ C:\Users\Devco\Documents\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\static
 C:\Users\Devco\Documents\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\staticwebassets.build.json.cache
 C:\Users\Devco\Documents\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\Devco\Documents\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\Users\Devco\Documents\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\Devco\Documents\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\Zoologic.442C585A.Up2Date
 C:\Users\Devco\Documents\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\Zoologicos_servicios.dll
 C:\Users\Devco\Documents\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\refint\Zoologicos_servicios.dll
@@ -441,3 +440,4 @@ C:\Users\salak403\Source\Repos\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\
 C:\Users\salak403\Source\Repos\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\Zoologicos_servicios.pdb
 C:\Users\salak403\Source\Repos\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\Zoologicos_servicios.genruntimeconfig.cache
 C:\Users\salak403\Source\Repos\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\ref\Zoologicos_servicios.dll
+C:\Users\Devco\Documents\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

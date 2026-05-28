@@ -9,7 +9,7 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
     public class EnfermedadesNegocio : IEnfermedadesNegocio
     {
         private IComunicaciones? iComunicaciones;
-        private const string BaseUrl = "http://localhost:5144/Enfermedades/";
+        private const string BaseUrl = "http://localhost:5202/Enfermedades/";
         public List<Enfermedades> Listar()
         {
             this.iComunicaciones = new Comunicaciones();

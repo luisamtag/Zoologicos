@@ -29,7 +29,7 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = string.Empty; // Hace que Swagger cargue directamente al abrir la raíz (localhost:XXXX/)
 });
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 // 🟢 3. AGREGAR ESTO: Activar CORS antes de la autorización
 app.UseCors("PermitirTodo");
