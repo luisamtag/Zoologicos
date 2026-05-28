@@ -1,81 +1,103 @@
-using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Zoologicos_libreria.entidades;
-using Zoologicos_libreria.interfaces;
-using Zoologicos_libreria.Nucleo;
 
-namespace Zoologicos_libreria.implementaciones
+using Zoologicos_libreria_Presentacion.Implementaciones;
+using Zoologicos_libreria_Presentacion.interfaces;
+
+namespace Zoologicos_libreria_Presentacion.implementaciones
 {
     public class IngresosNegocio : IIngresosNegocio
     {
-        private IConexion? iConexion;
-
+        private IComunicaciones? iComunicaciones;
+        private const string BaseUrl = "http://localhost:5144/Ingresos/";
         public List<Ingresos> Listar()
         {
-            this.iConexion = new Conexion();
-            this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
-            return this.iConexion.Ingresos!.ToList();
+            this.iComunicaciones = new Comunicaciones();
+
+            var datos = new Dictionary<string, object>();
+            datos["Url"] = BaseUrl + "Listar";
+            datos["Metodo"] = "GET";
+            var comunicaciones = new Comunicaciones();
+            var task = comunicaciones.Ejecutar(datos)!;
+            task.Wait();
+            var respuesta = task.Result;
+
+            if (!respuesta.ContainsKey("Valor"))
+                throw new Exception("No funciono");
+
+            return JsonConvert.DeserializeObject<List<Ingresos>>(respuesta["Valor"].ToString()!)!;
         }
 
         public Ingresos Guardar(Ingresos entidad)
         {
             if (entidad.Id != 0)
-                throw new Exception("ya se guardo");
+                throw new Exception("Ya se guardo");
 
-            this.iConexion = new Conexion();
-            this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
+            
 
-            // ✅ REGLA DE NEGOCIO: Al aceptar el ingreso, crear automáticamente una Cuarentena
-            if (entidad.Estado == "Aceptado")
-            {
-                var motivo = entidad.TipoIngreso == "Donación" ? "Animal Nuevo" : "Adaptación";
-                var cuarentena = new Cuarentenas 
-                {
-                    AnimalId      = entidad.AnimalId,
-                    VeterinarioId = 1,
-                    FechaInicio   = DateTime.Now,
-                    FechaFin      = null,
-                    Motivo        = motivo,
-                    Estado        = "Activa",
-                    Observaciones = $"Cuarentena generada automáticamente por ingreso tipo '{entidad.TipoIngreso}'"
-                };
-                this.iConexion.Cuarentenas!.Add(cuarentena);
-            }
 
-            entidad.FechaIngreso = DateTime.Now;
-            this.iConexion!.Ingresos!.Add(entidad);
-            this.iConexion!.SaveChanges();
-            return entidad;
+            this.iComunicaciones = new Comunicaciones();
+
+            var datos = new Dictionary<string, object>();
+            datos["Url"] = BaseUrl + "Guardar";
+            datos["Metodo"] = "POST";       // <- Le avisamos que es un POST
+            datos["Entidad"] = entidad;     // <- Pasamos el objeto real para que viaje a la API
+
+            var comunicaciones = new Comunicaciones();
+            var task = comunicaciones.Ejecutar(datos)!;
+            task.Wait();
+            var respuesta = task.Result;
+
+            if (!respuesta.ContainsKey("Valor"))
+                throw new Exception("No funciono");
+
+            return JsonConvert.DeserializeObject<Ingresos>(respuesta["Valor"].ToString()!)!;
         }
 
         public Ingresos Modificar(Ingresos entidad)
         {
-            if (entidad == null)
-                throw new Exception("FaltaInformacion");
-
             if (entidad.Id == 0)
-                throw new Exception("NoSeGuardo");
+                throw new Exception("El registro no existe para ser modificado.");
 
-            this.iConexion = new Conexion();
-            this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
+            this.iComunicaciones = new Comunicaciones();
 
-            var entry = this.iConexion!.Entry<Ingresos>(entidad);
-            entry.State = EntityState.Modified;
-            this.iConexion!.SaveChanges();
-            return entidad;
+            var datos = new Dictionary<string, object>();
+            datos["Url"] = BaseUrl + "Modificar"; // Asegúrate de que este endpoint exista en tu API
+            datos["Metodo"] = "POST";
+            datos["Entidad"] = entidad;
+
+            var comunicaciones = new Comunicaciones();
+            var task = comunicaciones.Ejecutar(datos);
+            task.Wait();
+            var respuesta = task.Result;
+
+            if (!respuesta.ContainsKey("Valor"))
+                throw new Exception("No se pudo modificar.");
+
+            return JsonConvert.DeserializeObject<Ingresos>(respuesta["Valor"].ToString())!;
         }
 
         public bool Borrar(int id)
+        //public Ingresos Borrar (Ingresos entidad)
         {
-            this.iConexion = new Conexion();
-            this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
-            var entidad = this.iConexion.Ingresos!.FirstOrDefault(x => x.Id == id);
+            this.iComunicaciones = new Comunicaciones();
 
-            if (entidad == null)
-                throw new Exception("NoExisteRegistro");
+            var datos = new Dictionary<string, object>();
+            datos["Url"] = BaseUrl + "Borrar"; // Asegúrate de que tu API reciba el ID (puede ser "Borrar?id=" + id)
+            datos["Metodo"] = "POST";
+            // Enviamos un objeto anónimo con el ID para el cuerpo del POST
+            datos["Entidad"] = new { Id = id };
 
-            this.iConexion.Ingresos!.Remove(entidad);
-            this.iConexion.SaveChanges();
+            var comunicaciones = new Comunicaciones();
+            var task = comunicaciones.Ejecutar(datos);
+            task.Wait();
+            var respuesta = task.Result;
+
+            if (!respuesta.ContainsKey("Valor"))
+                throw new Exception("No se pudo eliminar.");
+
+            // Si la API responde con éxito, asumimos true
             return true;
         }
     }

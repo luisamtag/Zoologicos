@@ -5,7 +5,7 @@ using Zoologicos_libreria.Nucleo;
 
 namespace Zoologicos_libreria.implementaciones
 {
-    public class CuarentenaNegocio : ICuarentenasNegocio
+    public class CuarentenasNegocio : ICuarentenasNegocio
     {
         private IConexion? iConexion;
 
