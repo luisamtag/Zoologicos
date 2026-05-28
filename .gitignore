@@ -2,6 +2,7 @@
 .vs/
 bin/
 obj/
+github/
 *.user
 *.suo
 *.vsidx
