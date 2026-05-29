@@ -8,7 +8,7 @@ namespace Zoologicos_libreria.Nucleo
     {
         public static string? Obtener(string? clave)
         {
-            return "server=DESKTOP-5ES77NS\\DEV;Integrated Security=True;TrustServerCertificate=true;database=db_Zooologicos;";
+            return "server=DESKTOP-5ES77NS\\DEV;Integrated Security=True;TrustServerCertificate=true;database=db_Zoologicos;";
         }
     }
 }

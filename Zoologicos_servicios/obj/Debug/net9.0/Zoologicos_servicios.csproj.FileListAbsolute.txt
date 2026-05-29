@@ -174,7 +174,6 @@ C:\Users\arqua\Desktop\Nueva carpeta (2)\Nueva carpeta\Zoologicos_servicios\obj\
 C:\Users\arqua\Desktop\Nueva carpeta (2)\Nueva carpeta\Zoologicos_servicios\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\arqua\Desktop\Nueva carpeta (2)\Nueva carpeta\Zoologicos_servicios\obj\Debug\net9.0\staticwebassets.build.endpoints.json
 C:\Users\arqua\Desktop\Nueva carpeta (2)\Nueva carpeta\Zoologicos_servicios\obj\Debug\net9.0\swae.build.ex.cache
-C:\Users\arqua\Desktop\Nueva carpeta (2)\Nueva carpeta\Zoologicos_servicios\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\arqua\Desktop\Nueva carpeta (2)\Nueva carpeta\Zoologicos_servicios\obj\Debug\net9.0\Zoologic.442C585A.Up2Date
 C:\Users\arqua\Desktop\Nueva carpeta (2)\Nueva carpeta\Zoologicos_servicios\obj\Debug\net9.0\Zoologicos_servicios.dll
 C:\Users\arqua\Desktop\Nueva carpeta (2)\Nueva carpeta\Zoologicos_servicios\obj\Debug\net9.0\refint\Zoologicos_servicios.dll
@@ -441,3 +440,4 @@ C:\Users\salak403\Source\Repos\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\
 C:\Users\salak403\Source\Repos\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\Zoologicos_servicios.genruntimeconfig.cache
 C:\Users\salak403\Source\Repos\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\ref\Zoologicos_servicios.dll
 C:\Users\Devco\Documents\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+C:\Users\arqua\Desktop\Nueva carpeta (2)\Nueva carpeta\Zoologicos_servicios\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

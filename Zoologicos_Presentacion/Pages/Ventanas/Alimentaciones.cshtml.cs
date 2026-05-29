@@ -1,6 +1,7 @@
-using Zoologicos_libreria.entidades;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Zoologicos_libreria.entidades;
+
 using Zoologicos_libreria_Presentacion.implementaciones;
 using Zoologicos_libreria_Presentacion.interfaces;
 
@@ -88,22 +89,55 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
             }
         }
 
-        public void OnPostBtBorrar()
+        
+
+        public IActionResult OnPostBtBorrar() // 👈 Cambiado de void a IActionResult
         {
             try
             {
                 if (Alimentacion == null)
-                    return;
-                    bool eliminado = iAlimentacionesNegocio.Borrar(Alimentacion.Id);
+
+                {
+                    ViewData["Mensaje"] = "No se seleccionó ninguna sede para eliminar.";
+                    return Page();
+                }
+
+                bool eliminado = iAlimentacionesNegocio.Borrar(Alimentacion.Id);
+
                 if (!eliminado)
-                    throw new Exception("No se pudo eliminar el registro en el servidor.");
-                OnPostBtRefrescar();
+                    throw new Exception("No se pudo eliminar la sede en el servidor.");
+                
+                return RedirectToPage();
+
+
             }
             catch (Exception ex)
             {
+                
                 ViewData["Mensaje"] = ex.Message;
+                
+                OnPostBtRefrescar();
+
+                return Page();
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public void OnPostBtBorrarVal(string data)
         {

@@ -81,27 +81,25 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
         }
 
         public bool Borrar(int id)
-        //public Zoologicos Borrar (Zoologicos entidad)
         {
-            
             this.iComunicaciones = new Comunicaciones();
 
             var datos = new Dictionary<string, object>();
-            datos["Url"] = BaseUrl + "Borrar"; // Asegúrate de que tu API reciba el ID (puede ser "Borrar?id=" + id)
-            datos["Metodo"] = "POST";
-            // Enviamos un objeto anónimo con el ID para el cuerpo del POST
-            datos["Entidad"] = new { Id = id };
+
+            // 🟢 Cambiado: Ahora la URL terminará en /Borrar/5 (o /Borrar/12, etc.)
+            datos["Url"] = BaseUrl + "Borrar/" + id;
+            datos["Metodo"] = "DELETE";
 
             var comunicaciones = new Comunicaciones();
             var task = comunicaciones.Ejecutar(datos);
             task.Wait();
             var respuesta = task.Result;
 
-            if (!respuesta.ContainsKey("Valor"))
-                throw new Exception("No se pudo eliminar.");
+            if (respuesta == null || !respuesta.ContainsKey("Valor"))
+                throw new Exception("No se pudo obtener respuesta del servidor.");
 
-            // Si la API responde con éxito, asumimos true
             return true;
         }
     }
+    
 }

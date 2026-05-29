@@ -95,23 +95,38 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
             }
         }
 
-        public void OnPostBtBorrar()
+        public IActionResult OnPostBtBorrar() // 👈 Cambiado de void a IActionResult
         {
             try
             {
                 if (Zoologico == null)
-                    return;
+
+                {
+                    ViewData["Mensaje"] = "No se seleccionó ninguna sede para eliminar.";
+                    return Page();
+                }
 
                 bool eliminado = iZoologicosNegocio.Borrar(Zoologico.Id);
 
                 if (!eliminado)
                     throw new Exception("No se pudo eliminar la sede en el servidor.");
+                // 🟢 REDIRECCIÓN LIMPIA: Esto refresca la página por completo,
+                // vuelve a cargar la lista y cierra automáticamente cualquier popup.
+                return RedirectToPage();
 
-                OnPostBtRefrescar();
+                
             }
             catch (Exception ex)
             {
+                // Si tienes el LogConversor activo en este módulo, úsalo aquí:
+                // LogConversor.Log(ex, ViewData!);
                 ViewData["Mensaje"] = ex.Message;
+                // Es vital recargar la lista AQUÍ en el catch, porque si el borrado falla por una restricción 
+                // de llave foránea (ej: la sede tiene animales asignados), la página se quedará en el catch
+                // y necesitará la lista llena para volver a pintar la tabla sin romperse.
+                OnPostBtRefrescar();
+
+                return Page();
             }
         }
 

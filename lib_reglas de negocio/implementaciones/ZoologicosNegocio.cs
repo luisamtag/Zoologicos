@@ -64,7 +64,7 @@ namespace Zoologicos_libreria.implementaciones
         public bool Borrar(int id)
 
 
-        {
+        {   
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
@@ -73,7 +73,8 @@ namespace Zoologicos_libreria.implementaciones
 
             if (entidad == null)
             {
-                throw new Exception("NoExisteRegistro");
+                // 🟢 Modificamos esto para ver qué número está llegando realmente al servicio
+                throw new Exception($"NoExisteRegistro. El servicio intentó buscar el ID: {id}");
             }
             this.iConexion.Zoologicos!.Remove(entidad);
             this.iConexion.SaveChanges();

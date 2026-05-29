@@ -46,8 +46,8 @@ namespace Zoologicos_servicios.Controllers
             return this.IAlimentacionesNegocio.Modificar(entidad);
         }
 
-        [HttpDelete]
-        public bool Borrar(int id)
+        [HttpDelete("{id}")] // 🟢 Ahora el ID es parte obligatoria de la ruta de navegación
+        public bool Borrar([FromRoute] int id) // 🟢 Forzamos a leerlo desde la ruta
         {
             if (this.IAlimentacionesNegocio == null)
                 throw new Exception("No implementado");

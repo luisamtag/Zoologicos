@@ -28,6 +28,13 @@ namespace Zoologicos_libreria_Presentacion.Implementaciones
 
                 message = await httpClient.PostAsync(url, body); // <- AHORA SÍ ENVÍA DATOS
             }
+
+            else if (metodo == "DELETE") // 🟢 NUEVO: Ahora el sistema entiende peticiones de borrado
+            {
+                message = await httpClient.DeleteAsync(url);
+            }
+
+
             else
             {
                 message = await httpClient.GetAsync(url);
@@ -35,7 +42,7 @@ namespace Zoologicos_libreria_Presentacion.Implementaciones
 
             // 3. Validar respuesta
             if (!message.IsSuccessStatusCode)
-                throw new Exception($"Error Comunicación: {message.StatusCode}");
+                throw new Exception($"Error Comunicación [{message.StatusCode}] al intentar llamar a: {url}");
 
             var resp = await message.Content.ReadAsStringAsync();
             httpClient.Dispose();

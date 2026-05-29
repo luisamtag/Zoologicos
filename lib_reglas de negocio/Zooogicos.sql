@@ -46,9 +46,7 @@ CREATE TABLE [Animales] (
     [Naturaleza]     NVARCHAR(50)   NOT NULL,
     [FechaNacimiento] DATETIME2     NOT NULL,
     [Alimentacion]   NVARCHAR(100)  NULL,
-    [Genero]         NVARCHAR(10)   NOT NULL
-                         CHECK ([Genero] IN ('Macho', 'Hembra')),
-
+    [Genero]         NVARCHAR(10)   NOT NULL CHECK ([Genero] IN ('Macho', 'Hembra')),
     [EspecieId] INT NOT NULL,
     [JaulaId]   INT NOT NULL,
 
@@ -138,14 +136,16 @@ CREATE TABLE [Veterinarios] (
     [Id]               INT PRIMARY KEY IDENTITY (1, 1),
     [Especialidad]     NVARCHAR(100) NOT NULL,
     [AñosExperiencia]  INT           NOT NULL,
+	[IdEmpleado]  INT NOT NULL,
 
-    FOREIGN KEY (Id) REFERENCES [Empleados]([Id])
+    FOREIGN KEY (IdEmpleado) REFERENCES [Empleados]([Id])
 );
 
 -- ================= GERENTES =================
 CREATE TABLE [Gerentes] (
     [Id] INT PRIMARY KEY IDENTITY (1, 1),
-    FOREIGN KEY (Id) REFERENCES [Empleados]([Id])
+	[IdEmpleado]  INT NOT NULL,
+    FOREIGN KEY (IdEmpleado) REFERENCES [Empleados]([Id])
 );
 
 -- ================= CUIDADORES =================
@@ -153,9 +153,7 @@ CREATE TABLE [CuidadorAnimales] (
     [Id] INT PRIMARY KEY IDENTITY(1, 1),
     [EspecieId] INT NULL,
     [Turno] NVARCHAR(50) NOT NULL,
-    [A�osExperiencia] INT NOT NULL,
     [IdEmpleado]  INT NOT NULL,
-    [IdEspecie] INT NOT NULL,
     [AñosExperiencia] INT          NOT NULL,
 
     FOREIGN KEY (IdEmpleado) REFERENCES [Empleados]([Id]),
@@ -165,11 +163,12 @@ CREATE TABLE [CuidadorAnimales] (
 -- ================= PERSONAL ASEO =================
 CREATE TABLE [PersonalAseo] (
     [Id]                INT PRIMARY KEY IDENTITY (1, 1),
+	[IdEmpleado]         INT NOT NULL,
     [ZonaAsignada]      NVARCHAR(100) NOT NULL,
     [Turno]             NVARCHAR(50)  NOT NULL,
     [ProductosAsignados] NVARCHAR(200) NOT NULL,
 
-    FOREIGN KEY (Id) REFERENCES [Empleados]([Id])
+    FOREIGN KEY (IdEmpleado) REFERENCES [Empleados]([Id])
 );
 
 -- ================= ENTRENADORES =================
@@ -227,7 +226,6 @@ CREATE TABLE [Vacunaciones] (
 -- ================= CUARENTENA =================
 CREATE TABLE [Cuarentenas] (
     [Id]            INT             PRIMARY KEY IDENTITY(1,1),
-
     [AnimalId]      INT             NOT NULL,
     [VeterinarioId] INT             NOT NULL,
     [FechaInicio]   DATETIME2       NOT NULL,
@@ -288,7 +286,6 @@ GO
 -- ================= TABLA INGRESOS =================
 CREATE TABLE [Ingresos] (
     [Id]            INT             PRIMARY KEY IDENTITY(1,1),
-
     [AnimalId]      INT             NOT NULL,
     [ZoologicoId]   INT             NOT NULL,
     [FechaIngreso]  DATETIME2       NOT NULL,
@@ -420,8 +417,6 @@ CREATE TABLE [Mantenimientos] (
 
 -- ================= AUDITORIAS =================
 CREATE TABLE [Auditorias] (
-
-
     [IdAuditorias] INT IDENTITY(1,1) PRIMARY KEY,
     [Tabla] NVARCHAR(100) NOT NULL,
     [Accion] NVARCHAR(50) NOT NULL,
@@ -504,19 +499,20 @@ VALUES
 ('Sofia Entrenadora','104', '3005', 'trainer@mail.com',  2500, GETDATE(), 1);
 
 -- ================= ROLES =================
-INSERT INTO Veterinarios (Id, Especialidad, AñosExperiencia)
+-- Veterinarios: NO insertar Id, usar IdEmpleado
+INSERT INTO Veterinarios (IdEmpleado, Especialidad, AñosExperiencia)
 VALUES (1, 'Felinos', 5);
 
-INSERT INTO Gerentes (Id)
+INSERT INTO Gerentes (IdEmpleado)
 VALUES (2);
 
-INSERT INTO CuidadorAnimales (Id, EspecieId, Turno, AñosExperiencia)
+INSERT INTO CuidadorAnimales (IdEmpleado, EspecieId, Turno, AñosExperiencia)
 VALUES (3, 1, 'Día', 3);
 
-INSERT INTO PersonalAseo (Id, ZonaAsignada, Turno, ProductosAsignados)
+INSERT INTO PersonalAseo (IdEmpleado, ZonaAsignada, Turno, ProductosAsignados)
 VALUES (4, 'Zona Sabana', 'Noche', 'Desinfectante');
 
-INSERT INTO Entrenadores (Id, Especialidad, TipoEntrenamiento)
+INSERT INTO Entrenadores (IdEmpleado, Especialidad, TipoEntrenamiento)
 VALUES (5, 'Aves', 'Conductual');
 
 -- ================= DIAGNOSTICOS =================

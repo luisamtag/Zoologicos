@@ -77,18 +77,20 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
         public bool Borrar(int id)
         {
             this.iComunicaciones = new Comunicaciones();
+
             var datos = new Dictionary<string, object>();
-            datos["Url"] = BaseUrl + "Borrar";
-            datos["Metodo"] = "POST";
-            datos["Entidad"] = new { Id = id };
+
+            // ?? Cambiado: Ahora la URL terminará en /Borrar/5 (o /Borrar/12, etc.)
+            datos["Url"] = BaseUrl + "Borrar/" + id;
+            datos["Metodo"] = "DELETE";
 
             var comunicaciones = new Comunicaciones();
             var task = comunicaciones.Ejecutar(datos);
             task.Wait();
             var respuesta = task.Result;
 
-            if (!respuesta.ContainsKey("Valor"))
-                throw new Exception("No se pudo eliminar.");
+            if (respuesta == null || !respuesta.ContainsKey("Valor"))
+                throw new Exception("No se pudo obtener respuesta del servidor.");
 
             return true;
         }
