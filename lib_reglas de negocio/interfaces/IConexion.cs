@@ -33,6 +33,7 @@ namespace Zoologicos_libreria.interfaces
         DbSet<Entradas>?          Entradas          { get; set; }
         DbSet<Areas>?             Areas             { get; set; }
         DbSet<Mantenimientos>?    Mantenimientos    { get; set; }
+        DbSet<Auditorias>? Auditorias { get; set; }
 
         EntityEntry<T> Entry<T>(T entity) where T : class;
         int SaveChanges();

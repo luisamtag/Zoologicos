@@ -441,3 +441,4 @@ C:\Users\salak403\Source\Repos\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\
 C:\Users\salak403\Source\Repos\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\ref\Zoologicos_servicios.dll
 C:\Users\Devco\Documents\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\arqua\Desktop\Nueva carpeta (2)\Nueva carpeta\Zoologicos_servicios\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+C:\Users\Lui\Documents\Programacion_1\Zoologicos\Zoologicos_servicios\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
