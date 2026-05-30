@@ -1,0 +1,117 @@
+@page
+@model Zoologicos_Presentacion.Pages.Ventanas.AuditoriasModel
+
+@{
+    ViewData["Title"] = "Auditorías";
+}
+
+<div class="text-center">
+    <form method="POST" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <h1 class="display-4">Historial de Auditorías</h1>
+
+        <div class="bt_panel_buttons">
+            <input type="submit"
+                   value="Refrescar"
+                   asp-page-handler="BtRefrescar" />
+            <input type="submit"
+                   value="Exportar Excel"
+                   asp-page-handler="BtExportar"
+                   class="btn btn-success" />
+        </div>
+
+        <div class="row mb-3 mt-3" style="max-width:700px; margin:auto;">
+            <div class="col-md-5 text-start">
+                <label class="form-label">Filtrar por tabla</label>
+                <select class="form-control" asp-for="@Model.FiltroTabla">
+                    <option value="">-- Todas las tablas --</option>
+                    <option value="Animales">Animales</option>
+                    <option value="Ingresos">Ingresos</option>
+                    <option value="Cuarentenas">Cuarentenas</option>
+                    <option value="Alimentaciones">Alimentaciones</option>
+                    <option value="Vacunaciones">Vacunaciones</option>
+                    <option value="Diagnosticos">Diagnósticos</option>
+                    <option value="HistorialesMedicos">Historiales Médicos</option>
+                    <option value="Reproducciones">Reproducciones</option>
+                    <option value="Empleados">Empleados</option>
+                    <option value="Veterinarios">Veterinarios</option>
+                    <option value="Habitats">Hábitats</option>
+                    <option value="Inventarios">Inventarios</option>
+                    <option value="Mantenimientos">Mantenimientos</option>
+                    <option value="Entradas">Entradas</option>
+                    <option value="Zoologicos">Zoológicos</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <input type="submit"
+                       value="Filtrar"
+                       asp-page-handler="BtFiltrar"
+                       class="btn btn-primary w-100" />
+            </div>
+        </div>
+
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+        }
+
+        @if (Model.Lista != null && Model.Lista.Count > 0)
+        {
+            <p class="text-muted">Mostrando <strong>@Model.Lista.Count</strong> registro(s)</p>
+            <div class="containers_vn">
+                <table class="tb_data table table-striped table-bordered table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Tabla</th>
+                            <th>Acción</th>
+                            <th>Usuario</th>
+                            <th>Fecha</th>
+                            <th>Datos (JSON)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var elemento in Model.Lista)
+                        {
+                            <tr>
+                                <td>@elemento.IdAuditorias</td>
+                                <td>
+                                    <span class="badge bg-secondary">@elemento.Tabla</span>
+                                </td>
+                                <td>
+                                    @{
+                                        var badgeClass = elemento.Accion switch
+                                        {
+                                            "Added"    => "bg-success",
+                                            "Modified" => "bg-warning text-dark",
+                                            "Deleted"  => "bg-danger",
+                                            _          => "bg-secondary"
+                                        };
+                                        var accionLabel = elemento.Accion switch
+                                        {
+                                            "Added"    => "Creado",
+                                            "Modified" => "Modificado",
+                                            "Deleted"  => "Eliminado",
+                                            _          => elemento.Accion
+                                        };
+                                    }
+                                    <span class="badge @badgeClass">@accionLabel</span>
+                                </td>
+                                <td>@(elemento.Usuario ?? "Sistema")</td>
+                                <td>@elemento.Fecha.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                                <td style="max-width:300px; overflow:auto; font-size:11px; text-align:left;">
+                                    <code>@elemento.Datos</code>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else if (Model.Lista != null && Model.Lista.Count == 0)
+        {
+            <div class="alert alert-info mt-3">No hay registros de auditoría para mostrar.</div>
+        }
+    </form>
+</div>
