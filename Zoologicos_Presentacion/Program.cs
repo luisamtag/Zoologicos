@@ -1,9 +1,12 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.ConfigureFilter(new VerificacionSesionFilter());
+});
 
-// 🟢 1. AGREGAR ESTO: Configuración del servicio de sesiones en memoria
+// Configuración del servicio de sesiones en memoria
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -18,22 +21,53 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
-
 app.UseRouting();
 
-// 🟢 2. AGREGAR ESTO: Habilitar el Middleware de sesiones
-// NOTA CRÍTICA: Debe ir exactamente AQUÍ (Después de UseRouting y ANTES de UseAuthorization)
+// Habilitar el Middleware de sesiones
 app.UseSession();
-
 app.UseAuthorization();
 
 app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
 
+
 app.Run();
+
+
+
+
+public class VerificacionSesionFilter : Microsoft.AspNetCore.Mvc.Filters.IPageFilter
+{
+    public void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        // Detecta en qué página está el usuario actualmente
+        var rutaActual = context.ActionDescriptor.ViewEnginePath;
+
+        // Si el usuario está en el Login (Index), lo dejamos pasar sin validar
+        if (rutaActual == "/Index" || rutaActual == "/")
+        {
+            return;
+        }
+
+        // Si intenta entrar a cualquier otra página, revisamos la sesión
+        var variableSession = context.HttpContext.Session.GetString("UsuarioSede");
+
+        if (string.IsNullOrEmpty(variableSession))
+        {
+            // Si está vacía, lo expulsamos al Login
+            context.HttpContext.Response.Redirect("/");
+
+            // Le avisamos a .NET que detenga la carga de la página inmediatamente
+            context.Result = new Microsoft.AspNetCore.Mvc.EmptyResult();
+        }
+    }
+
+
+    public void OnPageHandlerExecuted(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutedContext context) { }
+    public void OnPageHandlerSelected(Microsoft.AspNetCore.Mvc.Filters.PageHandlerSelectedContext context) { }
+}
