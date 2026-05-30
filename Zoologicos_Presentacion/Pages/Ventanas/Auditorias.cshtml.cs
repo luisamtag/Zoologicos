@@ -11,7 +11,7 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
     {
         private IAuditoriasNegocio iAuditoriasNegocio;
 
-        [BindProperty] public List<Auditorias>? Lista    { get; set; }
+        [BindProperty] public List<Auditorias>? Lista       { get; set; }
         [BindProperty] public string?           FiltroTabla { get; set; }
 
         public AuditoriasModel()
@@ -27,7 +27,6 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
                 Response.Redirect("/Index");
                 return;
             }
-
             OnPostBtRefrescar();
         }
 
@@ -71,25 +70,21 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
                     ? iAuditoriasNegocio.Listar()
                     : iAuditoriasNegocio.ListarPorTabla(FiltroTabla);
 
-                // Generar CSV (compatible con Excel)
                 var sb = new StringBuilder();
                 sb.AppendLine("ID;Tabla;Accion;Usuario;Fecha;Datos");
 
                 foreach (var a in datos)
                 {
-                    var datos_escaped = a.Datos.Replace("\"", "\"\"");
-                    sb.AppendLine($"{a.IdAuditorias};" +
-                                  $"{a.Tabla};" +
-                                  $"{a.Accion};" +
-                                  $"{a.Usuario ?? "Sistema"};" +
-                                  $"{a.Fecha:dd/MM/yyyy HH:mm:ss};" +
-                                  $"\"{datos_escaped}\"");
+                    var datosEscaped = a.Datos.Replace("\"", "\"\"");
+                    var usuario      = a.Usuario ?? "Sistema";
+                    var fecha        = a.Fecha.ToString("dd/MM/yyyy HH:mm:ss");
+                    var linea        = a.IdAuditorias + ";" + a.Tabla + ";" + a.Accion + ";" + usuario + ";" + fecha + ";" + datosEscaped;
+                    sb.AppendLine(linea);
                 }
 
-                var bytes  = Encoding.UTF8.GetPreamble().Concat(
-                                 Encoding.UTF8.GetBytes(sb.ToString())).ToArray();
-                var nombre = $"Auditorias_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
-
+                var bytes  = Encoding.UTF8.GetPreamble()
+                    .Concat(Encoding.UTF8.GetBytes(sb.ToString())).ToArray();
+                var nombre = "Auditorias_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".csv";
                 return File(bytes, "text/csv; charset=utf-8", nombre);
             }
             catch (Exception ex)
