@@ -62,24 +62,24 @@ namespace Zoologicos_libreria.implementaciones
 
 
         public bool Borrar(int id)
-
-
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
 
-            // Primero buscamos el registro para poder borrarlo
             var entidad = this.iConexion.Especies!.FirstOrDefault(x => x.Id == id);
 
             if (entidad == null)
-            {
                 throw new Exception("NoExisteRegistro");
-            }
+
+            // No borrar si tiene animales asociados
+            var tieneAnimales = this.iConexion.Animales!.Any(a => a.EspecieId == id);
+            if (tieneAnimales)
+                throw new Exception("No se puede eliminar la especie porque tiene animales asociados");
+
             this.iConexion.Especies!.Remove(entidad);
             this.iConexion.SaveChanges();
             return true;
-
         }
+    }
 
     }
-}

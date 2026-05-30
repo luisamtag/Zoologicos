@@ -100,10 +100,7 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
             task.Wait();
             var respuesta = task.Result;
 
-            if (!respuesta.ContainsKey("Valor"))
-                throw new Exception("No se pudo eliminar.");
-
-            // Si la API responde con éxito, asumimos true
+            // La respuesta del DELETE puede llegar vacía — si no hubo excepción, fue exitoso
             return true;
         }
     }

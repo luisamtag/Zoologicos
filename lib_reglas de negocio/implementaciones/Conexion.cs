@@ -51,16 +51,12 @@ namespace Zoologicos_libreria.implementaciones
                             e.State == EntityState.Deleted))
                 .ToList();
 
-            foreach (var cambio in cambios)
+            foreach (var entry in ChangeTracker.Entries()
+    .Where(e => e.State == EntityState.Added ||
+                e.State == EntityState.Modified))
             {
-                var auditoria = new Auditorias
-                {
-                    Tabla = cambio.Entity.GetType().Name,
-                    Accion = cambio.State.ToString(),
-                    Fecha = DateTime.Now,
-                    Datos = JsonSerializer.Serialize(cambio.Entity)
-                };
-                this.Auditorias!.Add(auditoria);
+                foreach (var nav in entry.Navigations)
+                    nav.CurrentValue = null;
             }
 
             return base.SaveChanges();

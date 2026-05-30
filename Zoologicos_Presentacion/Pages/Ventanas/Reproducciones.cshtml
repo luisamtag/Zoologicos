@@ -96,6 +96,7 @@
                             <strong>Madre ID:</strong> @Model.Reproduccion!.AnimalMadreId | <strong>Padre ID:</strong> @Model.Reproduccion!.AnimalPadreId
                         </h6>
 
+                        <input type="hidden" asp-for="@Model.Reproduccion!.Id" />
                         <input type="submit" value="Cerrar" asp-page-handler="BtCerrar" class="btn btn-secondary" />
                         <input type="submit" value="Borrar" asp-page-handler="BtBorrar" class="btn btn-danger" />
                     </div>

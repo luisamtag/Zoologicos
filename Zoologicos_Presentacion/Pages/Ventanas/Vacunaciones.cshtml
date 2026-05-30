@@ -84,6 +84,7 @@
                             <strong>Vacuna:</strong> @Model.Vacunacion!.NombreVacuna
                         </h6>
 
+                        <input type="hidden" asp-for="@Model.Vacunacion!.Id" />
                         <input type="submit" value="Cerrar" asp-page-handler="BtCerrar" class="btn btn-secondary" />
                         <input type="submit" value="Borrar" asp-page-handler="BtBorrar" class="btn btn-danger" />
                     </div>

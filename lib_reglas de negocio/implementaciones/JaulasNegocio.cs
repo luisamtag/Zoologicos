@@ -40,13 +40,14 @@ namespace Zoologicos_libreria.implementaciones
 
         public Jaulas Modificar(Jaulas entidad)
         {
-
-
             if (entidad == null)
                 throw new Exception("FaltaInformacion");
 
             if (entidad.Id == 0)
                 throw new Exception("NoSeGuardo");
+
+            //Limpiar propiedad de navegación para evitar conflicto de FK
+            entidad.Habitat = null;
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");

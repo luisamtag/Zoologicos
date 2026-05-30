@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Zoologicos_libreria_Presentacion\Zoologicos_libreria_Presentacion.csproj" />
+    <ProjectReference Include="..\lib_reglas de negocio\Zoologicos_libreria.csproj" />
   </ItemGroup>
 
 </Project>
