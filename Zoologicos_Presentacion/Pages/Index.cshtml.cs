@@ -5,7 +5,7 @@ namespace Zoologicos_Presentacion.Pages
 {
     public class IndexModel : PageModel
     {
-        public bool EstaLogueado { get; set; } = false;
+        [BindProperty] public bool EstaLogueado { get; set; } = false;
 
         [BindProperty]
         public string? Usuario { get; set; }

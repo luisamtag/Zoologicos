@@ -24,6 +24,13 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
 
         public void OnGet()
         {
+            var sesion = HttpContext.Session.GetString("UsuarioSede");
+            if (string.IsNullOrEmpty(sesion))
+            {
+                Response.Redirect("/Index");
+                return;
+            }
+
             OnPostBtRefrescar();
         }
 

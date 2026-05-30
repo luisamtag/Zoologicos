@@ -88,10 +88,9 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
             this.iComunicaciones = new Comunicaciones();
 
             var datos = new Dictionary<string, object>();
-            datos["Url"] = BaseUrl + "Borrar"; // Asegúrate de que tu API reciba el ID (puede ser "Borrar?id=" + id)
-            datos["Metodo"] = "POST";
+            datos["Url"] = BaseUrl + "Borrar/" + id;
+            datos["Metodo"] = "DELETE";
             // Enviamos un objeto anónimo con el ID para el cuerpo del POST
-            datos["Entidad"] = new { Id = id };
 
             var comunicaciones = new Comunicaciones();
             var task = comunicaciones.Ejecutar(datos);

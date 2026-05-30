@@ -80,7 +80,7 @@ namespace Zoologicos_libreria_Presentacion.implementaciones
 
             var datos = new Dictionary<string, object>();
 
-            // ?? Cambiado: Ahora la URL terminará en /Borrar/5 (o /Borrar/12, etc.)
+            // ?? Cambiado: Ahora la URL terminar en /Borrar/5 (o /Borrar/12, etc.)
             datos["Url"] = BaseUrl + "Borrar/" + id;
             datos["Metodo"] = "DELETE";
 

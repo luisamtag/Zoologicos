@@ -1,3 +1,4 @@
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Zoologicos_libreria.entidades; // Asegúrate de que apunte a la carpeta de tus entidades
@@ -23,6 +24,13 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
 
         public void OnGet()
         {
+            var sesion = HttpContext.Session.GetString("UsuarioSede");
+            if (string.IsNullOrEmpty(sesion))
+            {
+                Response.Redirect("/Index");
+                return;
+            }
+
             OnPostBtRefrescar();
         }
 
@@ -134,5 +142,31 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
                 ViewData["Mensaje"] = ex.Message;
             }
         }
+        public IActionResult OnPostBtExportar()
+        {
+            try
+            {
+                if (Lista == null || Lista.Count == 0)
+                    OnPostBtRefrescar();
+
+                var datos = Lista ?? new List<Animales>();
+                var sb = new StringBuilder();
+                sb.AppendLine("Id;Nombre;Naturaleza;Fecha Nacimiento;Genero;EspecieId;JaulaId");
+                foreach (var e in datos)
+                    sb.AppendLine($"{e.Id};{e.Nombre};{e.Naturaleza};{e.FechaNacimiento:dd/MM/yyyy};{e.Genero};{e.EspecieId};{e.JaulaId}");
+
+                var bytes = System.Text.Encoding.UTF8.GetPreamble()
+                    .Concat(System.Text.Encoding.UTF8.GetBytes(sb.ToString())).ToArray();
+                var nombre = $"Animales_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
+                return File(bytes, "text/csv; charset=utf-8", nombre);
+            }
+            catch (Exception ex)
+            {
+                ViewData["Mensaje"] = ex.Message;
+                OnPostBtRefrescar();
+                return Page();
+            }
+        }
+
     }
 }
