@@ -1,0 +1,82 @@
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Zoologicos_libreria.entidades;
+using Zoologicos_libreria.interfaces;
+using Zoologicos_libreria.Nucleo;
+
+namespace Zoologicos_libreria.implementaciones
+{
+    public class InventariosNegocio : IInventariosNegocio
+    {
+        private IConexion? iConexion;
+
+        public List<Inventarios> Listar()
+        {
+            this.iConexion = new Conexion();
+            this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
+            return this.iConexion.Inventarios!.ToList();
+        }
+
+        public Inventarios Guardar(Inventarios entidad)
+        {
+            if (entidad.Id != 0)
+                throw new Exception("ya se guardo");
+
+            //La cantidad disponible no puede ser negativa
+            if (entidad.CantidadDisponible < 0)
+                throw new Exception("La cantidad disponible no puede ser negativa");
+
+            this.iConexion = new Conexion();
+            this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
+
+            this.iConexion!.Inventarios!.Add(entidad);
+            this.iConexion!.SaveChanges();
+            return entidad;
+        }
+
+        public Inventarios Modificar(Inventarios entidad)
+        {
+
+
+            if (entidad == null)
+                throw new Exception("FaltaInformacion");
+
+            if (entidad.Id == 0)
+                throw new Exception("NoSeGuardo");
+
+            this.iConexion = new Conexion();
+            this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
+
+            var entry = this.iConexion!.Entry<Inventarios>(entidad);
+            entry.State = EntityState.Modified;
+            this.iConexion!.SaveChanges();
+            return entidad;
+        }
+
+
+        public bool Borrar(int id)
+
+
+        {
+            this.iConexion = new Conexion();
+            this.iConexion.StringConexion = Configuraciones.Obtener("StringConexion");
+
+            // Primero buscamos el registro para poder borrarlo
+            var entidad = this.iConexion.Inventarios!.FirstOrDefault(x => x.Id == id);
+
+            if (entidad == null)
+            {
+                throw new Exception("NoExisteRegistro");
+            }
+            this.iConexion.Inventarios!.Remove(entidad);
+            this.iConexion.SaveChanges();
+            return true;
+
+        }
+
+    }
+}

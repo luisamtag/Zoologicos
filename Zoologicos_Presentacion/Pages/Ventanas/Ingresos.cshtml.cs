@@ -132,7 +132,7 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
                 var sb = new StringBuilder();
                 sb.AppendLine("Id;AnimalId;ZoologicoId;Fecha Ingreso;Tipo Ingreso;Procedencia;Estado;Observaciones");
                 foreach (var e in datos)
-                    sb.AppendLine($"{e.Id};{e.AnimalId};{e.ZoologicoId};{e.FechaIngreso:dd/MM/yyyy};{e.TipoIngreso};{e.Procedencia};{e.Estado};{e.Observaciones ?? \"\")}");
+                    sb.AppendLine($"{e.Id};{e.AnimalId};{e.ZoologicoId};{e.FechaIngreso:dd/MM/yyyy};{e.TipoIngreso};{e.Procedencia};{e.Estado};{e.Observaciones ?? ""}");
 
                 var bytes = System.Text.Encoding.UTF8.GetPreamble()
                     .Concat(System.Text.Encoding.UTF8.GetBytes(sb.ToString())).ToArray();

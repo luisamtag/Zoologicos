@@ -149,7 +149,7 @@ namespace Zoologicos_Presentacion.Pages.Ventanas
                 var sb = new StringBuilder();
                 sb.AppendLine("Id;ZoologicoId;Nombre Item;Tipo Item;Cantidad Disponible;Fecha Vencimiento");
                 foreach (var e in datos)
-                    sb.AppendLine($"{e.Id};{e.ZoologicoId};{e.NombreItem};{e.TipoItem};{e.CantidadDisponible};{(e.FechaVencimiento.HasValue ? e.FechaVencimiento.Value.ToString(\"dd/MM/yyyy\") : \"\")}");
+                    sb.AppendLine($"{e.Id};{e.ZoologicoId};{e.NombreItem};{e.TipoItem};{e.CantidadDisponible};{(e.FechaVencimiento.HasValue ? e.FechaVencimiento.Value.ToString("dd/MM/yyyy") : "")}");
 
                 var bytes = System.Text.Encoding.UTF8.GetPreamble()
                     .Concat(System.Text.Encoding.UTF8.GetBytes(sb.ToString())).ToArray();

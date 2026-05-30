@@ -46,8 +46,8 @@ namespace Zoologicos_servicios.Controllers
             return this.IVeterinariosNegocio.Modificar(entidad);
         }
 
-        [HttpDelete]
-        public bool Borrar(int id)
+        [HttpDelete("{id}")]
+        public bool Borrar([FromRoute] int id)
         {
             if (this.IVeterinariosNegocio == null)
                 throw new Exception("No implementado");

@@ -44,7 +44,7 @@ namespace Zoologicos_servicios.Controllers
         }
 
         [HttpPost]
-        public bool Borrar(int id)
+        public bool Borrar([FromRoute] int id)
         {
             if (this.IIngresosNegocio == null)
                 throw new Exception("No implementado");
